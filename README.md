@@ -15,7 +15,7 @@ By leveraging their knowledge of machine learning and basic neural network model
 that evaluates the robustness of neural networks against adversarial attacks.
 
 AVAILABLE RESOURCES:
-https://github.com/Trusted-Al/adversarial-robustness-toolbox.
+https://github.com/Trusted-AI/adversarial-robustness-toolbox
 
 # capstone-project-team-7
 
