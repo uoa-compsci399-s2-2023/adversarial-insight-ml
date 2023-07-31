@@ -15,8 +15,9 @@ By leveraging their knowledge of machine learning and basic neural network model
 that evaluates the robustness of neural networks against adversarial attacks.
 
 AVAILABLE RESOURCES:
-https://github.com/Trusted-AI/adversarial-robustness-toolbox
-https://pypi.org/project/memento-ml/
+https://github.com/Trusted-AI/adversarial-robustness-toolbox  
+https://pypi.org/project/memento-ml/  
+
 
 # capstone-project-team-7
 
