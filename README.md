@@ -14,14 +14,14 @@ This project aims to provide a deep understanding of adversarial attacks and the
 By leveraging their knowledge of machine learning and basic neural network models, students will develop a Python toolkit 
 that evaluates the robustness of neural networks against adversarial attacks.
 
-AVAILABLE RESOURCES:
-https://github.com/Trusted-AI/adversarial-robustness-toolbox  
+AVAILABLE RESOURCES:  
+https://github.com/Trusted-AI/adversarial-robustness-toolbox   
 https://pypi.org/project/memento-ml/  
 
 
-# capstone-project-team-7
+# Automated Pipeline Toolkit for Security Evaluation of Machine Learning Models and Their System
 
-A brief description of your project.
+This project is a Python package designed to run through PyPi, that evaluates the robustness of machinelearning models in image processing against adversarial attacks. The final program in the package should automatically test potential adversarial attacks against each given machine learning model and give users accurate, efficient and robust feedback through several benchmarks we develop. Furthermore, the package should be designed to allow non-technical users to use it as well.  
 
 ## Table of Contents
 
