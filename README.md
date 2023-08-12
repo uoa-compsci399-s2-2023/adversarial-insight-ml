@@ -21,7 +21,7 @@ https://pypi.org/project/memento-ml/
 
 # Automated Pipeline Toolkit for Security Evaluation of Machine Learning Models and Their System
 
-This project is a Python package designed to run through PyPi, that evaluates the robustness of machinelearning models in image processing against adversarial attacks. The final program in the package should automatically test potential adversarial attacks against each given machine learning model and give users accurate, efficient and robust feedback through several benchmarks we develop. Furthermore, the package should be designed to allow non-technical users to use it as well.  
+This project is a Python package designed to run through PyPi, that evaluates the robustness of machine learning models in image processing against adversarial attacks. The final program in the package should automatically test potential adversarial attacks against each given machine learning model and give users accurate, efficient and robust feedback through several benchmarks we develop. Furthermore, the package should be designed to allow non-technical users to use it as well.  
 
 ## Table of Contents
 
@@ -53,7 +53,16 @@ Specify the license under which your project is distributed. Choose an open-sour
 
 ## Acknowledgements
 
-(Optional) Show appreciation to any individuals, resources, or libraries that have inspired or helped your project.
+We extend our sincere appreciation to the following individuals and groups who have been instrumental in the success of this project:
+
+Firstly, our client Luke Chang. His invaluable guidance and insights guided us from the beginning through every phase, ensuring our work remained aligned with practical needs. This project would not have been possible without his efforts.
+
+We'd also like to express gratitude to the teaching staff for COMPSCI 399 at The University of Auckland, including Dr Asma Shakil, who has coordinated and provided an opportunity for us to work together on this project.
+
+Thank you for being part of this journey.
+
+Warm regards,
+Team 7
 
 ## Contact
 
