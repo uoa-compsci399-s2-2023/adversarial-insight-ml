@@ -66,5 +66,8 @@ Team 7
 
 ## Contact
 
-(Optional) Provide your contact information, such as email or social media handles, if you are open to receiving feedback or inquiries about the project.
-
+Terence Zhang tzha820@aucklanduni.ac.nz  
+Yuming Zhou yzho739@aucklanduni.ac.nz  
+Sungjae Jang sjan260@aucklanduni.ac.nz  
+Takuya Saegusa tsae032@aucklanduni.ac.nz  
+Haozhe Wei hwei313@aucklanduni.ac.nz  
