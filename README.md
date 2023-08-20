@@ -45,7 +45,16 @@ Highlight the key features or functionalities of your project. List them in a co
 
 ## Contributing
 
-Guidelines for others who may want to contribute to your project. Include instructions on how to submit bug reports, feature requests, or pull requests.
+**Code Style**  
+We adhere to the [PEP 8](https://www.python.org/dev/peps/pep-0008/) style guide for writing Python code. Consistent code formatting enhances readability and maintainability. Please ensure your code follows these conventions.
+
+**Commit Messages**  
+When making changes to the codebase, please refer to the [Documentation/SubmittingPatches](https://git.kernel.org/pub/scm/git/git.git/tree/Documentation/SubmittingPatches?h=v2.36.1#n181) in the Git repo:
+
+- Write commit messages in present tense and imperative mood, e.g., "Add feature" instead of "Added feature" or "Adding feature."
+- Craft your messages as if you're giving orders to the codebase to change its behaviour.
+- Provide clear and concise summaries of your changes in the first line.
+- If needed, add a more detailed description in the following lines.
 
 ## License
 
