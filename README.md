@@ -1,19 +1,3 @@
-PROJECT 22:
-Why Does the Machine Lie? Understanding Adversarial Attacks and Their Impact on Machine Learning Models 
-
-CLIENT:
-Luke Chang xcha011@aucklanduni.ac.nz
-
-PROJECT DELIVERABLES: 
-1. Benchmarking existing Adversarial Attacks.
-2. Provide a Python package to evaluate the robustness of a given neural network model against state-of-the-art adversarial
-   attacks.
-
-PROJECT DESCRIPTION:
-This project aims to provide a deep understanding of adversarial attacks and their impact on machine learning models.
-By leveraging their knowledge of machine learning and basic neural network models, students will develop a Python toolkit 
-that evaluates the robustness of neural networks against adversarial attacks.
-
 AVAILABLE RESOURCES:  
 https://github.com/Trusted-AI/adversarial-robustness-toolbox   
 https://pypi.org/project/memento-ml/  
