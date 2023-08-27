@@ -37,7 +37,7 @@ When making changes to the codebase, please refer to the [Documentation/Submitti
 
 ## License
 
-Specify the license under which your project is distributed. Choose an open-source license that aligns with your project's needs. Include the license text or a link to it.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgements
 
