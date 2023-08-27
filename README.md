@@ -1,8 +1,3 @@
-AVAILABLE RESOURCES:  
-https://github.com/Trusted-AI/adversarial-robustness-toolbox   
-https://pypi.org/project/memento-ml/  
-
-
 # AdversarialInsightML
 
 This project is a Python package designed to run through PyPi, that evaluates the robustness of machine learning models in image classification against adversarial attacks. The final program in the package should automatically test potential adversarial attacks against each given machine learning model and give users accurate, efficient and robust feedback through several benchmarks we develop. Furthermore, the package should be designed to allow non-technical users to use it as well.  
