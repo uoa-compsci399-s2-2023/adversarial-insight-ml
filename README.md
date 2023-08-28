@@ -45,6 +45,12 @@ When making changes to the codebase, please refer to the [Documentation/Submitti
 - Provide clear and concise summaries of your changes in the first line.
 - If needed, add a more detailed description in the following lines.
 
+**Branching**  
+We conform to a variation of the "GitHub Flow'' convention, but not strictly. For example, see the following types of branches:
+- main: This branch is always deployable and reflects the production state.
+- feature/*: For new feature development.
+- bugfix/*: For bug fixes.
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
