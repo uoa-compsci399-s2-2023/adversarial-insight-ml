@@ -2,6 +2,7 @@
 
 [![PyPI version](https://badge.fury.io/py/adversarial-insight-ml.svg)](https://pypi.org/project/adversarial-insight-ml/)
 ![Python](https://img.shields.io/badge/python-3.9-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
   
 Adversarial Insight ML (AIML) is a PyPI package that evaluates the robustness of machine learning models in image classification against adversarial attacks. The final program in the package should automatically test potential adversarial attacks against each given machine learning model and give users accurate, efficient and robust feedback through several benchmarks we develop. Furthermore, the package should be designed to allow non-technical users to use it as well.
 
