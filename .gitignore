@@ -1,0 +1,42 @@
+# Compiled Python files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# PyPI distribution/packaging
+dist/
+*.egg-info/
+__pycache__/
+build/
+
+# Local development settings
+.idea/
+.vscode/
+
+# Virtual environment
+venv/
+__pyenv__/
+
+# Data folder
+data/
+
+# Amazon SageMaker
+.sagemaker/
+
+# Adversarial Robustness Toolbox (ART)
+artifacts/
+*.npy
+
+# PyTorch
+__torch_data_dir__/
+
+# Python-specific
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Compiled source
+*.so
+*.dylib
