@@ -1,6 +1,6 @@
-from art.attacks.evasion import *
+from art.attacks.evasion import DeepFool
 
-def Deep_Fool(classifier, max_iter = 100, epsilon = 1e-06, nb_grads = 10, batch_size = 1, verbose = True):
+def deep_fool(classifier, max_iter = 100, epsilon = 1e-06, nb_grads = 10, batch_size = 1, verbose = True):
     """
     Deep_Fool takes in a classifier and returns an ART DeepFool instance.
 
