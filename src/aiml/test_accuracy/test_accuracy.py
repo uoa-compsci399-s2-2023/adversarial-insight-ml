@@ -1,3 +1,5 @@
+import torch
+
 def test_accuracy(model, dataloader, device):
     """This function returns the accuracy of a given dataset on a pre-trained model."""
     correct = 0
