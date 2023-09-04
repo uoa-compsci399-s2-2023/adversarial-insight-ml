@@ -6,9 +6,6 @@ import torch.optim as optim
 import numpy as np
 from art.estimators.classification import PyTorchClassifier
 
-from torch.utils.data import DataLoader
-from torch.utils.data import TensorDataset
-
 def user_called_function(input_model,input_train_data=None,input_test_data=None,input_shape=None,
                          clip_values=None,nb_classes=None,batch_size_attack = 64,num_threads_attack= 8,batch_size_train = 64,batch_size_test = 64):
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
