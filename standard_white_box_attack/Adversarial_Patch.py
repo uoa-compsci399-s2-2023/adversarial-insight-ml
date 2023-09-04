@@ -1,5 +1,4 @@
-from art.attacks.evasion import *
-from art.defences.trainer import CLASSIFIER_CLASS_LOSS_GRADIENTS_TYPE
+from art.attacks.evasion import AdversarialPatch
 
 
 def Adversarial_Patch(classifier, rotation_max = 22.5, scale_min = 0.1, scale_max = 1.0, learning_rate = 5.0, max_iter = 500, batch_size = 16, patch_shape = None, targeted = True, verbose = True):
