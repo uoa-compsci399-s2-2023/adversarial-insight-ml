@@ -40,3 +40,6 @@ __pycache__/
 # Compiled source
 *.so
 *.dylib
+
+# Mac metadata files
+*.DS_Store
