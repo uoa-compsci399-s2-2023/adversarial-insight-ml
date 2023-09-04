@@ -7,7 +7,6 @@ import numpy as np
 from art.estimators.classification import PyTorchClassifier
 
 from torch.utils.data import DataLoader
-import torchvision 
 from torch.utils.data import TensorDataset
 
 def user_called_function(input_model,input_train_data=None,input_test_data=None,input_shape=None,
