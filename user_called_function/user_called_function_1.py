@@ -13,13 +13,16 @@ from torch.utils.data import TensorDataset
 def user_called_function(input_model,input_train_data=None,input_test_data=None,input_shape=None,
                          clip_values=None,nb_classes=None,batch_size_attack = 64,num_threads_attack= 8,batch_size_train = 64,batch_size_test = 64):
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-                
-    dataset_train=load_
-    model=load_model(input_model)
-    dataloader_train = torch.utils.data.DataLoader(dataset_train, batch_size=batch_size_train, shuffle=False)
+    model=load_model(input_model)            
+    if input_train_data!=None:
+      dataset_train=load_set(input_train_data)
+      dataloader_train = torch.utils.data.DataLoader(dataset_train, batch_size=batch_size_train, shuffle=False)
+    if input_test_data==None:
+      print("please input test_data")
+    
+    dataset_test=load_set(input_test_data)
     dataloader_test = torch.utils.data.DataLoader(dataset_test,batch_size=batch_size_test, shuffle=False)
-    #if optimizer==None:
-        #optimizer = optim.Adam(model.parameters(), lr=0.01)
+    
     if input_shape==None:
         (x, y) = next(iter(dataset_test))
         input_shape = np.array(x.size())
@@ -48,15 +51,16 @@ def user_called_function(input_model,input_train_data=None,input_test_data=None,
             if y not in list1:
                 list1+=[y]
         nb_classes=len(dataset_train)
-    acc_train = evaluation(model, dataloader_train, device)
-    acc_test = evaluation(model, dataloader_test, device)
-    print(f'Train accuracy: {acc_train * 100:.2f}')
+    if input_train_data!=None:
+      acc_train = test_accuracy(model, dataloader_train, device)
+      print(f'Train accuracy: {acc_train * 100:.2f}')
+    acc_test = test_accuracy(model, dataloader_test, device)
     print(f'Test accuracy:  {acc_test * 100:.2f}')
     classifier = PyTorchClassifier(
         model=model,
         clip_values=clip_values, 
-        loss=loss_function,
-        optimizer=optimizer,
+        loss=None,
+        optimizer=None,
         input_shape=input_shape,
         nb_classes=nb_classes,
     )
