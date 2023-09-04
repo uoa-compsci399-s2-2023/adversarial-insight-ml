@@ -1,10 +1,8 @@
 import torch
-
-import torch.nn as nn
-import torch.nn.functional as F
-import torch.optim as optim
 import numpy as np
 from art.estimators.classification import PyTorchClassifier
+import load_model
+import test_accuracy
 
 def user_called_function(input_model,input_train_data=None,input_test_data=None,input_shape=None,
                          clip_values=None,nb_classes=None,batch_size_attack = 64,num_threads_attack= 8,batch_size_train = 64,batch_size_test = 64):
@@ -40,6 +38,7 @@ def user_called_function(input_model,input_train_data=None,input_test_data=None,
         clip_values = (global_min,global_max)
 
         print(f'Min: {global_min}, Max: {global_max}')
+        
     if nb_classes == None:
         list1 = []
         for i in range(len(dataset_test)):
