@@ -1,4 +1,4 @@
-from art.attacks.evasion import *
+from art.attacks.evasion import DeepFool
 
 def Deep_Fool(classifier, max_iter = 100, epsilon = 1e-06, nb_grads = 10, batch_size = 1, verbose = True):
     """
@@ -16,4 +16,5 @@ def Deep_Fool(classifier, max_iter = 100, epsilon = 1e-06, nb_grads = 10, batch_
     DeepFool: A DeepFool instance from art.attacks.evasion
     """
 
-    return DeepFool(classifier, max_iter, epsilon, nb_grads, batch_size, verbose)
+    d = DeepFool(classifier, max_iter, epsilon, nb_grads, batch_size, verbose)
+    return d
