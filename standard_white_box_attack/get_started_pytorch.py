@@ -8,7 +8,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 import numpy as np
-from Deep_Fool import Deep_Fool
+from Carlini_L2_Method import Carlini_L2_Method
 
 from art.attacks.evasion import DeepFool
 from art.attacks.evasion import FastGradientMethod
@@ -78,7 +78,7 @@ accuracy = np.sum(np.argmax(predictions, axis=1) == np.argmax(y_test, axis=1)) /
 print("Accuracy on benign test examples: {}%".format(accuracy * 100))
 
 # Step 6: Generate adversarial test examples
-attack = Deep_Fool(classifier)
+attack = Carlini_L2_Method(classifier)
 x_test_adv = attack.generate(x=x_test)
 
 # Step 7: Evaluate the ART classifier on adversarial test examples
