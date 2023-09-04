@@ -10,9 +10,12 @@ from torch.utils.data import DataLoader
 import torchvision 
 from torch.utils.data import TensorDataset
 
-def user_called_function(model,loss_function= nn.CrossEntropyLoss(),optimizer = None,train_data=None,test_data=None,input_shape=None,
-                         clip_values=None,nb_classes=None,batch_size_attack = 64,num_threads_attack= 8,batch_size_train = 64,batch_size_test = 1000):
+def user_called_function(input_model,input_train_data=None,input_test_data=None,input_shape=None,
+                         clip_values=None,nb_classes=None,batch_size_attack = 64,num_threads_attack= 8,batch_size_train = 64,batch_size_test = 64):
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+                
+    dataset_train=load_
+    model=load_model(input_model)
     dataloader_train = torch.utils.data.DataLoader(dataset_train, batch_size=batch_size_train, shuffle=False)
     dataloader_test = torch.utils.data.DataLoader(dataset_test,batch_size=batch_size_test, shuffle=False)
     #if optimizer==None:
