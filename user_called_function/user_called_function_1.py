@@ -12,41 +12,41 @@ from torch.utils.data import TensorDataset
 def user_called_function(input_model,input_train_data=None,input_test_data=None,input_shape=None,
                          clip_values=None,nb_classes=None,batch_size_attack = 64,num_threads_attack= 8,batch_size_train = 64,batch_size_test = 64):
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-    model=load_model(input_model)            
-    if input_train_data!=None:
-      dataset_train=load_set(input_train_data)
+    model = load_model(input_model)            
+    if input_train_data != None:
+      dataset_train = load_set(input_train_data)
       dataloader_train = torch.utils.data.DataLoader(dataset_train, batch_size=batch_size_train, shuffle=False)
-    if input_test_data==None:
+    if input_test_data == None:
       print("please input test_data")
     
-    dataset_test=load_set(input_test_data)
+    dataset_test = load_set(input_test_data)
     dataloader_test = torch.utils.data.DataLoader(dataset_test,batch_size=batch_size_test, shuffle=False)
     
-    if input_shape==None:
+    if input_shape == None:
         (x, y) = next(iter(dataset_test))
         input_shape = np.array(x.size())
         print(f'input_shape: {input_shape}')
 
-    if clip_values==None:
+    if clip_values == None:
         global_min = 9999.
         global_max = 0.
-        s=0
-        n=0
-        b=True
+        s = 0
+        n = 0
+        b = True
         for batch in dataloader_train:
             x, _ = batch
-            if b==True:
+            if b == True:
                 print(batch)
-                b=False
+                b = False
             global_min = min(torch.min(x).item(), global_min)
             global_max = max(torch.max(x).item(), global_max)
-        clip_values=(global_min,global_max)
+        clip_values = (global_min,global_max)
 
         print(f'Min: {global_min}, Max: {global_max}')
-    if nb_classes==None:
-        list1=[]
+    if nb_classes == None:
+        list1 = []
         for i in range(len(dataset_test)):
-            x,y=dataset_test[i]
+            x,y = dataset_test[i]
             if y not in list1:
                 list1+=[y]
         nb_classes=len(dataset_train)
@@ -63,7 +63,7 @@ def user_called_function(input_model,input_train_data=None,input_test_data=None,
         input_shape=input_shape,
         nb_classes=nb_classes,
     )
-    result_list=test_all_attack(classifier,dataloader_test,batch_size_attack,num_threads_attack,device)
+    result_list = test_all_attack(classifier,dataloader_test,batch_size_attack,num_threads_attack,device)
     evaluate(result_list)
 
 
