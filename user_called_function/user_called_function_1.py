@@ -65,7 +65,7 @@ def user_called_function(input_model,input_train_data=None,input_test_data=None,
         nb_classes=nb_classes,
     )
     result_list=test_all_attack(classifier,dataloader_test,batch_size_attack,num_threads_attack,device)
-    eva
+    evaluate(result_list)
 
 
 
