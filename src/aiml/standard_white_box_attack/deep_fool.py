@@ -16,9 +16,5 @@ def deep_fool(classifier, max_iter = 100, epsilon = 1e-06, nb_grads = 10, batch_
     DeepFool: A DeepFool instance from art.attacks.evasion
     """
 
-<<<<<<< HEAD:src/aiml/standard_white_box_attack/deep_fool.py
-    return DeepFool(classifier, max_iter, epsilon, nb_grads, batch_size, verbose)
-=======
     d = DeepFool(classifier, max_iter, epsilon, nb_grads, batch_size, verbose)
     return d
->>>>>>> aebe938 (Modify existing tests):standard_white_box_attack/Deep_Fool.py
