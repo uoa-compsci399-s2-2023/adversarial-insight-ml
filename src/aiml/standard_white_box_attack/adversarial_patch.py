@@ -1,4 +1,4 @@
-from art.attacks.evasion import *
+from art.attacks.evasion import AdversarialPatch
 
 def adversarial_patch(classifier, rotation_max = 22.5, scale_min = 0.1, scale_max = 1.0, learning_rate = 5.0, max_iter = 500, batch_size = 16, patch_shape = None, targeted = True, verbose = True):
     """
