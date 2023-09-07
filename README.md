@@ -1,4 +1,4 @@
-# Adversarial Insight ML
+# Adversarial Insight ML (AIML)
 
 [![PyPI version](https://badge.fury.io/py/adversarial-insight-ml.svg)](https://pypi.org/project/adversarial-insight-ml/)
 ![Python](https://img.shields.io/badge/python-3.9-blue.svg)

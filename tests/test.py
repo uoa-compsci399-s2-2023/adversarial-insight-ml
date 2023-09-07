@@ -1,7 +1,7 @@
 """
-Unit Tests for {placeholder}
+Unit Tests for Adversarial Insight ML (AIML)
 
-This module contains unit tests for the {placeholder} program that uses the Adversarial Robustness Toolbox (ART).
+This module contains unit tests for the AIML package that uses the Adversarial Robustness Toolbox (ART).
 The tests cover various attack scenarios to ensure the program works as expected.
 
 Use pytest to run this test on the main code.
