@@ -1,6 +1,7 @@
 """
 test_white_box.py
 """
+import test_accuracy
 
 def test_white_box_attack(attack_method,model,PyTorchClassifier,dataloader_test,batch_size_attack,num_threads_attack,device):
     attack=attack_method(estimator=PyTorchClassifier)
@@ -9,7 +10,7 @@ def test_white_box_attack(attack_method,model,PyTorchClassifier,dataloader_test,
     X_advx = attack.generate(x=X.numpy())
     dataset_advx = TensorDataset(torch.Tensor(X_advx), y)
     dataloader_advx = DataLoader(dataset_advx, batch_size=batch_size_attack, shuffle=False, num_workers=num_threads_attack)
-    acc_advx = evaluation(model, dataloader_advx, device)
+    acc_advx = test_accuracy(model, dataloader_advx, device)
     return (acc_advx * 100)
     
 def test_all_white_box_attack(model,PyTorchClassifier,dataloader_test,batch_size_attack,num_threads_attack,device):
