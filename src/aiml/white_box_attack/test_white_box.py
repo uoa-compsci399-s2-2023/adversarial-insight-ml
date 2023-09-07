@@ -1,8 +1,12 @@
 """
 test_white_box.py
 """
-import test_accuracy
-
+from test_accuracy.test_accuracy import *
+import torch
+from art.estimators.classification import PyTorchClassifier
+from torch.utils.data import DataLoader 
+from torch.utils.data import TensorDataset
+from standard_white_box_attack.standard_white_box_test import*
 def test_white_box_attack(attack_method,model,PyTorchClassifier,dataloader_test,batch_size_attack,num_threads_attack,device):
     attack=attack_method(estimator=PyTorchClassifier)
     batch = next(iter(dataloader_test))
@@ -14,8 +18,8 @@ def test_white_box_attack(attack_method,model,PyTorchClassifier,dataloader_test,
     return (acc_advx * 100)
     
 def test_all_white_box_attack(model,PyTorchClassifier,dataloader_test,batch_size_attack,num_threads_attack,device):
-    attack_method_list = [adversarial_patch,carlini_l0_method,deep_fool]
+    attack_method_list = [adversarial_patch,deep_fool]
     accuracy_list=[]
     for attack_method in attack_method_list:
         accuracy_list+=[test_white_box_attack(adversarial_patch,model,PyTorchClassifier,dataloader_test,batch_size_attack,num_threads_attack,device)]
-    return result
+    return accuracy_list
