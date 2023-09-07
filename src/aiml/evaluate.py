@@ -9,6 +9,7 @@ def evaluate(result_list):
     # Call other modules to perform attacks and receive accuracy
     
     # Algorithm to weigh and calculate differnt accuracy scores, to give a final risk evaluation 
+    print(result_list)
     risk_eval = "LOW"
     
     return risk_eval
