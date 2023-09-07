@@ -1,3 +1,5 @@
+import torch
+
 def generate_parameter(input_shape,clip_values,nb_classes,dataset_test,dataloader_test):
     if input_shape == None:
         (x, y) = next(iter(dataset_test))
@@ -27,5 +29,5 @@ def generate_parameter(input_shape,clip_values,nb_classes,dataset_test,dataloade
             x,y = dataset_test[i]
             if y not in list1:
                 list1+=[y]
-        nb_classes=len(dataset_train)
+        nb_classes=len(dataset_test)
     return (input_shape,clip_values,nb_classes)
