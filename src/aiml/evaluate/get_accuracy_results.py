@@ -7,10 +7,13 @@ from load_data.generate_parameter import generate_parameter
 from white_box_attack.test_white_box import *
 
 
-def get_accuracy_results(input_model,input_train_data=None,input_test_data=None,input_shape=None,
-                         clip_values=None,nb_classes=None,batch_size_attack = 64,num_threads_attack= 8,batch_size_train = 64,batch_size_test = 64):
-    device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-    model = load_model(input_model)         
+def get_accuracy_results(input_model, input_train_data=None, input_test_data=None, input_shape=None, clip_values=None,      
+                         nb_classes=None, batch_size_attack=64, num_threads_attack=8, batch_size_train=64, 
+                         batch_size_test=64):
+
+    # Load model and data
+    device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')  # Enable gpu if it's cuda compatible
+    model = load_model(input_model)
        
     if input_train_data != None:
         dataset_train = load_test_set(input_train_data)
@@ -22,7 +25,6 @@ def get_accuracy_results(input_model,input_train_data=None,input_test_data=None,
     dataloader_test = torch.utils.data.DataLoader(dataset_test,batch_size=batch_size_test, shuffle=False)
     input_shape,clip_values,nb_classes=generate_parameter(input_shape,clip_values,nb_classes)
     
-        
     if input_train_data!=None:
         acc_train = test_accuracy(model, dataloader_train, device)
         print(f'Train accuracy: {acc_train * 100:.2f}')
