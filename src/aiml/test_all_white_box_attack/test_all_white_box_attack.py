@@ -12,7 +12,4 @@ def test_all_white_box_attack(model,PyTorchClassifier,dataloader_test,batch_size
     accuracy_list=[]
     for attack_method in attack_method_list:
         accuracy_list+=[test_white_box_attack(adversarial_patch,model,PyTorchClassifier,dataloader_test,batch_size_attack,num_threads_attack,device)]
-
-
-    
     return result
