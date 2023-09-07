@@ -1,11 +1,18 @@
+"""
+get_accuracy_results.py
+
+This module provides the get_accuracy_results function which will call functions to apply all appropriate attacks,
+return their accuracy scores, in a list format.
+"""
+
+
 import torch
-import test_accuracy
 from art.estimators.classification import PyTorchClassifier
 from load_data.load_model import load_model
 from load_data.load_test_set import load_test_set
 from load_data.generate_parameter import generate_parameter
 from white_box_attack.test_white_box import *
-
+from src.aiml.test_accuracy import test_accuracy
 
 def get_accuracy_results(input_model, input_train_data=None, input_test_data=None, input_shape=None, clip_values=None,      
                          nb_classes=None, batch_size_attack=64, num_threads_attack=8, batch_size_train=64, 
