@@ -1,5 +1,4 @@
 import torch
-import numpy as np
 import test_accuracy
 from art.estimators.classification import PyTorchClassifier
 from load_data.load_model import load_model
@@ -41,8 +40,3 @@ def get_accuracy_results(input_model,input_train_data=None,input_test_data=None,
 
     result_list = test_all_white_box_attack(classifier,dataloader_test,batch_size_attack,num_threads_attack,device)
     return result_list
-
-
-
-
-
