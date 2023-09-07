@@ -5,8 +5,8 @@ from art.estimators.classification import PyTorchClassifier
 from load_data.load_model import load_model
 from load_data.load_test_set import load_test_set
 from load_data.generate_parameter import generate_parameter
-from test_all_white_box_attack.test_all_white_box_attack import test_all_white_box_attack
-from evaluate import evaluate
+from white_box_attack.test_white_box import *
+
 
 def get_accuracy_results(input_model,input_train_data=None,input_test_data=None,input_shape=None,
                          clip_values=None,nb_classes=None,batch_size_attack = 64,num_threads_attack= 8,batch_size_train = 64,batch_size_test = 64):
@@ -14,12 +14,12 @@ def get_accuracy_results(input_model,input_train_data=None,input_test_data=None,
     model = load_model(input_model)         
        
     if input_train_data != None:
-        dataset_train = load_set(input_train_data)
+        dataset_train = load_test_set(input_train_data)
         dataloader_train = torch.utils.data.DataLoader(dataset_train, batch_size=batch_size_train, shuffle=False)
     if input_test_data == None:
         print("please input test_data")
     
-    dataset_test = load_set(input_test_data)
+    dataset_test = load_test_set(input_test_data)
     dataloader_test = torch.utils.data.DataLoader(dataset_test,batch_size=batch_size_test, shuffle=False)
     input_shape,clip_values,nb_classes=generate_parameter(input_shape,clip_values,nb_classes)
     
@@ -40,9 +40,7 @@ def get_accuracy_results(input_model,input_train_data=None,input_test_data=None,
     )
 
     result_list = test_all_white_box_attack(classifier,dataloader_test,batch_size_attack,num_threads_attack,device)
-    evaluate(result_list)
-
-
+    return result_list
 
 
 
