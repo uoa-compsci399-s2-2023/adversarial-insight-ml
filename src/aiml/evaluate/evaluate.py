@@ -6,7 +6,7 @@ and determine a risk evaluation based on them (low, medium, high.)
 """
 
 
-from get_accuracy_results import get_accuracy_results
+from evaluate.get_accuracy_results import get_accuracy_results
 
 def evaluate(input_model, input_train_data=None, input_test_data=None, input_shape=None, clip_values=None, 
              nb_classes=None, batch_size_attack=64, num_threads_attack=8, batch_size_train=64, batch_size_test=64):
@@ -18,12 +18,12 @@ def evaluate(input_model, input_train_data=None, input_test_data=None, input_sha
     
     # Algorithm to weigh and calculate differnt accuracy scores, to give a final risk evaluation
     # TODO: Implement this algorithm
-
+    print(result_list)
     # Craft summary result string for return
     risk_eval = (
         " === Risk Evaluation Summary === \n"
         "Average accuracy for white box attacks: {:.2%}\n"
         "Average accuracy for black box attacks: {:.2%}\n"
     ).format(0, 0)
-
+    print(risk_eval)
     return risk_eval
