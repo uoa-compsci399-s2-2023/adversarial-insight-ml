@@ -35,13 +35,13 @@ if __name__ == '__main__':
     model = Net()
     model.load_state_dict(torch.load("model.pth"))
     print(model)
-    dataset_train = torchvision.datasets.MNIST('./data/', train=True, download=False,
+    dataset_train = torchvision.datasets.MNIST('./data/', train=True, download=True,
                                    transform=torchvision.transforms.Compose([
                                        torchvision.transforms.ToTensor(),
                                        torchvision.transforms.Normalize(
                                            (0.1307,), (0.3081,))
                                    ]))
-    dataset_test = torchvision.datasets.MNIST('./data/', train=False, download=False,
+    dataset_test = torchvision.datasets.MNIST('./data/', train=False, download=True,
                                    transform=torchvision.transforms.Compose([
                                        torchvision.transforms.ToTensor(),
                                        torchvision.transforms.Normalize(
