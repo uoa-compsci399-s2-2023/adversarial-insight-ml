@@ -1,4 +1,5 @@
 import torch
+import numpy as np
 
 def generate_parameter(input_shape,clip_values,nb_classes,dataset_test,dataloader_test):
     if input_shape == None:
