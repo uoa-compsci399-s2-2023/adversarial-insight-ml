@@ -49,25 +49,3 @@ def get_accuracy_results(input_model, input_train_data=None, input_test_data=Non
 
     result_list = test_all_white_box_attack(model,classifier,dataloader_test,batch_size_attack,num_threads_attack,device)
     return result_list
-
-    dataset_test = load_test_set(input_test_data)
-    dataloader_test = torch.utils.data.DataLoader(dataset_test,batch_size=batch_size_test, shuffle=False)
-    input_shape,clip_values,nb_classes=generate_parameter(input_shape,clip_values,nb_classes)
-    
-    if input_train_data!=None:
-        acc_train = test_accuracy(model, dataloader_train, device)
-        print(f'Train accuracy: {acc_train * 100:.2f}')
-    acc_test = test_accuracy(model, dataloader_test, device)
-    print(f'Test accuracy:  {acc_test * 100:.2f}')
-
-    classifier = PyTorchClassifier(
-        model=model,
-        clip_values=clip_values, 
-        loss=None,
-        optimizer=None,
-        input_shape=input_shape,
-        nb_classes=nb_classes,
-    )
-
-    result_list = test_all_white_box_attack(classifier,dataloader_test,batch_size_attack,num_threads_attack,device)
-    return result_list
