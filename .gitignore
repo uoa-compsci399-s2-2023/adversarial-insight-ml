@@ -21,6 +21,9 @@ __pyenv__/
 # Data folder
 data/
 
+# Model
+*.pth
+
 # Amazon SageMaker
 .sagemaker/
 
