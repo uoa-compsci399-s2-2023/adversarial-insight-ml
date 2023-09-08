@@ -8,7 +8,7 @@ from torch.utils.data import DataLoader
 from torch.utils.data import TensorDataset
 from standard_white_box_attack.standard_white_box_test import*
 def test_white_box_attack(attack_method,model,PyTorchClassifier,dataloader_test,batch_size_attack,num_threads_attack,device):
-    attack=attack_method(estimator=PyTorchClassifier)
+    attack=attack_method(classifier=PyTorchClassifier)
     batch = next(iter(dataloader_test))
     X, y = batch
     X_advx = attack.generate(x=X.numpy())
