@@ -1,4 +1,5 @@
 import torch
+import os
 
 import torch.nn as nn
 import torch.nn.functional as F
@@ -33,7 +34,8 @@ if __name__ == '__main__':
 
 
     model = Net()
-    model.load_state_dict(torch.load("model.pth"))
+    relative_path = os.getcwd()
+    model.load_state_dict(torch.load(os.path.join(relative_path,'model.pth')))
     print(model)
     dataset_train = torchvision.datasets.MNIST('./data/', train=True, download=True,
                                    transform=torchvision.transforms.Compose([
