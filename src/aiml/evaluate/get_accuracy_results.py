@@ -27,6 +27,7 @@ def get_accuracy_results(input_model, input_train_data=None, input_test_data=Non
         dataloader_train = torch.utils.data.DataLoader(dataset_train, batch_size=batch_size_train, shuffle=False)
     if input_test_data == None:
         print("please input test_data")
+        return None
     
     dataset_test = load_test_set(input_test_data)
     dataloader_test = torch.utils.data.DataLoader(dataset_test,batch_size=batch_size_test, shuffle=False)

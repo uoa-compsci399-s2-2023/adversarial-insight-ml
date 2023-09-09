@@ -1,5 +1,4 @@
 import torch
-import os
 
 import torch.nn as nn
 import torch.nn.functional as F
@@ -34,8 +33,7 @@ if __name__ == '__main__':
 
 
     model = Net()
-    relative_path = os.getcwd()
-    model.load_state_dict(torch.load(os.path.join(relative_path,'model.pth')))
+    model.load_state_dict(torch.load('model.pth'))
     print(model)
     dataset_train = torchvision.datasets.MNIST('./data/', train=True, download=True,
                                    transform=torchvision.transforms.Compose([
@@ -51,13 +49,9 @@ if __name__ == '__main__':
                                    ]))
     print(dataset_train)
     loader = DataLoader(dataset_test, batch_size=len(dataset_test), num_workers=1)
-    data = next(iter(loader))
+    data = next(iter(loader)) # Tuple containing features [0] and labels [1]
     print("the mean",data[0].mean(),"the std", data[0].std())
     
-    list1=[]
-    sum_x=0
-    for i in range(len(dataset_test)):
-        x,y=dataset_test[i]
-        sum_x+=x
+    sum_x = sum([x for x,_ in dataset_test])
     print("mean",sum_x/len(dataset_test))
     evaluate(model,input_train_data=dataset_train,input_test_data=dataset_test)

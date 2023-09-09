@@ -8,8 +8,8 @@ def generate_parameter(input_shape,clip_values,nb_classes,dataset_test,dataloade
         print(f'input_shape: {input_shape}')
 
     if clip_values == None:
-        global_min = 9999.
-        global_max = 0.
+        global_min = np.inf
+        global_max = (-1)*np.inf
         s = 0
         n = 0
         b = True
@@ -25,10 +25,6 @@ def generate_parameter(input_shape,clip_values,nb_classes,dataset_test,dataloade
         print(f'Min: {global_min}, Max: {global_max}')
 
     if nb_classes == None:
-        list1 = []
-        for i in range(len(dataset_test)):
-            x,y = dataset_test[i]
-            if y not in list1:
-                list1+=[y]
-        nb_classes=len(dataset_test)
+        list1 = set([y for _,y in dataset_test]) # use set to get unique classes
+        nb_classes=len(list1)
     return (input_shape,clip_values,nb_classes)
