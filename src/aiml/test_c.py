@@ -4,7 +4,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 import numpy as np
-from art.estimators.classification import PyTorchClassifier
 
 from torch.utils.data import DataLoader
 import torchvision 
@@ -30,7 +29,6 @@ if __name__ == '__main__':
             x = F.dropout(x, training=self.training)
             x = self.fc2(x)
             return F.log_softmax(x, dim=1)
-
 
     model = Net()
     model.load_state_dict(torch.load('model.pth'))
