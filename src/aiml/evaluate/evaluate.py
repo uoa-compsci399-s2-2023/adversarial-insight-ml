@@ -19,11 +19,15 @@ def evaluate(input_model, input_train_data=None, input_test_data=None, input_sha
     # Algorithm to weigh and calculate differnt accuracy scores, to give a final risk evaluation
     # TODO: Implement this algorithm
     print(result_list)
+
     # Craft summary result string for return
-    risk_eval = (
+    risk_eval_summary = (
         " === Risk Evaluation Summary === \n"
-        "Average accuracy for white box attacks: {:.2%}\n"
-        "Average accuracy for black box attacks: {:.2%}\n"
+        "Average accuracy for white box attacks: {:.1%}\n"
+        "Average accuracy for black box attacks: {:.1%}\n"
+        "Risk level of the model is {risk_eval}.\n"
     ).format(0, 0)
+    
     print(risk_eval)
+
     return risk_eval
