@@ -10,7 +10,7 @@ import torchvision
 from torch.utils.data import TensorDataset
 from evaluate.evaluate import evaluate
 
-if __name__ == '__main__':
+def main():
     print("start")
     class Net(nn.Module):
         def __init__(self):
@@ -53,3 +53,6 @@ if __name__ == '__main__':
     sum_x = sum([x for x,_ in dataset_test])
     print("mean",sum_x/len(dataset_test))
     evaluate(model,input_train_data=dataset_train,input_test_data=dataset_test)
+
+if __name__ == '__main__':
+    main()
