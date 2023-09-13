@@ -1,10 +1,11 @@
 import torch
 import numpy as np
+import time
 
 def generate_parameter(input_shape,clip_values,nb_classes,dataset_test,dataloader_test):
     if input_shape == None:
         (x, y) = next(iter(dataset_test))
-        input_shape = np.array(x.size())
+        input_shape = np.array(x.size()).tolist()
         print(f'input_shape: {input_shape}')
 
     if clip_values == None:
