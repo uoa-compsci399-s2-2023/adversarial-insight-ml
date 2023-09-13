@@ -1,23 +1,14 @@
-def create_surrogate_model(black_box_model):
-    surrogate_model = None
-    return surrogate_model
-
-
-
-
 import torch
 from torch.utils.data import DataLoader
 import torchvision as tv
 import torchvision.transforms as T
-from torchvision import utils
 import detectors
-import numpy as np
-from torch.utils.data import TensorDataset
 from torch.utils.data import Dataset, DataLoader
-
-from art.estimators.classification import PyTorchClassifier
 import pytorch_lightning as pl
 
+def create_surrogate_model(black_box_model):
+    surrogate_model = None
+    return surrogate_model
 
 class surrogateDataset(Dataset):
     def __init__(self,data,result):
@@ -88,24 +79,18 @@ class LitModel(pl.LightningModule):
         out = self.forward(batch)
         loss = self.loss_fn(out, gt)
 
-
         self.log("val/loss", loss)
-
 
         acc = self.accuracy(out, gt)
         self.log("val/acc", acc)
 
-
         return loss
-
 
     def configure_optimizers(self):
         optimizer = torch.optim.Adam(self.model.parameters(), lr=0.001)
         return optimizer
     
-
 def main():
-
     device = torch.device('cpu')
     model = detectors.create_model("resnet18_cifar10", pretrained=True)
     surrogate_model = detectors.create_model("resnet34_cifar10", pretrained=True)
@@ -115,7 +100,8 @@ def main():
     transform_test = detectors.create_transform(model)
     surrogate_transform = detectors.create_transform(surrogate_model, is_training=True)
     surrogate_transform_test = detectors.create_transform(surrogate_model)
-#use vgg
+    
+    #use vgg
     BATCH_SIZE = 10  # Based on GPU's VRAM
     NUM_THREADS = 8  # Based on # of CPU cores
 
@@ -126,14 +112,14 @@ def main():
     # NOTE: Evaluation only. Turn shuffle off.
     dataloader_train = DataLoader(dataset_train, batch_size=BATCH_SIZE, shuffle=False, num_workers=NUM_THREADS)
     dataloader_test = DataLoader(dataset_test, batch_size=BATCH_SIZE, shuffle=False, num_workers=NUM_THREADS)
-#google collab for training
-
+    
+    #google collab for training
     # original_accuracy = evaluation(model,dataloader_test,device)
     # pretrain_accuracy = evaluation(surrogate_model,dataloader_test,device)
     # print("original accuracy", original_accuracy)
     # print("pretrain accuracy", pretrain_accuracy)
 
-#tensorboard, save loss or save performance matrix for testing how close the models outputs are 
+    #tensorboard, save loss or save performance matrix for testing how close the models outputs are 
 
     data=[]
     results=[]
@@ -161,10 +147,3 @@ def main():
     
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-
