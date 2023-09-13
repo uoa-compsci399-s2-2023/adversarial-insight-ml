@@ -25,8 +25,8 @@ def evaluate(input_model, input_train_data=None, input_test_data=None, input_sha
         " === Risk Evaluation Summary === \n"
         "Average accuracy for white box attacks: {:.1%}\n"
         "Average accuracy for black box attacks: {:.1%}\n"
-        "Risk level of the model is {}.\n"
-    ).format(0, 0, risk_eval)
+        "Risk level of the model is {risk_eval}.\n"
+    ).format(0, 0)
     
     print(risk_eval)
 
