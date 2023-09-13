@@ -60,6 +60,7 @@ def test_all_white_box_attack(model, PyTorchClassifier, dataloader_test, batch_s
 
     # List to store the accuracy results for each attack method
     accuracy_list = []
+    i_tmp = 0
 
     # Loop through each attack method
     for attack_method in attack_method_list:
@@ -67,7 +68,9 @@ def test_all_white_box_attack(model, PyTorchClassifier, dataloader_test, batch_s
         try:
             accuracy_list.append(test_white_box_attack(attack_method, model, PyTorchClassifier, dataloader_test, batch_size_attack, num_threads_attack, device))
         except:
-            print("Error!")
+            print(f"Test {i_tmp} Error!")
+        finally:
+            i_tmp += 1
 
     # Return the list of accuracy results for each attack method
     return accuracy_list
