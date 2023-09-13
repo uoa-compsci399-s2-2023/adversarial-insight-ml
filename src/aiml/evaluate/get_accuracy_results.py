@@ -11,7 +11,7 @@ from art.estimators.classification import PyTorchClassifier
 from load_data.load_model import load_model
 from load_data.load_test_set import load_test_set
 from load_data.generate_parameter import generate_parameter
-from white_box_attack.test_white_box import *
+from attacks.test_white_box import *
 from test_accuracy.test_accuracy import test_accuracy
 
 def get_accuracy_results(input_model, input_train_data=None, input_test_data=None, input_shape=None, clip_values=None,      
