@@ -74,12 +74,7 @@ def high_confidence_low_uncertainty(classifier, conf = 0.95, unc_increase = 100.
 def hopskipjump(classifier, batch_size = 64, targeted = False, norm = 2, max_iter = 50, max_eval = 10000, init_eval = 100, init_size = 100, verbose = True):
     return HopSkipJump(classifier, batch_size, targeted, norm, max_iter, max_eval, init_eval, init_size, verbose)
 
-<<<<<<< HEAD
 def lowprofool(classifier, n_steps = 100, threshold = 0.5, lambd = 1.5, eta = 0.2, eta_decay = 0.98, eta_min = 1e-07, norm = 2, importance = "pearson", verbose = True):
-    print(importance == "pearson")
-=======
-def lowprofool(classifier, n_steps = 100, threshold = 0.5, lambd = 1.5, eta = 0.2, eta_decay = 0.98, eta_min = 1e-07, norm = 2, importance = 'pearson', verbose = False):
->>>>>>> 2dc5f8ed6c690b6327550e640910cef057b98e15
     return LowProFool(classifier, n_steps, threshold, lambd, eta, eta_decay, eta_min, norm, importance, verbose)
 
 def newton_fool(classifier, max_iter = 100, eta = 0.01, batch_size = 1, verbose = True):
