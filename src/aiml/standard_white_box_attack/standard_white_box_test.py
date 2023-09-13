@@ -75,6 +75,7 @@ def hopskipjump(classifier, batch_size = 64, targeted = False, norm = 2, max_ite
     return HopSkipJump(classifier, batch_size, targeted, norm, max_iter, max_eval, init_eval, init_size, verbose)
 
 def lowprofool(classifier, n_steps = 100, threshold = 0.5, lambd = 1.5, eta = 0.2, eta_decay = 0.98, eta_min = 1e-07, norm = 2, importance = "pearson", verbose = True):
+    print(importance == "pearson")
     return LowProFool(classifier, n_steps, threshold, lambd, eta, eta_decay, eta_min, norm, importance, verbose)
 
 def newton_fool(classifier, max_iter = 100, eta = 0.01, batch_size = 1, verbose = True):
