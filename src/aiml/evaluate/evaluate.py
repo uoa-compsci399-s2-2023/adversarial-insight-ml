@@ -6,8 +6,13 @@ and determine a risk evaluation based on them (low, medium, high.)
 """
 
 
-from evaluate.get_accuracy_results import get_accuracy_results
+from get_accuracy_results import get_accuracy_results
 
+# Returns average of given float list
+def calculate_average(result_list):
+    return (sum(result_list) / len(result_list))
+
+# Main function for evaluating a model
 def evaluate(input_model, input_train_data=None, input_test_data=None, input_shape=None, clip_values=None, 
              nb_classes=None, batch_size_attack=64, num_threads_attack=8, batch_size_train=64, batch_size_test=64):
     # Call other modules to perform attacks and receive accuracy
@@ -19,17 +24,22 @@ def evaluate(input_model, input_train_data=None, input_test_data=None, input_sha
                                        batch_size_test)
     
     # Algorithm to weigh and calculate differnt accuracy scores, to give a final risk evaluation
-    # TODO: Implement this algorithm
-    print(result_list)
+    white_box_average = calculate_average(result_list)
+    if white_box_average >= 90:
+        risk_eval = risk_levels[0]
+    elif white_box_average >= 70:
+        risk_eval = risk_levels[1]
+    else:
+        risk_eval = risk_levels[2]
 
     # Craft summary result string for return
+    print(result_list)
     evaluation_summary = (
         " === Risk Evaluation Summary === \n"
         "Average accuracy for white box attacks: {:.1%}\n"
-        "Average accuracy for black box attacks: {:.1%}\n"
         "Risk level of the model is {}.\n"
-    ).format(0, 0, risk_eval)
+    ).format(white_box_average, risk_eval)
     
-    print(risk_eval)
+    print(evaluation_summary)
 
-    return evaluation_summary
+    return None
