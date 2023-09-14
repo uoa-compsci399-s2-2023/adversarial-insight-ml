@@ -9,16 +9,23 @@ Author: Team 7
 
 """
 
-# Import statements for submodules or modules within the package
-# from . import module1
-# from . import module2
+
+# Import all individual modules (.py) within pacakge
+from .attack import *
+from .evaluate import *
+from .load_data import *
+from .standard_white_box_attack import *
+from .surrogate_model import *
+from .test_accuracy import *
+
+# Define package-wide variables
+__version__ = "0.0.1"
+__doc__ = "Adversarial Insight ML is a package that provides evaluation of ML models based on adversarial attacks."
 
 # List of symbols to be imported when using "from package import *"
-# __all__ = ["module1", "module2"]
+__all__ = ['attack', 'evaluate', 'load_data', 'standard_white_box_attack', 'surrogate_model', 'test_accuracy']  
 
-# Initialization code or setup
-# For example, setting package-wide configuration options
-
+# Initialization setup (package-wide configuration)
 def setup_package():
     """
     Setup the package.
@@ -26,7 +33,6 @@ def setup_package():
     This function can be used to perform any necessary initialization or setup
     when the package is imported.
     """
-    pass
+    print("AIML package ({})is being initialized.".format(__version__))
 
-# Execute the setup function when the package is imported
 setup_package()
