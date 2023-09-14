@@ -1,5 +1,5 @@
 from art.attacks.evasion import *
-import math
+import numpy as np
 
 def adversarial_patch(classifier, rotation_max = 22.5, scale_min = 0.1, scale_max = 1.0, learning_rate = 5.0, max_iter = 500, batch_size = 16, patch_shape = None, targeted = True, verbose = True):
     """
@@ -74,7 +74,7 @@ def high_confidence_low_uncertainty(classifier, conf = 0.95, unc_increase = 100.
 def hopskipjump(classifier, batch_size = 64, targeted = False, norm = 2, max_iter = 50, max_eval = 10000, init_eval = 100, init_size = 100, verbose = True):
     return HopSkipJump(classifier, batch_size, targeted, norm, max_iter, max_eval, init_eval, init_size, verbose)
 
-def lowprofool(classifier, n_steps = 100, threshold = 0.5, lambd = 1.5, eta = 0.2, eta_decay = 0.98, eta_min = 1e-07, norm = 2, importance = 'pearson', verbose = False):
+def lowprofool(classifier, n_steps = 100, threshold = 0.5, lambd = 1.5, eta = 0.2, eta_decay = 0.98, eta_min = 1e-07, norm = 2, importance = "pearson", verbose = True):
     return LowProFool(classifier, n_steps, threshold, lambd, eta, eta_decay, eta_min, norm, importance, verbose)
 
 def newton_fool(classifier, max_iter = 100, eta = 0.01, batch_size = 1, verbose = True):
@@ -98,10 +98,10 @@ def simple_blackbox(classifier, attack = 'dct', max_iter = 3000, order = 'random
 def spatial_transformation(classifier, max_translation = 0.0, num_translations = 1, max_rotation = 0.0, num_rotations = 1, verbose = True):
     return SpatialTransformation(classifier, max_translation, num_translations, max_rotation, num_rotations, verbose)
 
-def targeted_universal_perturbation(classifier, attacker = 'fgsm', attacker_params = None, delta = 0.2, max_iter = 20, eps = 10.0, norm = math.inf):
+def targeted_universal_perturbation(classifier, attacker = 'fgsm', attacker_params = None, delta = 0.2, max_iter = 20, eps = 10.0, norm = np.inf):
     return TargetedUniversalPerturbation(classifier, attacker, attacker_params, delta, max_iter, eps, norm)
 
-def universal_perturbation(classifier, attacker = 'deepfool', attacker_params = None, delta = 0.2, max_iter = 20, eps = 10.0, norm = math.inf, batch_size = 32, verbose = True):
+def universal_perturbation(classifier, attacker = 'deepfool', attacker_params = None, delta = 0.2, max_iter = 20, eps = 10.0, norm = np.inf, batch_size = 32, verbose = True):
     return UniversalPerturbation(classifier, attacker, attacker_params, delta, max_iter, eps, norm, batch_size, verbose)
 
 def virtual_adversarial_method(classifier, max_iter = 10, finite_diff = 1e-06, eps = 0.1, batch_size = 1, verbose = True):
