@@ -6,7 +6,7 @@ and determine a risk evaluation based on them (low, medium, high.)
 """
 
 
-from get_accuracy_results import get_accuracy_results
+from evaluate.get_accuracy_results import get_accuracy_results
 
 # Returns average of given float list
 def calculate_average(result_list):
@@ -38,7 +38,7 @@ def evaluate(input_model, input_train_data=None, input_test_data=None, input_sha
         " === Risk Evaluation Summary === \n"
         "Average accuracy for white box attacks: {:.1%}\n"
         "Risk level of the model is {}.\n"
-    ).format(white_box_average, risk_eval)
+    ).format(white_box_average / 100, risk_eval)
     
     print(evaluation_summary)
 

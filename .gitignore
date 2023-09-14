@@ -47,3 +47,4 @@ __pycache__/
 # Mac metadata files
 .DS_Store
 *.DS_Store
+src/aiml/test_c.py
