@@ -6,8 +6,8 @@ respecitve accuracies in a list.
 """
 
 
-from test_accuracy.test_accuracy import *
 import torch
+from test_accuracy.test_accuracy import test_accuracy
 from art.estimators.classification import PyTorchClassifier
 from torch.utils.data import DataLoader 
 from torch.utils.data import TensorDataset
@@ -55,8 +55,8 @@ def test_white_box_attack(attack_method, model, PyTorchClassifier, dataloader_te
 # Define a function for testing multiple white-box attacks on a given model
 def test_all_white_box_attack(model, PyTorchClassifier, dataloader_test, batch_size_attack, num_threads_attack, device):
     # List of white-box attack methods to test
-    attack_method_list = [carlini_L0_method, carlini_L2_method, carlini_Linf_method, deep_fool, elastic_net, 
-                          newton_fool, saliency_map_method, hopskipjump, universal_perturbation, zoo_attack]  
+    attack_method_list = [carlini_L0_attack, carlini_L2_attack, carlini_Linf_attack, deep_fool_attack, elastic_net_attack, 
+                          newton_fool_attack, saliency_map_attack, hopskipjump_attack, universal_perturbation_attack, zoo_attack]  
                           # Add more attack methods here as implemented
 
     # List to store the accuracy results for each attack method
