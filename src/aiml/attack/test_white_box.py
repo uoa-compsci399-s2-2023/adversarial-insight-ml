@@ -55,8 +55,9 @@ def test_white_box_attack(attack_method, model, PyTorchClassifier, dataloader_te
 # Define a function for testing multiple white-box attacks on a given model
 def test_all_white_box_attack(model, PyTorchClassifier, dataloader_test, batch_size_attack, num_threads_attack, device):
     # List of white-box attack methods to test
-    attack_method_list = [carlini_L0_method,carlini_L2_method,carlini_Linf_method,deep_fool,elastic_net,newton_fool,saliency_map_method, hopskipjump, universal_perturbation, zoo_attack]  # Add more attack methods here as implemented
-    #attack_method_list = [adversarial_patch, feature_adversaries, frame_saliency_attack, graphite_blackbox, graphite_whitebox_pytorch, pixel_attack, threshold_attack, spatial_transformation]
+    attack_method_list = [carlini_L0_method, carlini_L2_method, carlini_Linf_method, deep_fool, elastic_net, 
+                          newton_fool, saliency_map_method, hopskipjump, universal_perturbation, zoo_attack]  
+                          # Add more attack methods here as implemented
 
     # List to store the accuracy results for each attack method
     accuracy_list = []

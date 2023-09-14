@@ -3,7 +3,7 @@ import numpy as np
 
 def adversarial_patch(classifier, rotation_max = 22.5, scale_min = 0.1, scale_max = 1.0, learning_rate = 5.0, max_iter = 500, batch_size = 16, patch_shape = None, targeted = True, verbose = True):
     """
-    Deep_Fool takes in a classifier and returns an ART DeepFool instance.
+    adversarial_patch takes in a classifier and returns an ART DeepFool instance.
 
     Inputs: 
     classifier: A trained classifier of type CLASSIFIER_CLASS_LOSS_GRADIENTS_TYPE.
