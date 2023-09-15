@@ -2,7 +2,7 @@
 Setup script for adversarial-insight-ml package.
 
 This script configures the packaging and distribution of the adversarial-insight-ml package.
-If you are not involved in releasing the package, you do not need to run this script.
+If you are not involved in building/publishing package to PyPI, you do not need to run this.
 """
 
 
