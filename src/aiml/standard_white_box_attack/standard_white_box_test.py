@@ -1,3 +1,10 @@
+"""
+standard_white_box_test.py
+
+This module provides functions to create various adversarial attacks using the ART library.
+"""
+
+
 from art.attacks.evasion import (
     CarliniL0Method,
     CarliniL2Method,
