@@ -1,41 +1,61 @@
 """
-generate_parameter.py
+get_accuracy_results.py
 
-This module provides a function for generating parameters based on input data and settings.
+This module provides the get_accuracy_results function which will call functions to apply all appropriate attacks,
+return their accuracy scores, in a list format.
 """
 
 
 import torch
-import numpy as np
+from art.estimators.classification import PyTorchClassifier
+from load_data.load_model import load_model
+from load_data.load_test_set import load_test_set
+from load_data.generate_parameter import generate_parameter
+from attack.test_white_box import *
+from test_accuracy.test_accuracy import test_accuracy
 
-def generate_parameter(input_shape, clip_values, nb_classes, dataset_test, dataloader_test):
-    # Get input_shape from dataset_test if not given as parameter
-    if input_shape is None:
-        (x, y) = next(iter(dataset_test))
-        input_shape = tuple(np.array(x.size()))
-        print(f'input_shape: {input_shape}')
+def get_accuracy_results(
+    input_model, input_train_data=None, input_test_data=None, input_shape=None,
+    clip_values=None, nb_classes=None, batch_size_attack=64, num_threads_attack=8,
+    batch_size_train=64, batch_size_test=64
+):
+    # Load model and data
+    device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')  # Enable GPU if available
+    model = load_model(input_model)
+       
+    if input_train_data is not None:
+        dataset_train = load_test_set(input_train_data)
+        dataloader_train = torch.utils.data.DataLoader(dataset_train, batch_size=batch_size_train, shuffle=False)
+    
+    if input_test_data is None:
+        print("Please input test_data")
+        return None
+    
+    dataset_test = load_test_set(input_test_data)
+    dataloader_test = torch.utils.data.DataLoader(dataset_test, batch_size=batch_size_test, shuffle=False)
+    
+    # Generate parameters
+    input_shape, clip_values, nb_classes = generate_parameter(input_shape, clip_values, nb_classes, dataset_test, dataloader_test)
+    
+    if input_train_data is not None:
+        acc_train = test_accuracy(model, dataloader_train, device)
+        print(f'Train accuracy: {acc_train * 100:.2f}')
+    
+    acc_test = test_accuracy(model, dataloader_test, device)
+    print(f'Test accuracy:  {acc_test * 100:.2f}')
 
-    # Define clip_values from dataloader_test if not given as parameter
-    if clip_values is None:
-        global_min = float('inf')
-        global_max = float('-inf')
-        s = 0
-        n = 0
-        b = True
-        for batch in dataloader_test:
-            x, _ = batch
-            if b:
-                print(batch)
-                b = False
-            global_min = min(torch.min(x).item(), global_min)
-            global_max = max(torch.max(x).item(), global_max)
-        clip_values = (global_min, global_max)
+    # Create PyTorch classifier
+    classifier = PyTorchClassifier(
+        model=model,
+        clip_values=clip_values, 
+        loss=None,
+        optimizer=None,
+        input_shape=input_shape,
+        nb_classes=nb_classes,
+    )
 
-        print(f'Min: {global_min}, Max: {global_max}')
-
-    # Calculate nb_classes from dataset_test if not given as parameter
-    if nb_classes is None:
-        unique_classes = set(y for _, y in dataset_test)  # Use set to get unique classes
-        nb_classes = len(unique_classes)
-
-    return input_shape, clip_values, nb_classes
+    # Perform white-box attacks and return results
+    result_list = test_all_white_box_attack(
+        model, classifier, dataloader_test, batch_size_attack, num_threads_attack, device
+    )
+    return result_list
