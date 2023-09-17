@@ -10,7 +10,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='adversarial-insight-ml',
-    version='0.0.2-alpha',
+    version='0.0.3',
     author='Team 7',
     description='An evaluation tool for ML models defense against adversarial attack',
     long_description=open('README.md').read(),  # Show README.md on PyPI page
