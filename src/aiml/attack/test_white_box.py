@@ -1,17 +1,16 @@
 """
 test_white_box.py
 
-This module contains functions for testing white-box attack methods on a PyTorch classifier model, and returns 
-respecitve accuracies in a list.
+This module contains functions for testing white-box attack methods on a
+PyTorch classifier model, and returns respecitve accuracies in a list.
 """
 
 
 import torch
 from test_accuracy.test_accuracy import test_accuracy
-from art.estimators.classification import PyTorchClassifier
 from torch.utils.data import DataLoader
 from torch.utils.data import TensorDataset
-from standard_white_box_attack.standard_white_box_test import *  # Imports all implemented white-box attack methods
+from standard_white_box_attack.standard_white_box_test import * 
 
 
 def test_white_box_attack(
