@@ -9,12 +9,20 @@ respecitve accuracies in a list.
 import torch
 from test_accuracy.test_accuracy import test_accuracy
 from art.estimators.classification import PyTorchClassifier
-from torch.utils.data import DataLoader 
+from torch.utils.data import DataLoader
 from torch.utils.data import TensorDataset
 from standard_white_box_attack.standard_white_box_test import *  # Imports all implemented white-box attack methods
 
-def test_white_box_attack(attack_method, model, pytorch_classifier, dataloader_test, batch_size_attack, 
-                          num_threads_attack, device):
+
+def test_white_box_attack(
+    attack_method,
+    model,
+    pytorch_classifier,
+    dataloader_test,
+    batch_size_attack,
+    num_threads_attack,
+    device,
+):
     """
     Test the performance of a single white-box attack method against a PyTorch classifier.
     To be used by test_all_white_box_attack() to test multiple white-box attack methods.
@@ -29,7 +37,8 @@ def test_white_box_attack(attack_method, model, pytorch_classifier, dataloader_t
         device: The device (e.g., 'cpu' or 'cuda') to use for computation.
 
     Returns:
-        acc_advx: Accuracy of the classifier on the adversarial examples as a percentage, where 1 = 100% accuracy.
+        acc_advx: Accuracy of the classifier on the adversarial examples as a percentage,
+        where 1 = 100% accuracy.
     """
     # Create the attack instance
     attack = attack_method(classifier=pytorch_classifier)
@@ -45,19 +54,31 @@ def test_white_box_attack(attack_method, model, pytorch_classifier, dataloader_t
     dataset_advx = TensorDataset(torch.Tensor(X_advx), y)
 
     # Create a DataLoader for the adversarial examples
-    dataloader_advx = DataLoader(dataset_advx, batch_size=batch_size_attack, shuffle=False, 
-                                 num_workers=num_threads_attack)
+    dataloader_advx = DataLoader(
+        dataset_advx,
+        batch_size=batch_size_attack,
+        shuffle=False,
+        num_workers=num_threads_attack,
+    )
 
     # Test the model's accuracy on the adversarial examples
     acc_advx = test_accuracy(model, dataloader_advx, device)
 
-    return (acc_advx * 100)  # 1.0 represents 100% accuracy
-    
+    return acc_advx * 100  # 1.0 represents 100% accuracy
+
+
 # Define a function for testing multiple white-box attacks on a given model
-def test_all_white_box_attack(model, pytorch_classifier, dataloader_test, batch_size_attack, num_threads_attack, device):
+def test_all_white_box_attack(
+    model,
+    pytorch_classifier,
+    dataloader_test,
+    batch_size_attack,
+    num_threads_attack,
+    device,
+):
     # List of white-box attack methods to test
     attack_method_list = [carlini_Linf_attack, saliency_map_attack]
-                          # Add more attack methods here as implemented
+    # Add more attack methods here as implemented
 
     # List to store the accuracy results for each attack method
     accuracy_list = []
@@ -67,7 +88,17 @@ def test_all_white_box_attack(model, pytorch_classifier, dataloader_test, batch_
     for attack_method in attack_method_list:
         # Test the current attack method and append the accuracy result to the list
         try:
-            accuracy_list.append(test_white_box_attack(attack_method, model, pytorch_classifier, dataloader_test, batch_size_attack, num_threads_attack, device))
+            accuracy_list.append(
+                test_white_box_attack(
+                    attack_method,
+                    model,
+                    pytorch_classifier,
+                    dataloader_test,
+                    batch_size_attack,
+                    num_threads_attack,
+                    device,
+                )
+            )
         except:
             print(f"Test {i_tmp} Error!")
         finally:
