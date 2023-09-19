@@ -3,6 +3,7 @@
 [![PyPI version](https://badge.fury.io/py/adversarial-insight-ml.svg)](https://pypi.org/project/adversarial-insight-ml/)
 ![Python](https://img.shields.io/badge/python-3.9-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
   
 Adversarial Insight ML (AIML) is a PyPI package that evaluates the robustness of machine learning models in image classification against adversarial attacks. The final program in the package should automatically test potential adversarial attacks against each given machine learning model and give users accurate, efficient and robust feedback through several benchmarks we develop. Furthermore, the package should be designed to allow non-technical users to use it as well.
 
@@ -35,20 +36,17 @@ Highlight the key features or functionalities of your project. List them in a co
 ## Contributing
 
 **Code Style**  
-We adhere to the [PEP 8](https://www.python.org/dev/peps/pep-0008/) style guide for writing Python code. Consistent code formatting enhances readability and maintainability. Please ensure your code follows these conventions.
+Always adhere to the [PEP 8](https://www.python.org/dev/peps/pep-0008/) style guide for writing Python code. Alternatively, just use [black](https://github.com/psf/black).
 
 **Commit Messages**  
 When making changes to the codebase, please refer to the [Documentation/SubmittingPatches](https://git.kernel.org/pub/scm/git/git.git/tree/Documentation/SubmittingPatches?h=v2.36.1#n181) in the Git repo:
 
 - Write commit messages in present tense and imperative mood, e.g., "Add feature" instead of "Added feature" or "Adding feature."
 - Craft your messages as if you're giving orders to the codebase to change its behaviour.
-- Provide clear and concise summaries of your changes in the first line.
-- If needed, add a more detailed description in the following lines.
 
 **Branching**  
 We conform to a variation of the "GitHub Flow'' convention, but not strictly. For example, see the following types of branches:
 - main: This branch is always deployable and reflects the production state.
-- feature/*: For new feature development.
 - bugfix/*: For bug fixes.
 
 ## License
