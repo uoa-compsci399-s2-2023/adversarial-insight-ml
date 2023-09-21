@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://pypi.org/project/adversarial-insight-ml/">
-    <img width="480" height="480" src="https://github.com/uoa-comps399-s2-2023/capstone-project-team-7/assets/30320274/dd218b91-aaf8-4da9-acb6-e429fe9e1739">
+    <img width="480" height="480" src="https://github.com/uoa-compsci399-s2-2023/capstone-project-team-7/assets/30320274/5ff1d9a2-96ce-4240-a881-4c51f456fca8">
   </a>
 </p>
 
