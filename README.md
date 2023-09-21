@@ -1,10 +1,26 @@
-# Adversarial Insight ML (AIML)
+<p align="center">
+  <img width="480" height="480" src="https://github.com/uoa-compsci399-s2-2023/capstone-project-team-7/assets/30320274/dd218b91-aaf8-4da9-acb6-e429fe9e1739">
+</p>
 
-[![PyPI version](https://badge.fury.io/py/adversarial-insight-ml.svg)](https://pypi.org/project/adversarial-insight-ml/)
-![Python](https://img.shields.io/badge/python-3.9-blue.svg)
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-  
+<h2 align="center">Adversarial Insight ML (AIML)</h2>
+
+<p align="center">
+  <a href="https://pypi.org/project/adversarial-insight-ml/">
+    <img src="https://badge.fury.io/py/adversarial-insight-ml.svg" alt="PyPI version" />
+  </a>
+ <a href="https://www.python.org/downloads/">
+    <img src="https://img.shields.io/badge/python-3.9-blue.svg" alt="Python version" />
+  </a>
+  <a href="https://opensource.org/licenses/MIT">
+    <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"
+  </a>
+  <a href="https://github.com/psf/black">
+    <img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="Code style" />
+  </a>
+</p>
+
+> “Why does your machine lie?”
+
 Adversarial Insight ML (AIML) is a PyPI package that evaluates the robustness of machine learning models in image classification against adversarial attacks. The final program in the package should automatically test potential adversarial attacks against each given machine learning model and give users accurate, efficient and robust feedback through several benchmarks we develop. Furthermore, the package should be designed to allow non-technical users to use it as well.
 
 For more information, you can also visit the [PyPI page](https://pypi.org/project/adversarial-insight-ml/).
