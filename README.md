@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="480" height="480" src="https://github.com/uoa-compsci399-s2-2023/capstone-project-team-7/assets/30320274/dd218b91-aaf8-4da9-acb6-e429fe9e1739">
+  <img width="480" height="480" src="./images/aiml_logo.png">
 </p>
 
 <h2 align="center">Adversarial Insight ML (AIML)</h2>
