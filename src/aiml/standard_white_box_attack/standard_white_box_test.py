@@ -6,6 +6,7 @@ This module provides functions to create various adversarial attacks using the A
 
 
 from art.attacks.evasion import (
+    AutoProjectedGradientDescent,
     CarliniL0Method,
     CarliniL2Method,
     CarliniLInfMethod,
@@ -13,11 +14,51 @@ from art.attacks.evasion import (
     ElasticNet,
     HopSkipJump,
     NewtonFool,
+    PixelAttack,
     SaliencyMapMethod,
+    SquareAttack,
     UniversalPerturbation,
     ZooAttack,
 )
 import numpy as np
+
+def auto_projected_cross_entropy(estimator, norm = np.inf, eps = 0.3, eps_step = 0.1, batch_size = 32):
+    return AutoProjectedGradientDescent(
+                    estimator=estimator,  # type: ignore
+                    norm=norm,
+                    eps=eps,
+                    eps_step=eps_step,
+                    max_iter=100,
+                    targeted=False,
+                    nb_random_init=5,
+                    batch_size=batch_size,
+                    loss_type="cross_entropy",
+                )
+
+def auto_projected_difference_logits_ratio(estimator, norm = np.inf, eps = 0.3, eps_step = 0.1, batch_size = 32):
+    return AutoProjectedGradientDescent(
+                    estimator=estimator,  # type: ignore
+                    norm=norm,
+                    eps=eps,
+                    eps_step=eps_step,
+                    max_iter=100,
+                    targeted=False,
+                    nb_random_init=5,
+                    batch_size=batch_size,
+                    loss_type="cross_entropy",
+                )
+
+def deepfool_auto(estimator, batch_size = 32):
+    return DeepFool(
+                        classifier=estimator,  # type: ignore
+                        max_iter=100,
+                        epsilon=1e-3,
+                        nb_grads=10,
+                        batch_size=batch_size,
+                    )
+
+def square_attack_auto(estimator, norm = np.inf, eps = 0.3):
+    return SquareAttack(estimator=estimator, norm=norm, max_iter=5000, eps=eps, p_init=0.8, nb_restarts=5)
 
 def carlini_L0_attack(classifier, confidence=0.0, targeted=False, learning_rate=0.01, binary_search_steps=10,
                       max_iter=10, initial_const=0.01, mask=None, warm_start=True, max_halving=5,
@@ -67,8 +108,14 @@ def hopskipjump_attack(classifier, batch_size=64, targeted=False, norm=2, max_it
 def newton_fool_attack(classifier, max_iter=100, eta=0.01, batch_size=1, verbose=True):
     return NewtonFool(classifier, max_iter, eta, batch_size, verbose)
 
+def pixel_attack(classifier, th = None, es = 1, max_iter = 100, targeted = False, verbose = True):
+    return PixelAttack(classifier, th, es, max_iter, targeted, verbose)
+
 def saliency_map_attack(classifier, theta=0.1, gamma=1.0, batch_size=1, verbose=True):
     return SaliencyMapMethod(classifier, theta, gamma, batch_size, verbose)
+
+def square_attack(estimator, norm = np.inf, adv_criterion = None, loss = None, max_iter = 100, eps = 0.3, p_init = 0.8, nb_restarts = 1, batch_size = 128, verbose = True):
+    return SquareAttack(estimator, norm, adv_criterion, loss, max_iter, eps, p_init, nb_restarts, batch_size, verbose)
 
 def universal_perturbation_attack(classifier, attacker='deepfool', attacker_params=None, delta=0.2, max_iter=20,
                                   eps=10.0, norm=np.inf, batch_size=32, verbose=True):
