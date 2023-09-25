@@ -1,5 +1,14 @@
 <p align="center">
-  <img style="max-width: 100%;" src="./images/aiml_logo.png" alt="AIML Logo">
+  <img
+    src="./images/aiml_logo.png"
+    alt="AIML Logo"
+    style="
+      width: 480px;
+      height: 480px;
+      max-width: 100%;
+      height: auto;
+    "
+  >
 </p>
 
 <h2 align="center">Adversarial Insight ML (AIML)</h2>
