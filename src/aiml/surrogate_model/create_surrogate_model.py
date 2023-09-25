@@ -29,7 +29,6 @@ def create_surrogate_model(model: nn.Module) -> Surrogate:
     LEARNING_RATE = 0.0005
 
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-    print(device)
 
     if str(device) == 'cuda:0':
         torch.set_float32_matmul_precision('high')
@@ -51,7 +50,6 @@ def create_surrogate_model(model: nn.Module) -> Surrogate:
     dataloader_train = DataLoader(
         sub_train, batch_size=BATCH_SIZE, shuffle=True, num_workers=NUM_WORKERS)
     num_training_batches = len(dataloader_train)
-    print("num_training_batches", num_training_batches)
 
     # NOTE: `num_training_batches` is used by LRSchedular. Cannot be loaded dynamically due to a bug in PyTorch Lightning
     surrogate_module = Surrogate(
