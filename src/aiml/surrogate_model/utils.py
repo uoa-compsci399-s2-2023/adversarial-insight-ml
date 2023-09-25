@@ -86,20 +86,6 @@ def get_data(dataloader: DataLoader) -> torch.Tensor:
     return torch.concat(X)
 
 
-def evaluate_dataloader(model: Union[pl.LightningModule, torch.nn.Module],
-                        dataloader: DataLoader,
-                        num_classes=10) -> float:
-    """Compute accuracy."""
-    if not isinstance(model, pl.LightningModule):
-        model = LogSoftmaxModule(model)
-
-    trainer = pl.Trainer(enable_progress_bar=False, logger=False)
-    predictions = trainer.predict(model, dataloader)
-    predictions = torch.concat(predictions).cpu()
-    y = get_labels(dataloader)
-    metric = Accuracy(task="multiclass", num_classes=num_classes)
-    acc = metric(predictions, y)
-    return acc.item()
 
 
 def choose_dataset(dataset: Dataset, n_sample: Union[int, float], num_workers=1) -> Dataset:

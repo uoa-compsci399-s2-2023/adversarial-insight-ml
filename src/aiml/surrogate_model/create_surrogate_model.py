@@ -18,34 +18,7 @@ from torch.utils.tensorboard import SummaryWriter
 
 from models import LogSoftmaxModule, Surrogate, create_vgg16_bn_cifar10
 from utils import (choose_dataset, cifar10_normalize_values,
-                   evaluate_dataloader, inverse_normalize, load_cifar10)
-
-
-def evaluate_model(model: nn.Module):
-    """Evaluate a PyTorch model using various methods including Softmax and LogSoftmax."""
-
-    # Testing the model. This model does not run no Softmax function.
-    x = torch.rand([10, 3, 32, 32])
-    out = model(x)
-    print(out[0])
-    # Without SoftMax
-    print(out.sum(1))
-
-    # With SoftMax
-    out = nn.functional.softmax(out, 1)
-    print(out.sum(1))
-
-    loss_fn = nn.KLDivLoss(reduction='batchmean')
-    print('[softmax] Random:', loss_fn(out[:5], out[5:]))
-    print('[softmax] Match:', loss_fn(out[:5], out[:5]))
-
-    # With LogSoftMax
-    out = nn.functional.log_softmax(out, 1)
-    print(out.sum(1))
-
-    loss_fn = nn.KLDivLoss(reduction='batchmean', log_target=True)
-    print('[log softmax] Random:', loss_fn(out[:5], out[5:]))
-    print('[log softmax] Match:', loss_fn(out[:5], out[:5]))
+                   inverse_normalize, load_cifar10)
 
 
 def create_surrogate_model(model: nn.Module) -> Surrogate:
@@ -62,14 +35,11 @@ def create_surrogate_model(model: nn.Module) -> Surrogate:
         torch.set_float32_matmul_precision('high')
         print('Set precision to High.')
 
-    evaluate_model(model)
-
     dataset_test = load_cifar10(train=False, require_normalize=True)
     dataloader_test = DataLoader(
         dataset_test, batch_size=BATCH_SIZE, shuffle=False, num_workers=NUM_WORKERS)
 
-    acc_test = evaluate_dataloader(model, dataloader_test)
-    print(f'[Input Model] Test accuracy: {acc_test*100:.2f}')
+
 
     # The model does not output normalized outputs.
     oracle = LogSoftmaxModule(model)
@@ -106,15 +76,7 @@ def create_surrogate_model(model: nn.Module) -> Surrogate:
         train_dataloaders=dataloader_train,
         val_dataloaders=dataloader_test,
     )
-
-    # Trained on original training data
-    acc_test = evaluate_dataloader(surrogate_module, dataloader_test)
-    print(f'[Surrogate Model] Test accuracy: {acc_test*100:.2f}')
-
     return surrogate_module
 
 
-# For testing purposes
-if __name__ == '__main__':
-    model_to_test = timm.create_model("resnet18_cifar10", pretrained=True)
-    create_surrogate_model(model_to_test)
+
