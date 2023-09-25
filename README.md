@@ -52,7 +52,7 @@ Highlight the key features or functionalities of your project. List them in a co
 ## Contributing
 
 **Code Style**  
-Always adhere to the [PEP 8](https://www.python.org/dev/peps/pep-0008/) style guide for writing Python code. Alternatively, just use [black](https://github.com/psf/black).
+Always adhere to the [PEP 8](https://www.python.org/dev/peps/pep-0008/) style guide for writing Python code, allowing upto 99 characters per line as the absolute maximum. Alternatively, just use [black](https://github.com/psf/black).
 
 **Commit Messages**  
 When making changes to the codebase, please refer to the [Documentation/SubmittingPatches](https://git.kernel.org/pub/scm/git/git.git/tree/Documentation/SubmittingPatches?h=v2.36.1#n181) in the Git repo:
