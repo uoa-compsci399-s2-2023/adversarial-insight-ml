@@ -10,7 +10,7 @@ import torch
 from test_accuracy.test_accuracy import test_accuracy
 from torch.utils.data import DataLoader
 from torch.utils.data import TensorDataset
-from aiml.attack.adversarial_attacks import * 
+from attack.adversarial_attacks import * 
 
 
 def test_white_box_attack(
