@@ -77,7 +77,7 @@ def test_all_white_box_attack(
 ):
     # List of attack methods to test
     attack_method_list = [
-        auto_projected_difference_logits_ratio,
+        pixel_attack, 
         zoo_attack,
         carlini_L0_attack,
         carlini_L2_attack,
