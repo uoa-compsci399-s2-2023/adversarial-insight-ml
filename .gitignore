@@ -13,6 +13,7 @@ build/
 # Local development settings
 .idea/
 .vscode/
+*.code-workspace
 
 # Virtual environment
 venv/
