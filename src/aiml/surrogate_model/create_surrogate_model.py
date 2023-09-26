@@ -14,8 +14,8 @@ from pytorch_lightning.callbacks import LearningRateMonitor
 from pytorch_lightning.loggers import TensorBoardLogger
 from torch.utils.data import DataLoader
 
-from models import LogSoftmaxModule, Surrogate, create_vgg16_bn_cifar10
-from utils import (
+from surrogate_model.models import LogSoftmaxModule, Surrogate, create_vgg16_bn_cifar10
+from surrogate_model.utils import (
     choose_dataset,
     cifar10_normalize_values,
     inverse_normalize,
@@ -52,7 +52,8 @@ def create_surrogate_model(model: nn.Module) -> Surrogate:
     )
     num_training_batches = len(dataloader_train)
 
-    # NOTE: `num_training_batches` is used by LRSchedular. Cannot be loaded dynamically due to a bug in PyTorch Lightning
+    # NOTE: `num_training_batches` is used by LRSchedular. 
+    # It Cannot be loaded dynamically due to a bug in PyTorch Lightning
     surrogate_module = Surrogate(
         lr=LEARNING_RATE,
         num_training_batches=num_training_batches,

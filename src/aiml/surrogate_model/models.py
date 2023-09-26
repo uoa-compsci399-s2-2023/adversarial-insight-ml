@@ -1,10 +1,12 @@
 """
 models.py
 
-This module contains utility functions and PyTorch Lightning modules for working with the CIFAR-10 dataset.
-The VGG16 BN model is used as a substitute for the black box model. This functions and classes in this file 
-are used in the "create_surrogate_model.py" file.
+This module contains utility functions and PyTorch Lightning modules for
+working with the CIFAR-10 dataset. The VGG16 BN model is used as a 
+substitute for the black box model. This functions and classes in this 
+file are used in the "create_surrogate_model.py" file.
 """
+
 
 from typing import Callable
 
@@ -28,7 +30,8 @@ def create_vgg16_bn_cifar10() -> nn.Module:
 class VGG16BNCIFAR10(pl.LightningModule):
     """A PyTorch Lightning module representing a VGG16 model for CIFAR-10 classification.
 
-    This module is designed for training a VGG16 BN model on the CIFAR-10 dataset for image classification tasks.
+    This module is designed for training a VGG16 BN model on the CIFAR-10 dataset for image 
+    classification tasks.
 
     Attributes:
         model (nn.Module): The VGG16 model architecture.

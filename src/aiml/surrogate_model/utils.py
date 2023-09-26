@@ -1,23 +1,21 @@
 """
 utils.py
 
-This module contains various utility functions and configurations for working with the CIFAR-10 dataset 
-and PyTorch Lightning-based training for creating and training a surrogate model.  This file supports 
-the "create_surrogate_model.py" file. 
+This module contains various utility functions and configurations for 
+working with the CIFAR-10 dataset and PyTorch Lightning-based training 
+for creating and training a surrogate model. This file supports the 
+"create_surrogate_model.py" file. 
 """
 
 
 import math
 from typing import Tuple, Union
 
-import pytorch_lightning as pl
 import torch
 import torchvision as tv
 import torchvision.transforms as T
 from torch.utils.data import DataLoader, Dataset, TensorDataset
-from torchmetrics import Accuracy
 
-from models import LogSoftmaxModule
 
 cifar10_normalize_values = {
     "mean": [0.4914, 0.4822, 0.4465],
