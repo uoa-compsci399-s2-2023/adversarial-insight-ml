@@ -20,8 +20,7 @@ from torchmetrics import Accuracy
 def create_vgg16_bn_cifar10() -> nn.Module:
     """ResNet18 model for CIFAR10"""
     model = tv.models.vgg16_bn(weights=None, num_classes=10)
-    model.features[0] = nn.Conv2d(
-        3, 64, kernel_size=3, stride=1, padding=1, bias=False)
+    model.features[0] = nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1, bias=False)
     model.features[4] = nn.Identity()
     return model
 
@@ -61,7 +60,9 @@ class VGG16BNCIFAR10(pl.LightningModule):
     def test_step(self, batch, batch_idx) -> None:
         self._evaluate(batch, "test")
 
-    def predict_step(self, batch, batch_idx: int, dataloader_idx: int = 0) -> torch.Tensor:
+    def predict_step(
+        self, batch, batch_idx: int, dataloader_idx: int = 0
+    ) -> torch.Tensor:
         x, _ = batch
         out = self(x)
         return out
@@ -107,16 +108,17 @@ class Surrogate(pl.LightningModule):
         accuracy (Accuracy): A metric for computing accuracy during training/validation.
     """
 
-    def __init__(self,
-                 lr: float,
-                 num_training_batches: int,
-                 oracle: nn.Module,
-                 substitute: nn.Module,
-                 loss_fn: Callable,
-                 softmax: bool = True,
-                 ) -> None:
+    def __init__(
+        self,
+        lr: float,
+        num_training_batches: int,
+        oracle: nn.Module,
+        substitute: nn.Module,
+        loss_fn: Callable,
+        softmax: bool = True,
+    ) -> None:
         super().__init__()
-        self.save_hyperparameters(ignore=['oracle', 'substitute', 'loss_fn'])
+        self.save_hyperparameters(ignore=["oracle", "substitute", "loss_fn"])
 
         self.oracle = oracle
         # Oracle's parameters should not alter.
@@ -138,7 +140,7 @@ class Surrogate(pl.LightningModule):
         with torch.no_grad():
             out_oracle = self.oracle(x)
         loss = self.loss_fn(out, out_oracle)
-        self.log(f'train_loss', loss)
+        self.log(f"train_loss", loss)
         return loss
 
     def validation_step(self, batch, batch_idx) -> None:
@@ -151,11 +153,13 @@ class Surrogate(pl.LightningModule):
         pred_oracle = out_oracle.argmax(1)
         acc = self.accuracy(out, y)
         match_oracle = self.accuracy(out, pred_oracle)
-        self.log(f'val_loss', loss)
-        self.log(f'val_acc', acc)
-        self.log(f'val_match', match_oracle)
+        self.log(f"val_loss", loss)
+        self.log(f"val_acc", acc)
+        self.log(f"val_match", match_oracle)
 
-    def predict_step(self, batch, batch_idx: int, dataloader_idx: int = 0) -> torch.Tensor:
+    def predict_step(
+        self, batch, batch_idx: int, dataloader_idx: int = 0
+    ) -> torch.Tensor:
         x, _ = batch
         out = self(x)
         return out
@@ -199,7 +203,9 @@ class LogSoftmaxModule(pl.LightningModule):
         x = F.log_softmax(x, dim=1)
         return x
 
-    def predict_step(self, batch, batch_idx: int, dataloader_idx: int = 0) -> torch.Tensor:
+    def predict_step(
+        self, batch, batch_idx: int, dataloader_idx: int = 0
+    ) -> torch.Tensor:
         x, _ = batch
         out = self(x)
         return out

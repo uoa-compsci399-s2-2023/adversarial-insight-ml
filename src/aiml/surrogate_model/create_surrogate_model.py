@@ -4,21 +4,23 @@ create_surrogate_model.py
 This module creates surrogate models for black-box attacks.
 """
 
+
 import os
 
 import pytorch_lightning as pl
-import detectors
-import timm
 import torch
 import torch.nn as nn
 from pytorch_lightning.callbacks import LearningRateMonitor
 from pytorch_lightning.loggers import TensorBoardLogger
 from torch.utils.data import DataLoader
-from torch.utils.tensorboard import SummaryWriter
 
 from models import LogSoftmaxModule, Surrogate, create_vgg16_bn_cifar10
-from utils import (choose_dataset, cifar10_normalize_values,
-                   inverse_normalize, load_cifar10)
+from utils import (
+    choose_dataset,
+    cifar10_normalize_values,
+    inverse_normalize,
+    load_cifar10,
+)
 
 
 def create_surrogate_model(model: nn.Module) -> Surrogate:
@@ -28,26 +30,26 @@ def create_surrogate_model(model: nn.Module) -> Surrogate:
     MAX_EPOCHS = 50
     LEARNING_RATE = 0.0005
 
-    device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-    if str(device) == 'cuda:0':
-        torch.set_float32_matmul_precision('high')
+    if str(device) == "cuda:0":
+        torch.set_float32_matmul_precision("high")
 
     dataset_test = load_cifar10(train=False, require_normalize=True)
     dataloader_test = DataLoader(
-        dataset_test, batch_size=BATCH_SIZE, shuffle=False, num_workers=NUM_WORKERS)
-
-
+        dataset_test, batch_size=BATCH_SIZE, shuffle=False, num_workers=NUM_WORKERS
+    )
 
     # The model does not output normalized outputs.
     oracle = LogSoftmaxModule(model)
     substitute = create_vgg16_bn_cifar10()  # Using the PyTorch implementation
     # Check the cell above. Note that without log function. The loss doesn't seem correct.
-    loss_fn = nn.KLDivLoss(reduction='batchmean', log_target=True)
+    loss_fn = nn.KLDivLoss(reduction="batchmean", log_target=True)
 
     sub_train = load_cifar10(train=True, require_normalize=True)
     dataloader_train = DataLoader(
-        sub_train, batch_size=BATCH_SIZE, shuffle=True, num_workers=NUM_WORKERS)
+        sub_train, batch_size=BATCH_SIZE, shuffle=True, num_workers=NUM_WORKERS
+    )
     num_training_batches = len(dataloader_train)
 
     # NOTE: `num_training_batches` is used by LRSchedular. Cannot be loaded dynamically due to a bug in PyTorch Lightning
@@ -64,8 +66,9 @@ def create_surrogate_model(model: nn.Module) -> Surrogate:
         max_epochs=MAX_EPOCHS,
         enable_progress_bar=True,
         logger=TensorBoardLogger(
-            "logs", name="surrogate_cifar10", default_hp_metric=False),
-        callbacks=[LearningRateMonitor(logging_interval='step')],
+            "logs", name="surrogate_cifar10", default_hp_metric=False
+        ),
+        callbacks=[LearningRateMonitor(logging_interval="step")],
         # fast_dev_run=True,
     )
     trainer.fit(
@@ -74,6 +77,3 @@ def create_surrogate_model(model: nn.Module) -> Surrogate:
         val_dataloaders=dataloader_test,
     )
     return surrogate_module
-
-
-

@@ -6,6 +6,7 @@ and PyTorch Lightning-based training for creating and training a surrogate model
 the "create_surrogate_model.py" file. 
 """
 
+
 import math
 from typing import Tuple, Union
 
@@ -19,31 +20,32 @@ from torchmetrics import Accuracy
 from models import LogSoftmaxModule
 
 cifar10_normalize_values = {
-    'mean': [0.4914, 0.4822, 0.4465],
-    'std': [0.2470, 0.2435, 0.2616],
+    "mean": [0.4914, 0.4822, 0.4465],
+    "std": [0.2470, 0.2435, 0.2616],
 }
 
 
 def get_transforms(train=True, require_normalize=False) -> T.Compose:
     """Get data transformations for CIFAR-10 dataset."""
-    state = 'train' if train else 'val'
+    state = "train" if train else "val"
     data_transforms = {
-        'train': [
+        "train": [
             T.AutoAugment(policy=T.AutoAugmentPolicy.CIFAR10),
             T.RandomHorizontalFlip(p=0.5),
             T.ToTensor(),
         ],
-        'val': [
+        "val": [
             T.ToTensor(),
         ],
     }
     transform_list = data_transforms[state]
     if require_normalize:
-        transform_list = data_transforms[state] + \
-            [T.Normalize(
-                mean=cifar10_normalize_values['mean'],
-                std=cifar10_normalize_values['std'])
-             ]
+        transform_list = data_transforms[state] + [
+            T.Normalize(
+                mean=cifar10_normalize_values["mean"],
+                std=cifar10_normalize_values["std"],
+            )
+        ]
 
     return T.Compose(transform_list)
 
@@ -51,15 +53,19 @@ def get_transforms(train=True, require_normalize=False) -> T.Compose:
 def load_cifar10(train=True, require_normalize=False) -> Dataset:
     """Return CIFAR10 dataset."""
     dataset = tv.datasets.CIFAR10(
-        './data', download=True, train=train, transform=get_transforms(train, require_normalize))
+        "./data",
+        download=True,
+        train=train,
+        transform=get_transforms(train, require_normalize),
+    )
     return dataset
 
 
 def inverse_normalize(batch: torch.Tensor, normalize_values: dict) -> torch.Tensor:
     """Convert a tensor to their original scale."""
     device = batch.get_device()
-    mean = torch.Tensor(normalize_values['mean']).to(device)
-    std = torch.Tensor(normalize_values['std']).to(device)
+    mean = torch.Tensor(normalize_values["mean"]).to(device)
+    std = torch.Tensor(normalize_values["std"]).to(device)
     return batch * std.view(1, -1, 1, 1) + mean.view(1, -1, 1, 1)
 
 
@@ -72,7 +78,7 @@ def get_labels(dataloader: DataLoader) -> torch.Tensor:
         _, y = batch
         n = len(y)
         end = start + n
-        labels[start: end] = y
+        labels[start:end] = y
         start = end
     return labels
 
@@ -86,17 +92,19 @@ def get_data(dataloader: DataLoader) -> torch.Tensor:
     return torch.concat(X)
 
 
-
-
-def choose_dataset(dataset: Dataset, n_sample: Union[int, float], num_workers=1) -> Dataset:
+def choose_dataset(
+    dataset: Dataset, n_sample: Union[int, float], num_workers=1
+) -> Dataset:
     """Random choose n samples from a dataset without replacement."""
-    assert (isinstance(n_sample, int) or n_sample <
-            1) and n_sample > 0, 'n_sample is invalid.'
-    assert n_sample < len(dataset), 'This function does not allow replacement.'
+    assert (
+        isinstance(n_sample, int) or n_sample < 1
+    ) and n_sample > 0, "n_sample is invalid."
+    assert n_sample < len(dataset), "This function does not allow replacement."
     if isinstance(n_sample, float):
         n_sample = math.floor(len(dataset) * n_sample)
-    dataloader = DataLoader(dataset, batch_size=512,
-                            shuffle=True, num_workers=num_workers)
+    dataloader = DataLoader(
+        dataset, batch_size=512, shuffle=True, num_workers=num_workers
+    )
     X = []
     Y = []
     n = 0
