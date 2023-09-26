@@ -19,8 +19,9 @@ build/
 venv/
 __pyenv__/
 
-# Data folder
+# Data and logs folder
 data/
+logs/
 
 # Model
 *.pth
