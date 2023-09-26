@@ -13,7 +13,8 @@ from art.attacks.evasion import (
     CarliniL0Method,
     CarliniL2Method,
     CarliniLInfMethod,
-    SquareAttack
+    SquareAttack,
+    DeepFool
 )
 import numpy as np
 
@@ -110,7 +111,7 @@ def square_attack(
     )
 
 
-def square_attack_auto(estimator, norm = np.inf, eps = 0.3):
-    return SquareAttack(
-        estimator=estimator, norm=norm, max_iter=5000, eps=eps, p_init=0.8, nb_restarts=5
-    )
+def deep_fool(
+    classifier, max_iter = 100, epsilon = 1e-06, nb_grads = 10, batch_size = 1, verbose = True
+):
+    return DeepFool(classifier, max_iter, epsilon, nb_grads, batch_size, verbose)
