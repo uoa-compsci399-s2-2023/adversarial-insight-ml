@@ -85,7 +85,7 @@ def test_all_white_box_attack(
         carlini_L2_attack,
         carlini_Linf_attack,
         square_attack,
-        square_attack_auto
+        deep_fool
     ]
     # Add more attack methods here as implemented
 
