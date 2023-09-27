@@ -14,7 +14,7 @@ from aiml import load_data
 from aiml import surrogate_model
 
 # Define package-wide variables
-__version__ = "0.0.5"
+__version__ = "0.0.6"
 __doc__ = "Adversarial Insight ML is a package that provides evaluation of ML models based on adversarial attacks."
 
 # List of symbols to be imported when using "from package import *"
