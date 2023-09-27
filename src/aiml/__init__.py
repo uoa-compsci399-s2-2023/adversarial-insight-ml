@@ -9,10 +9,9 @@ adversarial attacks. This module is the entry point for the package.
 
 # Import all individual modules (.py) within pacakge
 from .attack import *
-from .evaluate import *
+from .evaluation import *
 from .load_data import *
 from .surrogate_model import *
-from .test_accuracy import *
 
 # Define package-wide variables
 __version__ = "0.0.4"
@@ -21,10 +20,9 @@ __doc__ = "Adversarial Insight ML is a package that provides evaluation of ML mo
 # List of symbols to be imported when using "from package import *"
 __all__ = [
     "attack",
-    "evaluate",
+    "evaluation",
     "load_data",
     "surrogate_model",
-    "test_accuracy",
 ]
 
 

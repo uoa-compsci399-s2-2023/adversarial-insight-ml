@@ -7,7 +7,7 @@ PyTorch classifier model, and returns respecitve accuracies in a list.
 
 
 import torch
-from test_accuracy.test_accuracy import test_accuracy
+from aiml.evaluation.test_accuracy import test_accuracy
 from torch.utils.data import DataLoader
 from torch.utils.data import TensorDataset
 from attack.adversarial_attacks import * 

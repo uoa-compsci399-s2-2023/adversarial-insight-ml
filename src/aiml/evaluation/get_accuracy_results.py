@@ -13,7 +13,7 @@ from load_data.load_model import load_model
 from load_data.load_test_set import load_test_set
 from load_data.generate_parameter import generate_parameter
 from attack.test_white_box import *
-from test_accuracy.test_accuracy import test_accuracy
+from aiml.evaluation.test_accuracy import test_accuracy
 from surrogate_model.create_surrogate_model import create_surrogate_model
 
 
