@@ -9,12 +9,12 @@ in a list format.
 
 import torch
 from art.estimators.classification import PyTorchClassifier
-from load_data.load_model import load_model
-from load_data.load_test_set import load_test_set
-from load_data.generate_parameter import generate_parameter
-from attack.test_white_box import *
+from aiml.load_data.load_model import load_model
+from aiml.load_data.load_test_set import load_test_set
+from aiml.load_data.generate_parameter import generate_parameter
+from aiml.attack.test_white_box import *
 from aiml.evaluation.test_accuracy import test_accuracy
-from surrogate_model.create_surrogate_model import create_surrogate_model
+from aiml.surrogate_model.create_surrogate_model import create_surrogate_model
 
 
 def get_accuracy_results(

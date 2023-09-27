@@ -14,8 +14,8 @@ from pytorch_lightning.callbacks import LearningRateMonitor
 from pytorch_lightning.loggers import TensorBoardLogger
 from torch.utils.data import DataLoader
 
-from surrogate_model.models import LogSoftmaxModule, Surrogate, create_vgg16_bn_cifar10
-from surrogate_model.utils import (
+from aiml.surrogate_model.models import LogSoftmaxModule, Surrogate, create_vgg16_bn_cifar10
+from aiml.surrogate_model.utils import (
     choose_dataset,
     cifar10_normalize_values,
     inverse_normalize,

@@ -7,7 +7,7 @@ them (low, medium, high.)
 """
 
 
-from evaluate.get_accuracy_results import get_accuracy_results
+from aiml.evaluation.get_accuracy_results import get_accuracy_results
 
 
 # Returns average in a percentage, of given float list
