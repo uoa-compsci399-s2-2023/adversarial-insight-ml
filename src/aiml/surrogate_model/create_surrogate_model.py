@@ -18,7 +18,7 @@ from aiml.surrogate_model.models import LogSoftmaxModule, Surrogate, create_vgg1
 from aiml.surrogate_model.utils import load_cifar10
 
 
-def create_surrogate_model(model):
+def create_surrogate_model(model, dataset):
     """Create and train a surrogate model for CIFAR-10 dataset using PyTorch Lightning."""
     NUM_WORKERS = int(os.cpu_count() / 2)
     BATCH_SIZE = 256
@@ -37,7 +37,8 @@ def create_surrogate_model(model):
 
     # The model does not output normalized outputs.
     oracle = LogSoftmaxModule(model)
-    substitute = create_vgg16_bn_cifar10()  # Using the PyTorch implementation
+    # Using the PyTorch implementation
+    substitute = create_vgg16_bn_cifar10(len(dataset.classes))
     # Check the cell above. Note that without log function. The loss doesn't seem correct.
     loss_fn = nn.KLDivLoss(reduction="batchmean", log_target=True)
 

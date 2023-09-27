@@ -19,9 +19,9 @@ import torchvision as tv
 from torchmetrics import Accuracy
 
 
-def create_vgg16_bn_cifar10():
+def create_vgg16_bn_cifar10(num_classes):
     """VGG16 BN model for CIFAR10"""
-    model = tv.models.vgg16_bn(weights=None, num_classes=10)
+    model = tv.models.vgg16_bn(weights=None, num_classes=num_classes)
     model.features[0] = nn.Conv2d(
         3, 64, kernel_size=3, stride=1, padding=1, bias=False)
     model.features[4] = nn.Identity()
