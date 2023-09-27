@@ -28,6 +28,8 @@ def test_accuracy(model, dataloader, device):
 
     # Disable gradient calculation for inference
     with torch.no_grad():
+        model = model.to(device)
+
         # Iterate through batches in the DataLoader
         for batch in dataloader:
             x, y = batch
