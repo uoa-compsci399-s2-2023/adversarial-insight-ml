@@ -15,15 +15,10 @@ from pytorch_lightning.loggers import TensorBoardLogger
 from torch.utils.data import DataLoader
 
 from aiml.surrogate_model.models import LogSoftmaxModule, Surrogate, create_vgg16_bn_cifar10
-from aiml.surrogate_model.utils import (
-    choose_dataset,
-    cifar10_normalize_values,
-    inverse_normalize,
-    load_cifar10,
-)
+from aiml.surrogate_model.utils import load_cifar10
 
 
-def create_surrogate_model(model: nn.Module) -> Surrogate:
+def create_surrogate_model(model):
     """Create and train a surrogate model for CIFAR-10 dataset using PyTorch Lightning."""
     NUM_WORKERS = int(os.cpu_count() / 2)
     BATCH_SIZE = 256
@@ -52,7 +47,7 @@ def create_surrogate_model(model: nn.Module) -> Surrogate:
     )
     num_training_batches = len(dataloader_train)
 
-    # NOTE: `num_training_batches` is used by LRSchedular. 
+    # NOTE: `num_training_batches` is used by LRSchedular.
     # It Cannot be loaded dynamically due to a bug in PyTorch Lightning
     surrogate_module = Surrogate(
         lr=LEARNING_RATE,
@@ -72,9 +67,11 @@ def create_surrogate_model(model: nn.Module) -> Surrogate:
         callbacks=[LearningRateMonitor(logging_interval="step")],
         # fast_dev_run=True,
     )
+
     trainer.fit(
         surrogate_module,
         train_dataloaders=dataloader_train,
         val_dataloaders=dataloader_test,
     )
+
     return surrogate_module
