@@ -8,10 +8,10 @@ adversarial attacks. This module is the entry point for the package.
 
 
 # Import all individual modules (.py) within pacakge
-from .attack import *
-from .evaluation import *
-from .load_data import *
-from .surrogate_model import *
+from . import attack
+from . import evaluation
+from . import load_data
+from . import surrogate_model
 
 # Define package-wide variables
 __version__ = "0.0.4"
