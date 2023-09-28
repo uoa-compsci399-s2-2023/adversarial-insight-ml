@@ -36,7 +36,7 @@ def get_accuracy_results(
     model = load_model(input_model)
 
     # Create and load surrogate model
-    model = create_surrogate_model(model, input_train_data)
+    model = create_surrogate_model(model, input_test_data)
 
     if input_train_data != None:
         dataset_train = load_test_set(input_train_data)
