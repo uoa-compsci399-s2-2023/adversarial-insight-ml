@@ -14,7 +14,7 @@ with open('requirements.txt') as f:
 
 setup(
     name='adversarial-insight-ml',
-    version='0.1.0',
+    version='0.1.1',
     author='Team 7',
     description='An evaluation tool for ML models defense against adversarial attack',
     long_description=open('README.md').read(),  # Show README.md on PyPI page
