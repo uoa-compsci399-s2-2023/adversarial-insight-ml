@@ -35,7 +35,7 @@ def generate_parameter(input_shape, clip_values, nb_classes, dataset_test, datal
 
     # Define clip_values from dataloader_test if not given as parameter
     if clip_values is None:
-        clip_values = global_min, global_max
+        global_min, global_max = find_clip_range(dataloader_test)
         print(f'Min: {global_min}, Max: {global_max}')
 
     # Calculate nb_classes from dataset_test if not given as parameter
