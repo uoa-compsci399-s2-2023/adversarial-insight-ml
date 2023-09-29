@@ -55,5 +55,3 @@ src/aiml/test_c.py
 *.rst
 conf.py
 !_build/html/
-your_additional_directory/
-another_file_to_exclude.txt
