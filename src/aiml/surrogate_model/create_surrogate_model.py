@@ -5,16 +5,22 @@ This module creates surrogate models for black-box attacks.
 """
 
 
-import pytorch_lightning as pl
 import torch
 import torch.nn as nn
-from pytorch_lightning.callbacks import LearningRateMonitor
+import pytorch_lightning as pl
 from pytorch_lightning.loggers import TensorBoardLogger
+from pytorch_lightning.callbacks import LearningRateMonitor
 
-from aiml.surrogate_model.models import LogSoftmaxModule, Surrogate, create_vgg16_bn_cifar10
+from aiml.surrogate_model.models import (
+    LogSoftmaxModule,
+    Surrogate,
+    create_vgg16_bn_cifar10,
+)
 
 
-def create_surrogate_model(model: nn.Module,dataloader_train,dataloader_test) -> Surrogate:
+def create_surrogate_model(
+    model: nn.Module, dataloader_train, dataloader_test
+) -> Surrogate:
     """Create and train a surrogate model for CIFAR-10 dataset using PyTorch Lightning."""
     MAX_EPOCHS = 50
     LEARNING_RATE = 0.0005
@@ -27,12 +33,13 @@ def create_surrogate_model(model: nn.Module,dataloader_train,dataloader_test) ->
     # The model does not output normalized outputs.
     oracle = LogSoftmaxModule(model)
     substitute = create_vgg16_bn_cifar10()  # Using the PyTorch implementation
+    
     # Check the cell above. Note that without log function. The loss doesn't seem correct.
     loss_fn = nn.KLDivLoss(reduction="batchmean", log_target=True)
 
     num_training_batches = len(dataloader_train)
 
-    # NOTE: `num_training_batches` is used by LRSchedular. 
+    # NOTE: `num_training_batches` is used by LRSchedular.
     # It Cannot be loaded dynamically due to a bug in PyTorch Lightning
     surrogate_module = Surrogate(
         lr=LEARNING_RATE,
