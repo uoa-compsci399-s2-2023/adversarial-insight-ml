@@ -51,13 +51,9 @@ __pycache__/
 *.DS_Store
 src/aiml/test_c.py
 
-# Ignore Sphinx source files and configuration
+# Docs
 *.rst
 conf.py
-
-# Do NOT ignore Sphinx-generated HTML documentation
 !_build/html/
-
-# Exclude other unnecessary files and directories
 your_additional_directory/
 another_file_to_exclude.txt
