@@ -35,21 +35,12 @@ def create_surrogate_model(model: nn.Module,dataloader_train,dataloader_test) ->
     if str(device) == "cuda:0":
         torch.set_float32_matmul_precision("high")
 
-    #dataset_test = load_cifar10(train=False, require_normalize=True)
-    #dataloader_test = DataLoader(
-        #dataset_test, batch_size=BATCH_SIZE, shuffle=False, num_workers=NUM_WORKERS
-    #)
-
     # The model does not output normalized outputs.
     oracle = LogSoftmaxModule(model)
     substitute = create_vgg16_bn_cifar10()  # Using the PyTorch implementation
     # Check the cell above. Note that without log function. The loss doesn't seem correct.
     loss_fn = nn.KLDivLoss(reduction="batchmean", log_target=True)
 
-    #sub_train = load_cifar10(train=True, require_normalize=True)
-    #dataloader_train = DataLoader(
-        #sub_train, batch_size=BATCH_SIZE, shuffle=True, num_workers=NUM_WORKERS
-    #)
     num_training_batches = len(dataloader_train)
 
     # NOTE: `num_training_batches` is used by LRSchedular. 
@@ -70,7 +61,6 @@ def create_surrogate_model(model: nn.Module,dataloader_train,dataloader_test) ->
             "logs", name="surrogate_cifar10", default_hp_metric=False
         ),
         callbacks=[LearningRateMonitor(logging_interval="step")],
-        # fast_dev_run=True,
     )
     trainer.fit(
         surrogate_module,
