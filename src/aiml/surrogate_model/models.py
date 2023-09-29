@@ -10,20 +10,19 @@ file are used in the "create_surrogate_model.py" file.
 
 from typing import Callable
 
-import pytorch_lightning as pl
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 import torchvision as tv
+import pytorch_lightning as pl
 from torchmetrics import Accuracy
 
 
 def create_vgg16_bn_cifar10(num_classes):
     """VGG16 BN model for CIFAR10"""
     model = tv.models.vgg16_bn(weights=None, num_classes=num_classes)
-    model.features[0] = nn.Conv2d(
-        3, 64, kernel_size=3, stride=1, padding=1, bias=False)
+    model.features[0] = nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1, bias=False)
     model.features[4] = nn.Identity()
     return model
 
@@ -89,9 +88,7 @@ class Surrogate(pl.LightningModule):
         self.log(f"val_acc", acc)
         self.log(f"val_match", match_oracle)
 
-    def predict_step(
-        self, batch, batch_idx, dataloader_idx=0
-    ):
+    def predict_step(self, batch, batch_idx, dataloader_idx=0):
         x, _ = batch
         out = self(x)
         return out
@@ -135,9 +132,7 @@ class LogSoftmaxModule(pl.LightningModule):
         x = F.log_softmax(x, dim=1)
         return x
 
-    def predict_step(
-        self, batch, batch_idx, dataloader_idx=0
-    ):
+    def predict_step(self, batch, batch_idx, dataloader_idx=0):
         x, _ = batch
         out = self(x)
         return out
