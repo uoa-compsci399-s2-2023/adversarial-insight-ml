@@ -17,6 +17,7 @@ from aiml.evaluation.dynamic import decide_attack
 from aiml.load_data.train import train_model
 from aiml.surrogate_model.create_surrogate_model import create_surrogate_model
 
+
 def evaluate(
     input_model,
     input_train_data=None,
@@ -47,7 +48,7 @@ def evaluate(
         return None
 
     dataset_test, dataloader_test = load_test_set(input_test_data, batch_size_test)
-    model=create_surrogate_model(model,dataloader_train,dataloader_test)
+    model = create_surrogate_model(model, dataloader_train, dataloader_test)
     input_shape, clip_values, nb_classes = generate_parameter(
         input_shape, clip_values, nb_classes, dataset_test, dataloader_test
     )
@@ -67,18 +68,18 @@ def evaluate(
         nb_classes=nb_classes,
     )
 
-
     result_list = [0]
     b = True
-    current_attack_n,para_n,current_attack,b ,overall_mark= decide_attack(result_list,classifier)
+    current_attack_n, para_n, current_attack, b, overall_mark = decide_attack(
+        result_list, classifier
+    )
 
     while b:
-        result_list[0]=overall_mark
+        result_list[0] = overall_mark
         result_list += [
             [
                 current_attack_n,
                 para_n,
-
                 test_white_box_attack(
                     current_attack,
                     model,
@@ -87,11 +88,13 @@ def evaluate(
                     batch_size_attack,
                     num_threads_attack,
                     device,
-                    nb_classes
+                    nb_classes,
                 ),
             ]
         ]
         print(result_list)
-        
-        current_attack_n,para_n,current_attack,b ,overall_mark= decide_attack(result_list,classifier)
+
+        current_attack_n, para_n, current_attack, b, overall_mark = decide_attack(
+            result_list, classifier
+        )
     print(result_list)
