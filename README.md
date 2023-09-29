@@ -26,7 +26,11 @@
   <a href="https://github.com/psf/black">
     <img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="Code style" />
   </a>
+  <a href="https://uoa-compsci399-s2-2023.github.io/capstone-project-team-7/">
+    <img src="https://img.shields.io/badge/Documentation-Click%20Here-blue.svg" alt="Documentation" />
+  </a>
 </p>
+
 
 > “Why does your machine lie?”
 
