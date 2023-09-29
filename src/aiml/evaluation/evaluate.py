@@ -1,21 +1,22 @@
 """
 evaluate.py
 
-This module provides the evaluate function which will call functions to 
-apply all appropriate attacks, and determine a risk evaluation based on 
-them (low, medium, high.)
+This module provides the evaluate function which will evaluate the model
+with the given data and attack methods.
 """
 
 
-from aiml.evaluation.get_accuracy_results import get_accuracy_results
+import torch
+from art.estimators.classification import PyTorchClassifier
+from aiml.load_data.load_model import load_model
+from aiml.load_data.load_test_set import load_test_set
+from aiml.load_data.generate_parameter import generate_parameter
+from aiml.attack.test_white_box import test_white_box_attack
+from aiml.evaluation.test_accuracy import test_accuracy
+from aiml.evaluation.dynamic import decide_attack
+from aiml.surrogate_model.create_surrogate_model import create_surrogate_model
 
 
-# Returns average in a percentage, of given float list
-def calculate_average(result_list):
-    return (sum(result_list) / len(result_list)) / 100
-
-
-# Main function for evaluating a model
 def evaluate(
     input_model,
     input_train_data=None,
@@ -24,44 +25,75 @@ def evaluate(
     clip_values=None,
     nb_classes=None,
     batch_size_attack=64,
-    num_threads_attack=8,
+    num_threads_attack=0,
     batch_size_train=64,
     batch_size_test=64,
 ):
-    # Call other modules to perform attacks and receive accuracy
-    risk_levels = ["LOW", "MEDIUM", "HIGH"]
-    risk_eval = risk_levels[2]  # Default risk evaluation is high
+    # Load model and data
+    device = torch.device(
+        "cuda:0" if torch.cuda.is_available() else "cpu"  # Enable GPU if possible
+    )
+    model = load_model(input_model, device)
 
-    result_list = get_accuracy_results(
-        input_model,
-        input_train_data,
-        input_test_data,
-        input_shape,
-        clip_values,
-        nb_classes,
-        batch_size_attack,
-        num_threads_attack,
-        batch_size_train,
-        batch_size_test,
+    if input_train_data != None:
+        dataset_train, dataloader_train = load_test_set(
+            input_train_data, batch_size_train
+        )
+    else:
+        print("no training data")
+
+    if input_test_data == None:
+        print("please input test_data")
+        return None
+
+    dataset_test, dataloader_test = load_test_set(input_test_data, batch_size_test)
+    model = create_surrogate_model(model, dataloader_train, dataloader_test)
+    input_shape, clip_values, nb_classes = generate_parameter(
+        input_shape, clip_values, nb_classes, dataset_test, dataloader_test
     )
 
-    # Algorithm to determine risk evaluation
-    white_box_average = calculate_average(result_list)
-    if white_box_average >= 90:
-        risk_eval = risk_levels[0]
-    elif white_box_average >= 70:
-        risk_eval = risk_levels[1]
-    else:
-        risk_eval = risk_levels[2]
+    if input_train_data != None:
+        acc_train = test_accuracy(model, dataloader_train, device)
+        print(f"Train accuracy: {acc_train * 100:.2f}")
+    acc_test = test_accuracy(model, dataloader_test, device)
+    print(f"Test accuracy:  {acc_test * 100:.2f}")
 
-    # Craft summary result string for return
+    classifier = PyTorchClassifier(
+        model=model,
+        clip_values=clip_values,
+        loss=None,
+        optimizer=None,
+        input_shape=input_shape,
+        nb_classes=nb_classes,
+    )
+
+    result_list = [0]
+    b = True
+    current_attack_n, para_n, current_attack, b, overall_mark = decide_attack(
+        result_list, classifier
+    )
+
+    while b:
+        result_list[0] = overall_mark
+        result_list += [
+            [
+                current_attack_n,
+                para_n,
+                test_white_box_attack(
+                    current_attack,
+                    model,
+                    classifier,
+                    dataset_test,
+                    batch_size_attack,
+                    num_threads_attack,
+                    device,
+                    nb_classes,
+                ),
+            ]
+        ]
+        print(result_list)
+
+        current_attack_n, para_n, current_attack, b, overall_mark = decide_attack(
+            result_list, classifier
+        )
     print(result_list)
-    evaluation_summary = (
-        " === Risk Evaluation Summary === \n"
-        "Average accuracy for white box attacks: {:.1%}\n"
-        "Risk level of the model is {}.\n"
-    ).format(white_box_average, risk_eval)
-
-    print(evaluation_summary)
-
-    return None
