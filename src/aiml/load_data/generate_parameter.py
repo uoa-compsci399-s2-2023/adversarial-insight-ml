@@ -15,7 +15,6 @@ def generate_parameter(
     if input_shape == None:
         (x, y) = next(iter(dataset_test))
         input_shape = np.array(x.size())
-        ##print(f'input_shape: {input_shape}')
 
     if clip_values == None:
         global_min = np.inf
@@ -31,8 +30,6 @@ def generate_parameter(
             global_max = max(torch.max(x).item(), global_max)
         
         clip_values = (global_min, global_max)
-
-        ##print(f'Min: {global_min}, Max: {global_max}')
 
     if nb_classes == None:
         list1 = set([y for _, y in dataset_test])  # use set to get unique classes
