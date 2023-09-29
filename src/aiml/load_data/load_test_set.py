@@ -24,9 +24,12 @@ def load_test_set(test_set, batch_size_test):
     loader = torch.utils.data.DataLoader(
         test_set, batch_size=batch_size_test, shuffle=False
     )
+    
     data = next(iter(loader))
     mean = data[0].mean()
     std = data[0].std()
+
     if mean > 0.1 or mean < -0.1 or std > 1.1 or std < 0.9:
         print("need normalization")
+
     return test_set, loader
