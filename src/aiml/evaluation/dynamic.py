@@ -4,15 +4,7 @@ dynamic.py
 This module provides the decide_attack_order function which will decide 
 the parameter of attacks to be applied.
 """
-from standard_white_box_attack.standard_white_box_test import auto_projected_cross_entropy
-from standard_white_box_attack.standard_white_box_test import auto_projected_difference_logits_ratio
-from standard_white_box_attack.standard_white_box_test import carlini_L0_attack
-from standard_white_box_attack.standard_white_box_test import carlini_L2_attack
-from standard_white_box_attack.standard_white_box_test import carlini_Linf_attack
-from standard_white_box_attack.standard_white_box_test import deep_fool_attack
-from standard_white_box_attack.standard_white_box_test import pixel_attack
-from standard_white_box_attack.standard_white_box_test import square_attack
-from standard_white_box_attack.standard_white_box_test import zoo_attack
+from aiml.attack.adversarial_attacks import *
 
 
 def decide_attack(result_list,classifier):
