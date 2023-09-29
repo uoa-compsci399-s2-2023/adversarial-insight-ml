@@ -3,8 +3,8 @@
     src="./images/aiml_logo.png"
     alt="AIML Logo"
     style="
-      width: 480px;
-      height: 480px;
+      width: 418px;
+      height: 418px;
       max-width: 100%;
       height: auto;
     "
