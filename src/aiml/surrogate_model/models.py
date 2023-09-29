@@ -10,12 +10,12 @@ file are used in the "create_surrogate_model.py" file.
 
 from typing import Callable
 
-import pytorch_lightning as pl
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 import torchvision as tv
+import pytorch_lightning as pl
 from torchmetrics import Accuracy
 
 
@@ -30,7 +30,7 @@ def create_vgg16_bn_cifar10() -> nn.Module:
 class VGG16BNCIFAR10(pl.LightningModule):
     """A PyTorch Lightning module representing a VGG16 model for CIFAR-10 classification.
 
-    This module is designed for training a VGG16 BN model on the CIFAR-10 dataset for image 
+    This module is designed for training a VGG16 BN model on the CIFAR-10 dataset for image
     classification tasks.
 
     Attributes:
