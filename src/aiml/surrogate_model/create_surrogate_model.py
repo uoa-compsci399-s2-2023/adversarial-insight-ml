@@ -18,8 +18,6 @@ from aiml.surrogate_model.models import LogSoftmaxModule, Surrogate, create_vgg1
 
 def create_surrogate_model(model: nn.Module,dataloader_train,dataloader_test) -> Surrogate:
     """Create and train a surrogate model for CIFAR-10 dataset using PyTorch Lightning."""
-    NUM_WORKERS = int(os.cpu_count() / 2)
-    BATCH_SIZE = 256
     MAX_EPOCHS = 50
     LEARNING_RATE = 0.0005
 
