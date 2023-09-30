@@ -17,8 +17,9 @@ from aiml.attack.adversarial_attacks import *
 
 
 def test_white_box_attack(
-    attack_method,
+    attack_n,
     model,
+    classifer
     dataset,
     batch_size_attack,
     num_threads_attack,
@@ -47,7 +48,7 @@ def test_white_box_attack(
         [7, square_attack, [[1], [16], [32]],"square_attack",["batch"]],
         [8, zoo_attack, [[1], [16], [32]],"zoo_attack",["batch"]],
     ]
-    attack = attack_method
+    attack = attack_method_list[attack_n][1]
     X = []
     y = []
 
