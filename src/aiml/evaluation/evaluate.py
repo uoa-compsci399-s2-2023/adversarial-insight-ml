@@ -42,6 +42,8 @@ def evaluate(
         return None
 
     dataset_test, dataloader_test = load_test_set(input_test_data, batch_size_test)
+    if dataset_test==None:
+        return None
     input_shape, clip_values, nb_classes = generate_parameter(
         input_shape, clip_values, nb_classes, dataset_test, dataloader_test
     )
