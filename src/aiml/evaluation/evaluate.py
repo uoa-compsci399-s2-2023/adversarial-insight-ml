@@ -97,7 +97,7 @@ def evaluate(
                 test_white_box_attack(
                     current_attack,
                     model,
-                    classifier,
+                    
                     dataset_test,
                     batch_size_attack,
                     num_threads_attack,
