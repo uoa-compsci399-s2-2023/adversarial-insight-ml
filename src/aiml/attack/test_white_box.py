@@ -18,8 +18,9 @@ from aiml.attack.adversarial_attacks import *
 
 def test_white_box_attack(
     attack_n,
+    para_n,
     model,
-    classifer
+    classifer,
     dataset,
     batch_size_attack,
     num_threads_attack,
@@ -48,7 +49,15 @@ def test_white_box_attack(
         [7, square_attack, [[1], [16], [32]],"square_attack",["batch"]],
         [8, zoo_attack, [[1], [16], [32]],"zoo_attack",["batch"]],
     ]
-    attack = attack_method_list[attack_n][1]
+    para=attack_method_list[attack_n][2][para_n]
+    if len(para)==1:
+        attack = attack_method_list[attack_n][1](classifer,para[0])
+    if len(para)==2:
+        attack = attack_method_list[attack_n][1](classifer,para[0],para[1])
+    if len(para)==3:
+        attack = attack_method_list[attack_n][1](classifer,para[0],para[1],para[2])
+    else:
+        attack = attack_method_list[attack_n][1](classifer,para[0],para[1],para[2],para[3])
     X = []
     y = []
 
@@ -114,19 +123,19 @@ def test_white_box_attack(
             transform = T.ToPILImage()
             orig_img = transform(X_tensor[i])
             advx_img = transform(X_advx_tensor[i])
-            img_path = f"./img"
+            img_path = f"./img/{attack_method_list[attack_n][3]}/{para_n}/{y[i]}/fail"
             if not os.path.exists(img_path):
                 os.makedirs(img_path)
-            orig_img.save(f"{img_path}/fail_label{y[i]}_original_{i}.png", "PNG")
-            advx_img.save(f"{img_path}/fail_label{y[i]}_advers_{i}.png", "PNG")
+            orig_img.save(f"{img_path}/{i}orignial.png", "PNG")
+            advx_img.save(f"{img_path}/{i}advers.png", "PNG")
         else:
             transform = T.ToPILImage()
             orig_img = transform(X_tensor[i])
             advx_img = transform(X_advx_tensor[i])
-            img_path = f"./img"
+            img_path = f"./img/{attack_method_list[attack_n][3]}/{para_n}/{y[i]}/succeed"
             if not os.path.exists(img_path):
                 os.makedirs(img_path)
-            orig_img.save(f"{img_path}/succeed_label{y[i]}_original_{i}.png", "PNG")
-            advx_img.save(f"{img_path}/succeed_label{y[i]}_advers_{i}.png", "PNG")
+            orig_img.save(f"{img_path}/{i}orignial.png", "PNG")
+            advx_img.save(f"{img_path}/{i}advers.png", "PNG")
 
     return acc_advx * 100  # 1.0 represents 100% accuracy
