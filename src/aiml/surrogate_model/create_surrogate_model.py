@@ -26,10 +26,8 @@ def create_substitute(dataloader_train):
     print(num_classes, dataset_size, num_channels, image_size)
 
     if num_classes == 10 and dataset_size == 50000 and num_channels == 3 and image_size == torch.Size([32, 32]):
-        print("cifar10")
         surrogate = create_cifar10_model()
     elif num_classes == 100 and dataset_size == 50000 and num_channels == 3 and image_size == torch.Size([32, 32]):
-        print("cifar100")
         surrogate = create_cifar100_model()
 
     return surrogate
