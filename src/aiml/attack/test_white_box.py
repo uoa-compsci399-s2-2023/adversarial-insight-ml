@@ -52,9 +52,9 @@ def test_white_box_attack(
     para=attack_method_list[attack_n][2][para_n]
     if len(para)==1:
         attack = attack_method_list[attack_n][1](classifer,para[0])
-    if len(para)==2:
+    elif len(para)==2:
         attack = attack_method_list[attack_n][1](classifer,para[0],para[1])
-    if len(para)==3:
+    elif len(para)==3:
         attack = attack_method_list[attack_n][1](classifer,para[0],para[1],para[2])
     else:
         attack = attack_method_list[attack_n][1](classifer,para[0],para[1],para[2],para[3])
