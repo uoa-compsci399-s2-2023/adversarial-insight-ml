@@ -9,7 +9,7 @@ the parameter of attacks to be applied.
 from aiml.attack.adversarial_attacks import *
 
 
-def decide_attack(result_list, classifier):
+def decide_attack(result_list):
     #attack_number,attack_function,attack_parameter_list,attack_name,attack_parameter_name
     attack_method_list = [
         [0, auto_projected_cross_entropy, [[16], [20], [32]],"auto_projected_cross_entropy",["batch"]],
@@ -26,7 +26,6 @@ def decide_attack(result_list, classifier):
         return (
             0,
             0,
-            attack_method_list[0][1](classifier, attack_method_list[0][2][0][0]),
             True,
             0,
         )  # current_attack_n,para,current_attack,b
@@ -61,9 +60,7 @@ def decide_attack(result_list, classifier):
             return (
                 previous_attack_n + 1,
                 next_para_n,
-                attack_method_list[previous_attack_n + 1][1](
-                    classifier, attack_method_list[previous_attack_n + 1][2][0][0]
-                ),
+                
                 True,
                 overall_mark,
                 
@@ -72,7 +69,7 @@ def decide_attack(result_list, classifier):
             return (
                 0,
                 0,
-                attack_method_list[0][1](classifier, attack_method_list[0][2][0][0]),
+                
                 False,
                 0,
             )
@@ -81,10 +78,7 @@ def decide_attack(result_list, classifier):
         return (
             previous_attack_n,
             previous_para_n + 1,
-            attack_method_list[previous_attack_n][1](
-                classifier,
-                attack_method_list[previous_attack_n][2][previous_para_n + 1][0],
-            ),
+            
             True,
             overall_mark,
         )
