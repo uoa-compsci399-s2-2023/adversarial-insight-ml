@@ -85,7 +85,7 @@ def evaluate(
     result_list = [0]
     b = True
     current_attack_n, para_n,  b, overall_mark = decide_attack(
-        result_list, classifier
+        result_list,
     )
 
     while b:
@@ -97,7 +97,7 @@ def evaluate(
                 test_white_box_attack(
                     current_attack_n,
                     model,
-                    
+                    classifier
                     dataset_test,
                     batch_size_attack,
                     num_threads_attack,
@@ -109,6 +109,6 @@ def evaluate(
         print(result_list)
 
         current_attack_n, para_n,  b, overall_mark = decide_attack(
-            result_list, classifier
+            result_list,
         )
     print(result_list)
