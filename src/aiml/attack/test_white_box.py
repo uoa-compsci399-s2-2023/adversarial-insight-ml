@@ -46,6 +46,8 @@ def test_white_box_attack(
     while not enough:
         a, b = dataset[i]
         i += 1
+        if i >= len(dataset) - 1:
+            enough = True
         if require_y[b] <= 0:
             continue
         outputs = model(a)
@@ -66,8 +68,7 @@ def test_white_box_attack(
         if all_zero:
             enough = True
 
-        if i >= len(dataset) - 1:
-            enough = True
+        
 
     X = np.array(X)
     y = np.array(y)
