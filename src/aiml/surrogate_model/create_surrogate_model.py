@@ -15,6 +15,7 @@ from aiml.surrogate_model.models import LogSoftmaxModule, Surrogate, create_cifa
 
 
 def create_substitute(dataloader_train):
+    """Create a substitute model based on training dataloader"""
     num_classes = len(dataloader_train.dataset.classes)
     dataset_size = len(dataloader_train.dataset)
     num_channels = dataloader_train.dataset[0][0].shape[0]
