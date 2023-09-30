@@ -71,7 +71,7 @@ def decide_attack(result_list):
                 0,
                 
                 False,
-                0,
+                overall_mark,
             )
 
     else:
