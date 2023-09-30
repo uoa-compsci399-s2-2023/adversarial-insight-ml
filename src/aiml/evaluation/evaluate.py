@@ -42,17 +42,25 @@ def evaluate(
         return None
 
     dataset_test, dataloader_test = load_test_set(input_test_data, batch_size_test)
+    input_shape, clip_values, nb_classes = generate_parameter(
+        input_shape, clip_values, nb_classes, dataset_test, dataloader_test
+    )
     if input_train_data != None:
         print("you inputted the training data, so we will try making a surrogate model to test attack")
         dataset_train, dataloader_train = load_test_set(
             input_train_data, batch_size_train
         )
+        try:
+            model = create_surrogate_model(model, dataloader_train, dataloader_test)
+            print("succeed in making surrogate model")
+
+        except:
+            print("sorry, we failed in making surrogate model. We will assume the attacker knows all the detail of your model to test")
+            
     else:
-        print("no training data")
-    model = create_surrogate_model(model, dataloader_train, dataloader_test)
-    input_shape, clip_values, nb_classes = generate_parameter(
-        input_shape, clip_values, nb_classes, dataset_test, dataloader_test
-    )
+        print("We will assume the attacker knows all the detail of your model to test")
+    
+    
 
     if input_train_data != None:
         acc_train = test_accuracy(model, dataloader_train, device)
