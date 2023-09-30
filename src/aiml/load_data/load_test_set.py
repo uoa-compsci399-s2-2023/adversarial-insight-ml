@@ -7,8 +7,8 @@ This script is responsible for loading the test dataset for model evaluation.
 
 import torch
 from torchvision import transforms
-from torchvision.datasets import ImageFolder
 
+from surrogate_model.utils import load_cifar10
 
 def load_test_set(test_set, batch_size_test):
     if type(test_set) == type("a"):
