@@ -47,9 +47,12 @@ def evaluate(
     )
     if input_train_data != None:
         print("you inputted the training data, so we will try making a surrogate model to test attack")
-        dataset_train, dataloader_train = load_test_set(
+        dataset_train, dataloader_train = load_train_set(
             input_train_data, batch_size_train
         )
+        if dataset_train==None:
+            return None
+        
         try:
             model = create_surrogate_model(model, dataloader_train, dataloader_test)
             print("succeed in making surrogate model")
