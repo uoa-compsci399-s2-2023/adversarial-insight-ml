@@ -84,7 +84,7 @@ def evaluate(
 
     result_list = [0]
     b = True
-    current_attack_n, para_n, current_attack, b, overall_mark = decide_attack(
+    current_attack_n, para_n,  b, overall_mark = decide_attack(
         result_list, classifier
     )
 
@@ -95,7 +95,7 @@ def evaluate(
                 current_attack_n,
                 para_n,
                 test_white_box_attack(
-                    current_attack,
+                    current_attack_n,
                     model,
                     
                     dataset_test,
@@ -108,7 +108,7 @@ def evaluate(
         ]
         print(result_list)
 
-        current_attack_n, para_n, current_attack, b, overall_mark = decide_attack(
+        current_attack_n, para_n,  b, overall_mark = decide_attack(
             result_list, classifier
         )
     print(result_list)
