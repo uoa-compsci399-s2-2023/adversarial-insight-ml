@@ -10,6 +10,7 @@ import torch
 from art.estimators.classification import PyTorchClassifier
 from aiml.load_data.load_model import load_model
 from aiml.load_data.load_test_set import load_test_set
+from aiml.load_data.load_test_set import load_train_set
 from aiml.load_data.generate_parameter import generate_parameter
 from aiml.attack.test_white_box import test_white_box_attack
 from aiml.evaluation.test_accuracy import test_accuracy
