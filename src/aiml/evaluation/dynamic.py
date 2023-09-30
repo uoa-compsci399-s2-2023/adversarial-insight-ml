@@ -39,7 +39,7 @@ def decide_attack(result_list):
     with open("example.txt", "a") as f:
         f.write(attack_method_list[previous_attack_n][3])
         f.write("    ")
-        for i in range(len(attack_method_list[previous_attack_n][2][previous_para_n]))
+        for i in range(len(attack_method_list[previous_attack_n][2][previous_para_n])):
             f.write(attack_method_list[previous_attack_n][4][i])
             f.write("    ")
             f.write(attack_method_list[previous_attack_n][2][previous_para_n][i])
