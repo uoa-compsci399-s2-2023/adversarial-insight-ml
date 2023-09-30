@@ -2,8 +2,8 @@
 models.py
 
 This module contains utility functions and PyTorch Lightning modules for
-working with the CIFAR-10 dataset. The VGG16 BN model is used as a 
-substitute for the black box model. This functions and classes in this 
+working with the CIFAR-10 dataset. The VGG16 BN model is used as a
+substitute for the black box model. This functions and classes in this
 file are used in the "create_surrogate_model.py" file.
 """
 
@@ -19,9 +19,18 @@ import torchvision as tv
 from torchmetrics import Accuracy
 
 
-def create_vgg16_bn_cifar10(num_classes):
-    """VGG16 BN model for CIFAR10"""
-    model = tv.models.vgg16_bn(weights=None, num_classes=num_classes)
+def create_cifar10_model(num_classes=10):
+    """VGG16 model for CIFAR10"""
+    model = tv.models.vgg16(weights=None, num_classes=num_classes)
+    model.features[0] = nn.Conv2d(
+        3, 64, kernel_size=3, stride=1, padding=1, bias=False)
+    model.features[4] = nn.Identity()
+    return model
+
+
+def create_cifar100_model(num_classes=100):
+    """VGG16 model for CIFAR-100"""
+    model = tv.models.vgg16(weights=None, num_classes=num_classes)
     model.features[0] = nn.Conv2d(
         3, 64, kernel_size=3, stride=1, padding=1, bias=False)
     model.features[4] = nn.Identity()
@@ -40,15 +49,7 @@ class Surrogate(pl.LightningModule):
         accuracy (Accuracy): A metric for computing accuracy during training/validation.
     """
 
-    def __init__(
-        self,
-        lr: float,
-        num_training_batches: int,
-        oracle: nn.Module,
-        substitute: nn.Module,
-        loss_fn: Callable,
-        softmax: bool = True,
-    ):
+    def __init__(self, lr, num_training_batches, oracle, substitute, loss_fn, num_classes, softmax=True):
         super().__init__()
         self.save_hyperparameters(ignore=["oracle", "substitute", "loss_fn"])
 
@@ -58,7 +59,7 @@ class Surrogate(pl.LightningModule):
             param.requires_grad = False
         self.substitute = substitute
         self.loss_fn = loss_fn
-        self.accuracy = Accuracy(task="multiclass", num_classes=10)
+        self.accuracy = Accuracy(task="multiclass", num_classes=num_classes)
 
     def forward(self, x):
         return self.substitute(x)
@@ -113,31 +114,3 @@ class Surrogate(pl.LightningModule):
             "interval": "step",
         }
         return {"optimizer": optimizer, "lr_scheduler": scheduler_dict}
-
-
-class LogSoftmaxModule(pl.LightningModule):
-    """A PyTorch Lightning module that wraps a model and applies LogSoftmax to its output.
-
-    This module is designed to enhance the functionality of an existing neural network model
-    by applying LogSoftmax to its output. It can be used for various machine learning tasks
-    such as classification.
-
-    Attributes:
-        model (nn.Module): The underlying model to wrap with LogSoftmax.
-    """
-
-    def __init__(self, model):
-        super().__init__()
-        self.model = model
-
-    def forward(self, x):
-        x = self.model(x)
-        x = F.log_softmax(x, dim=1)
-        return x
-
-    def predict_step(
-        self, batch, batch_idx, dataloader_idx=0
-    ):
-        x, _ = batch
-        out = self(x)
-        return out
