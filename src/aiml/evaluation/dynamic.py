@@ -49,10 +49,13 @@ def decide_attack(result_list, classifier):
         if previous_acc < 0.4 :
             overall_mark +=  (len(attack_method_list[previous_attack_n][2])-previous_para_n)
         if previous_attack_n < 8:
-            
+            if overall_mark>5 and (overall_mark/len(result_list))>2:
+                next_para_n=1
+            else:
+                next_para_n=0
             return (
                 previous_attack_n + 1,
-                0,
+                next_para_n,
                 attack_method_list[previous_attack_n + 1][1](
                     classifier, attack_method_list[previous_attack_n + 1][2][0][0]
                 ),
