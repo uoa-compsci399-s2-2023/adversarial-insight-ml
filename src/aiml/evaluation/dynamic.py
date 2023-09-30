@@ -45,9 +45,11 @@ def decide_attack(result_list, classifier):
         f.write("\n")
 
     print(previous_acc)
-    if previous_acc < 0.4 or previous_para_n >= 2:
+    if previous_acc < 0.4 or previous_para_n >= len(attack_method_list[previous_attack_n][2]):
+        if previous_acc < 0.4 :
+            overall_mark +=  (len(attack_method_list[previous_attack_n][2])-previous_para_n)
         if previous_attack_n < 8:
-            overall_mark += 1
+            
             return (
                 previous_attack_n + 1,
                 0,
@@ -57,7 +59,7 @@ def decide_attack(result_list, classifier):
                 True,
                 overall_mark,
             )
-        else:
+        else:     #finish
             return (
                 0,
                 0,
