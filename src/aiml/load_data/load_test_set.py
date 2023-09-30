@@ -36,6 +36,7 @@ def load_train_set(test_set, batch_size_test):
             dataset_train =load_cifar10(train=False, require_normalize=True)
         else:
             print("currently we cannot find the dataset you input")
+            return None,None
 
     loader = torch.utils.data.DataLoader(
         test_set, batch_size=batch_size_test, shuffle=False
