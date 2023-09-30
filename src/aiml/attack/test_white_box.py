@@ -36,6 +36,17 @@ def test_white_box_attack(
     """
 
     # Create the attack instance
+    attack_method_list = [
+        [0, auto_projected_cross_entropy, [[16], [20], [32]],"auto_projected_cross_entropy",["batch"]],
+        [1, auto_projected_difference_logits_ratio, [[1], [16], [32]],"auto_projected_difference_logits_ratio",["batch"]],
+        [2, carlini_L0_attack, [[1], [16], [32]],"carlini_L0_attack",["batch"]],
+        [3, carlini_L2_attack, [[1], [16], [32]],"carlini_L2_attack",["batch"]],
+        [4, carlini_Linf_attack, [[1], [16], [32]],"carlini_Linf_attack",["batch"]],
+        [5, deep_fool_attack, [[1], [16], [32]],"deep_fool_attack",["batch"]],
+        [6, pixel_attack, [[None]],"pixel_attack",["th"]],
+        [7, square_attack, [[1], [16], [32]],"square_attack",["batch"]],
+        [8, zoo_attack, [[1], [16], [32]],"zoo_attack",["batch"]],
+    ]
     attack = attack_method
     X = []
     y = []
