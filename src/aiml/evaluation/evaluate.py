@@ -34,6 +34,8 @@ def evaluate(
         "cuda:0" if torch.cuda.is_available() else "cpu"  # Enable GPU if possible
     )
     model = load_model(input_model, device)
+    if model==None:
+        return None
 
     
 
