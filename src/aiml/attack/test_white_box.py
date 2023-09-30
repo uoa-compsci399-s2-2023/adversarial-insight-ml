@@ -12,7 +12,7 @@ from torch.utils.data import DataLoader
 from torch.utils.data import TensorDataset
 import torchvision.transforms as T
 
-from aiml.evaluation.test_accuracy import test_accuracy
+from aiml.evaluation.test_accuracy import test_accuracy2
 from aiml.attack.adversarial_attacks import *
 
 
@@ -93,7 +93,7 @@ def test_white_box_attack(
 
     # Test the model's accuracy on the adversarial examples
     # acc_advx = test_accuracy(model, dataloader_advx, device)
-    acc_advx, correct_advx = test_accuracy(model, dataloader_advx, device)
+    acc_advx, correct_advx = test_accuracy2(model, dataloader_advx, device)
     print(correct_advx, len(correct_advx))
     # generate image
     print(len(correct_advx))
