@@ -37,8 +37,6 @@ def evaluate(
     if model==None:
         return None
 
-    
-
     if input_test_data == None:
         print("please input test_data and try again")
         return None
@@ -55,14 +53,14 @@ def evaluate(
             input_train_data, batch_size_train
         )
         if dataset_train==None:
-            return None
-        
-        try:
-            model = create_surrogate_model(model, dataloader_train, dataloader_test)
-            print("succeed in making surrogate model")
-
-        except:
-            print("sorry, we failed in making surrogate model. We will assume the attacker knows all the detail of your model to test")
+            print("We will assume the attacker knows all the detail of your model to test")
+        else:
+            try:
+                model = create_surrogate_model(model, dataloader_train, dataloader_test)
+                print("succeed in making surrogate model")
+    
+            except:
+                print("sorry, we failed in making surrogate model. We will assume the attacker knows all the detail of your model to test")
             
     else:
         print("We will assume the attacker knows all the detail of your model to test")
