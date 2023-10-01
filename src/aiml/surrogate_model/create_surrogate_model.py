@@ -11,7 +11,7 @@ import torch.nn as nn
 from pytorch_lightning.callbacks import LearningRateMonitor
 from pytorch_lightning.loggers import TensorBoardLogger
 
-from aiml.surrogate_model.models import LogSoftmaxModule, Surrogate, create_cifar10_model, create_cifar100_model
+from aiml.surrogate_model.models import LogSoftmaxModule, Surrogate, create_substitute_model
 
 
 def get_num_classes(dataloader):
@@ -36,9 +36,9 @@ def create_substitute(dataloader_train, num_classes):
     image_size = sample_image.shape[-2:]
 
     if num_classes == 10 and dataset_size == 50000 and num_channels == 3 and image_size == torch.Size([32, 32]):
-        surrogate = create_cifar10_model()
+        surrogate = create_substitute_model(10, 3)
     elif num_classes == 100 and dataset_size == 50000 and num_channels == 3 and image_size == torch.Size([32, 32]):
-        surrogate = create_cifar100_model()
+        surrogate = create_substitute_model(100, 3)
 
     return surrogate
 
