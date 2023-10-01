@@ -41,6 +41,8 @@ def create_substitute(dataloader_train, num_classes):
         surrogate = create_substitute_model(100, 3)
     elif num_classes == 200 and dataset_size == 100000 and num_channels == 3 and image_size == torch.Size([64, 64]):
         surrogate = create_substitute_model(200, 3)
+    elif num_channels == 1:
+        surrogate = create_substitute_model(10,1)
 
     return surrogate
 
