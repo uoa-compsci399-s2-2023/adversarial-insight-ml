@@ -14,17 +14,26 @@ from pytorch_lightning.loggers import TensorBoardLogger
 from aiml.surrogate_model.models import LogSoftmaxModule, Surrogate, create_cifar10_model, create_cifar100_model
 
 
-def create_substitute(dataloader_train):
+def get_num_classes(dataloader):
+    """Get number of classes from a dataloader"""
+    try:
+        return len(dataloader.dataset.classes)
+    except:
+        unique_labels = set()
+        for batch in dataloader:
+            _, labels = batch
+            unique_labels.update(labels.numpy().tolist())
+        return len(unique_labels)
+
+
+def create_substitute(dataloader_train, num_classes):
     """Create a substitute model based on training dataloader"""
-    num_classes = len(dataloader_train.dataset.classes)
     dataset_size = len(dataloader_train.dataset)
     num_channels = dataloader_train.dataset[0][0].shape[0]
 
     # Retrieve the image size from the first sample in the dataset
     sample_image, _ = next(iter(dataloader_train))
     image_size = sample_image.shape[-2:]
-
-    print(num_classes, dataset_size, num_channels, image_size)
 
     if num_classes == 10 and dataset_size == 50000 and num_channels == 3 and image_size == torch.Size([32, 32]):
         surrogate = create_cifar10_model()
@@ -36,7 +45,7 @@ def create_substitute(dataloader_train):
 
 def create_surrogate_model(model, dataloader_train, dataloader_test):
     """Create and train a surrogate model using PyTorch Lightning."""
-    MAX_EPOCHS = 25
+    MAX_EPOCHS = 50
     LEARNING_RATE = 0.0005
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -46,7 +55,9 @@ def create_surrogate_model(model, dataloader_train, dataloader_test):
 
     oracle = LogSoftmaxModule(model)
 
-    substitute = create_substitute(dataloader_train)
+    num_classes = get_num_classes(dataloader_train)
+
+    substitute = create_substitute(dataloader_train, num_classes)
 
     loss_fn = nn.KLDivLoss(reduction="batchmean", log_target=True)
 
@@ -58,7 +69,7 @@ def create_surrogate_model(model, dataloader_train, dataloader_test):
         oracle=oracle,
         substitute=substitute,
         loss_fn=loss_fn,
-        num_classes=len(dataloader_train.dataset.classes),
+        num_classes=num_classes,
         softmax=True
     )
 
