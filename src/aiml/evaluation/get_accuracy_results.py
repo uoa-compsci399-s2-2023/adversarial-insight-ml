@@ -35,9 +35,6 @@ def get_accuracy_results(
     )
     model = load_model(input_model)
 
-    # Create and load surrogate model
-    model = create_surrogate_model(model, input_test_data)
-
     if input_train_data != None:
         dataset_train = load_test_set(input_train_data)
         dataloader_train = torch.utils.data.DataLoader(
@@ -54,6 +51,11 @@ def get_accuracy_results(
     input_shape, clip_values, nb_classes = generate_parameter(
         input_shape, clip_values, nb_classes, dataset_test, dataloader_test
     )
+
+    if input_test_data:
+        # Create and load surrogate model
+        model = create_surrogate_model(
+            model, dataloader_train, dataloader_test)
 
     if input_train_data != None:
         acc_train = test_accuracy(model, dataloader_train, device)
