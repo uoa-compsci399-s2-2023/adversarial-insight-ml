@@ -35,7 +35,7 @@ def create_substitute(dataloader_train):
 
 
 def create_surrogate_model(model, dataloader_train, dataloader_test):
-    """Create and train a surrogate model for CIFAR-10 dataset using PyTorch Lightning."""
+    """Create and train a surrogate model using PyTorch Lightning."""
     MAX_EPOCHS = 25
     LEARNING_RATE = 0.0005
 
