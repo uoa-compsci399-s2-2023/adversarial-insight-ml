@@ -17,9 +17,18 @@ import torchvision as tv
 from torchmetrics import Accuracy
 
 
-def create_substitude_model(num_classes):
+def create_cifar10_model():
     """Create the substitute model as VGG 16"""
-    model = tv.models.vgg16(weights=None, num_classes=num_classes)
+    model = tv.models.vgg16(weights=None, num_classes=10)
+    model.features[0] = nn.Conv2d(
+        3, 64, kernel_size=3, stride=1, padding=1, bias=False)
+    model.features[4] = nn.Identity()
+    return model
+
+
+def create_cifar100_model():
+    """Create the substitute model as VGG 16"""
+    model = tv.models.vgg16(weights=None, num_classes=100)
     model.features[0] = nn.Conv2d(
         3, 64, kernel_size=3, stride=1, padding=1, bias=False)
     model.features[4] = nn.Identity()
