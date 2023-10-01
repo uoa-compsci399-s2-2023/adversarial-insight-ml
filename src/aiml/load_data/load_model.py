@@ -16,4 +16,5 @@ def load_model(model, device):
         except:
             print("we can't find your model")
             return None
+
     return model
