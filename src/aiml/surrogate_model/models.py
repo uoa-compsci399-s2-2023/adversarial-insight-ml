@@ -18,7 +18,7 @@ from torchmetrics import Accuracy
 
 
 def create_cifar10_model():
-    """Create the substitute model as VGG 16"""
+    """Create the substitute model as VGG 16 for CIFAR10"""
     model = tv.models.vgg16(weights=None, num_classes=10)
     model.features[0] = nn.Conv2d(
         3, 64, kernel_size=3, stride=1, padding=1, bias=False)
@@ -27,7 +27,7 @@ def create_cifar10_model():
 
 
 def create_cifar100_model():
-    """Create the substitute model as VGG 16"""
+    """Create the substitute model as VGG 16 for CIFAR100"""
     model = tv.models.vgg16(weights=None, num_classes=100)
     model.features[0] = nn.Conv2d(
         3, 64, kernel_size=3, stride=1, padding=1, bias=False)
