@@ -1,7 +1,8 @@
 """
 test_accuracy.py
 
-This module defines a function for calculating the accuracy of a given dataset on a model.
+This module defines a function for calculating the accuracy of a given 
+dataset on a model.
 """
 
 
@@ -30,11 +31,12 @@ def test_accuracy(model, dataloader, device):
             confidence, predictions = torch.max(outputs, 1)
             predictions = predictions.to("cpu")
 
-            # generates a tensor giving True for correct classification and False otherwise
+            # generates a tensor giving True for correct classification
+            # and False otherwise
             correct_bool = predictions == y
             total += y.size(0)
             correct += correct_bool.sum().item()
             correct_image_bool.append(correct_bool.tolist())
-            
+
     accuracy = correct / total
     return accuracy, correct_image_bool
