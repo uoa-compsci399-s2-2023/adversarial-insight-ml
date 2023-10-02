@@ -31,6 +31,24 @@ def evaluate(
     batch_size_train=64,
     batch_size_test=64,
 ):
+    """
+    Evaluate the model's performance using the provided data and attack methods.
+
+    Parameters:
+        input_model (str): Path to the trained machine learning model.
+        input_train_data (str, optional): Path to the training data (default is None).
+        input_test_data (str): Path to the test data.
+        input_shape (tuple, optional): Shape of input data (default is None).
+        clip_values (tuple, optional): Range of input data values (default is None).
+        nb_classes (int, optional): Number of classes in the dataset (default is None).
+        batch_size_attack (int, optional): Batch size for attack testing (default is 64).
+        num_threads_attack (int, optional): Number of threads for attack testing (default is 0).
+        batch_size_train (int, optional): Batch size for training data (default is 64).
+        batch_size_test (int, optional): Batch size for test data (default is 64).
+
+    Returns:
+        None.
+    """
     # Load model and data
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     model = load_model(input_model, device)
