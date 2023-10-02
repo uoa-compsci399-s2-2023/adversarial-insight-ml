@@ -17,7 +17,7 @@ from aiml.evaluation.test_accuracy import test_accuracy_with_flags
 from aiml.attack.adversarial_attacks import *
 
 
-def test_white_box_attack(
+def test_attack(
     attack_n,
     para_n,
     model,
