@@ -13,7 +13,7 @@ from aiml.load_data.load_model import load_model
 from aiml.load_data.load_test_set import load_test_set
 from aiml.load_data.load_test_set import load_train_set
 from aiml.load_data.generate_parameter import generate_parameter
-from aiml.attack.test_white_box import test_white_box_attack
+from aiml.attack.test_attack import test_white_box_attack
 from aiml.evaluation.test_accuracy import test_accuracy
 from aiml.evaluation.dynamic import decide_attack
 from aiml.surrogate_model.create_surrogate_model import create_surrogate_model
