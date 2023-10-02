@@ -1,5 +1,5 @@
 """
-test_white_box.py
+test_attack.py
 
 This module contains functions for testing white-box attack methods on a
 PyTorch classifier model, and returns respecitve accuracies in a list.
