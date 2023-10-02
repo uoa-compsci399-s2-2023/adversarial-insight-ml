@@ -9,39 +9,30 @@ import torch
 import numpy as np
 
 
-def find_clip_range(dataloader_test):
-    """Return the range of a dataset."""
-    global_min = float('inf')
-    global_max = float('-inf')
-    s = 0
-    n = 0
-    b = True
-    for batch in dataloader_test:
-        x, _ = batch
-        if b:
-            print(batch)
-            b = False
-        global_min = min(torch.min(x).item(), global_min)
-        global_max = max(torch.max(x).item(), global_max)
-    return global_min, global_max
-
-
-def generate_parameter(input_shape, clip_values, nb_classes, dataset_test, dataloader_test):
-    # Get input_shape from dataset_test if not given as parameter
-    if input_shape is None:
+def generate_parameter(
+    input_shape, clip_values, nb_classes, dataset_test, dataloader_test
+):
+    if input_shape == None:
         (x, y) = next(iter(dataset_test))
-        input_shape = tuple(np.array(x.size()))
-        print(f'input_shape: {input_shape}')
+        input_shape = np.array(x.size())
 
-    # Define clip_values from dataloader_test if not given as parameter
-    if clip_values is None:
-        global_min, global_max = find_clip_range(dataloader_test)
-        print(f'Min: {global_min}, Max: {global_max}')
+    if clip_values == None:
+        global_min = np.inf
+        global_max = (-1) * np.inf
+        s = 0
+        n = 0
+        b = True
+        for batch in dataloader_test:
+            x, _ = batch
+            if b:
+                b = False
+            global_min = min(torch.min(x).item(), global_min)
+            global_max = max(torch.max(x).item(), global_max)
+        
+        clip_values = (global_min, global_max)
 
-    # Calculate nb_classes from dataset_test if not given as parameter
-    if nb_classes is None:
-        # Use set to get unique classes
-        unique_classes = set(y for _, y in dataset_test)
-        nb_classes = len(unique_classes)
-
-    return input_shape, clip_values, nb_classes
+    if nb_classes == None:
+        list1 = set([y for _, y in dataset_test])  # use set to get unique classes
+        nb_classes = len(list1)
+    
+    return (input_shape, clip_values, nb_classes)
