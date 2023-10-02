@@ -52,8 +52,3 @@ __pycache__/
 .DS_Store
 *.DS_Store
 src/aiml/test_c.py
-
-# Docs
-*.rst
-conf.py
-!_build/html/
