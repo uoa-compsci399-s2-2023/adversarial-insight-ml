@@ -40,20 +40,10 @@ def test_white_box_attack(
 
     # Create the attack instance
     attack_method_list = [
-        [
-            0,
-            auto_projected_cross_entropy,
-            [[16], [20], [32]],
-            "auto_projected_cross_entropy",
-            ["batch"],
-        ],
-        [
-            1,
-            auto_projected_difference_logits_ratio,
-            [[1], [16], [32]],
-            "auto_projected_difference_logits_ratio",
-            ["batch"],
-        ],
+        [0, auto_projected_cross_entropy, [[16], [20], [32]],
+         "auto_projected_cross_entropy", ["batch"]],
+        [1, auto_projected_difference_logits_ratio, [[1], [16], [32]],
+         "auto_projected_difference_logits_ratio", ["batch"]],
         [2, carlini_L0_attack, [[1], [16], [32]], "carlini_L0_attack", ["batch"]],
         [3, carlini_L2_attack, [[1], [16], [32]], "carlini_L2_attack", ["batch"]],
         [4, carlini_Linf_attack, [[1], [16], [32]], "carlini_Linf_attack", ["batch"]],
@@ -62,6 +52,8 @@ def test_white_box_attack(
         [7, square_attack, [[1], [16], [32]], "square_attack", ["batch"]],
         [8, zoo_attack, [[1], [16], [32]], "zoo_attack", ["batch"]],
     ]
+
+
     para = attack_method_list[attack_n][2][para_n]
     if len(para) == 1:
         attack = attack_method_list[attack_n][1](classifer, para[0])
