@@ -7,12 +7,12 @@ with the given data and attack methods.
 
 
 import torch
+import os
+from torch.utils.data import DataLoader
 from art.estimators.classification import PyTorchClassifier
 
-from aiml.load_data.load_model import load_model
-from aiml.load_data.load_test_set import load_test_set
-from aiml.load_data.load_test_set import load_train_set
 from aiml.load_data.generate_parameter import generate_parameter
+from aiml.load_data.normalize_dataset import normalize_dataset
 from aiml.attack.test_attack import test_attack
 from aiml.evaluation.test_accuracy import test_accuracy
 from aiml.evaluation.dynamic import decide_attack
@@ -21,8 +21,8 @@ from aiml.surrogate_model.create_surrogate_model import create_surrogate_model
 
 def evaluate(
     input_model,
+    input_test_data,
     input_train_data=None,
-    input_test_data=None,
     input_shape=None,
     clip_values=None,
     nb_classes=None,
@@ -30,6 +30,7 @@ def evaluate(
     num_threads_attack=0,
     batch_size_train=64,
     batch_size_test=64,
+    num_workers=int(os.cpu_count() / 2)
 ):
     """
     Evaluate the model's performance using the provided data and attack methods.
@@ -51,49 +52,53 @@ def evaluate(
     """
     # Load model and data
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    model = load_model(input_model, device)
-    if model == None:
-        return None
 
-    if input_test_data == None:
-        print("Please input test_data and try again")
-        return None
+    model = input_model.to(device)
 
-    dataset_test, dataloader_test = load_test_set(input_test_data, batch_size_test)
-    if dataset_test == None:
-        return None
+    if input_train_data:
+        print("Including a training dataset will create a surrogate model. This may take a long time.")
+        user_response = input(
+            "Do you want to proceed? (Yes/No): ").strip().lower()
+
+        responded = False
+        while not responded:
+            if user_response in ["y", "yes", ""]:
+                responded = True
+                print("Creating the surrogate model...")
+
+                try:
+                    dataset_train, dataset_test = normalize_dataset(
+                        input_train_data, input_test_data)
+
+                    dataloader_train = DataLoader(
+                        dataset_train, batch_size=batch_size_train, shuffle=True, num_workers=num_workers)
+
+                    dataloader_test = DataLoader(
+                        dataset_train, batch_size=batch_size_test, shuffle=False, num_workers=num_workers)
+
+                    model = create_surrogate_model(
+                        model, dataloader_train, dataloader_test)
+                    print("Surrogate model created successfully.")
+
+                except:
+                    raise Exception("Failed to create surrogate model.")
+
+            elif user_response in ["n", "no"]:
+                raise Exception(
+                    "Model creation aborted. No testing dataset included")
+
+            else:
+                user_response = input(
+                    "Invalid Input. Please enter Yes or No: ").strip().lower()
+
     input_shape, clip_values, nb_classes = generate_parameter(
         input_shape, clip_values, nb_classes, dataset_test, dataloader_test
     )
-    if input_train_data != None:
-        print(
-            "You input the training data, so we will try making a surrogate model to test attack"
-        )
-        dataset_train, dataloader_train = load_train_set(
-            input_train_data, batch_size_train
-        )
-        if dataset_train == None:
-            print(
-                "We will assume the attacker knows all the detail of your model to test"
-            )
-        else:
-            try:
-                model = create_surrogate_model(model, dataloader_train, dataloader_test)
-                print("succeed in making surrogate model")
 
-            except:
-                print(
-                    "sorry, we failed in making surrogate model. " 
-                    "We will assume the attacker knows all the detail of your model to test."
-                )
-
-    else:
-        print("We will assume the attacker knows all the detail of your model to test")
-
-    if input_train_data != None:
+    if input_train_data:
         acc_train = test_accuracy(model, dataloader_train, device)
         print(f"Train accuracy: {acc_train * 100:.2f}")
-        
+
     acc_test = test_accuracy(model, dataloader_test, device)
     print(f"Test accuracy:  {acc_test * 100:.2f}")
 
