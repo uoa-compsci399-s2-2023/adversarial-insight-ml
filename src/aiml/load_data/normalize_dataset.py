@@ -1,3 +1,10 @@
+"""
+normalize_dataset.py
+
+This module provides functions for calculating the mean and standard deviation of image channels 
+in a dataset and normalizing the training and testing datasets using the calculated values.
+"""
+
 import torch
 import torchvision.transforms as T
 
