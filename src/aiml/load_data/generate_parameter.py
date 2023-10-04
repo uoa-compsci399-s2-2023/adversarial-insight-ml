@@ -28,11 +28,12 @@ def generate_parameter(
                 b = False
             global_min = min(torch.min(x).item(), global_min)
             global_max = max(torch.max(x).item(), global_max)
-        
+
         clip_values = (global_min, global_max)
 
     if nb_classes == None:
-        list1 = set([y for _, y in dataset_test])  # use set to get unique classes
+        # use set to get unique classes
+        list1 = set([y for _, y in dataset_test])
         nb_classes = len(list1)
-    
+
     return (input_shape, clip_values, nb_classes)

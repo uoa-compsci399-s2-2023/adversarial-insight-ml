@@ -27,52 +27,52 @@ def decide_attack(result_list):
             ["batch"],
         ],
         [
-            2, 
-            carlini_L0_attack, 
-            [[1], [16], [32]], 
-            "carlini_L0_attack", 
+            2,
+            carlini_L0_attack,
+            [[1], [16], [32]],
+            "carlini_L0_attack",
             ["batch"]
         ],
         [
-            3, 
-            carlini_L2_attack, 
-            [[1], [16], [32]], 
-            "carlini_L2_attack", 
+            3,
+            carlini_L2_attack,
+            [[1], [16], [32]],
+            "carlini_L2_attack",
             ["batch"]
         ],
         [
-            4, 
-            carlini_Linf_attack, 
-            [[1], [16], [32]], 
-            "carlini_Linf_attack", 
+            4,
+            carlini_Linf_attack,
+            [[1], [16], [32]],
+            "carlini_Linf_attack",
             ["batch"]
         ],
         [
-            5, 
-            deep_fool_attack, 
-            [[1], [16], [32]], 
-            "deep_fool_attack", 
+            5,
+            deep_fool_attack,
+            [[1], [16], [32]],
+            "deep_fool_attack",
             ["batch"]
         ],
         [
-            6, 
-            pixel_attack, 
-            [[None]], 
-            "pixel_attack", 
+            6,
+            pixel_attack,
+            [[None]],
+            "pixel_attack",
             ["th"]
         ],
         [
             7,
-            square_attack, 
-            [[1], [16], [32]], 
-            "square_attack", 
+            square_attack,
+            [[1], [16], [32]],
+            "square_attack",
             ["batch"]
         ],
         [
-            8, 
-            zoo_attack, 
-            [[1], [16], [32]], 
-            "zoo_attack", 
+            8,
+            zoo_attack,
+            [[1], [16], [32]],
+            "zoo_attack",
             ["batch"]
         ],
     ]
@@ -96,7 +96,8 @@ def decide_attack(result_list):
         for i in range(len(attack_method_list[previous_attack_n][2][previous_para_n])):
             f.write(attack_method_list[previous_attack_n][4][i])
             f.write("    ")
-            f.write(str(attack_method_list[previous_attack_n][2][previous_para_n][i]))
+            f.write(
+                str(attack_method_list[previous_attack_n][2][previous_para_n][i]))
             f.write("    ")
         f.write("accuracy:")
         f.write(str(previous_acc))

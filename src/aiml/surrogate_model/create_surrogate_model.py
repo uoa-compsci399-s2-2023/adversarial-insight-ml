@@ -35,7 +35,7 @@ def create_substitute(dataloader_train, num_classes):
     sample_image, _ = next(iter(dataloader_train))
     image_size = sample_image.shape[-2:]
 
-    surrogate = create_substitute_model(num_classes,num_channels)
+    surrogate = create_substitute_model(num_classes, num_channels)
 
     return surrogate
 
