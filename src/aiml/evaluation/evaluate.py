@@ -75,7 +75,7 @@ def evaluate(
                         dataset_train, batch_size=batch_size_train, shuffle=True, num_workers=num_workers)
 
                     dataloader_test = DataLoader(
-                        dataset_train, batch_size=batch_size_test, shuffle=False, num_workers=num_workers)
+                        dataset_test, batch_size=batch_size_test, shuffle=False, num_workers=num_workers)
 
                     model = create_surrogate_model(
                         model, dataloader_train, dataloader_test)
@@ -90,10 +90,9 @@ def evaluate(
             else:
                 user_response = input(
                     "Invalid Input. Please enter Yes or No: ").strip().lower()
-
-    input_shape, clip_values, nb_classes = generate_parameter(
-        input_shape, clip_values, nb_classes, dataset_test, dataloader_test
-    )
+    else:
+        dataloader_test = DataLoader(
+            dataset_test, batch_size=batch_size_test, shuffle=False, num_workers=num_workers)
 
     if input_train_data:
         acc_train = test_accuracy(model, dataloader_train, device)
@@ -101,6 +100,10 @@ def evaluate(
 
     acc_test = test_accuracy(model, dataloader_test, device)
     print(f"Test accuracy:  {acc_test * 100:.2f}")
+
+    input_shape, clip_values, nb_classes = generate_parameter(
+        input_shape, clip_values, nb_classes, dataset_test, dataloader_test
+    )
 
     classifier = PyTorchClassifier(
         model=model,
