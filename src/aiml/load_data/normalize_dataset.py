@@ -1,10 +1,11 @@
 import torch
 import torchvision.transforms as T
 
-normalize_values = {}
+normalize_values = {}  # contains the mean and std for a dataset
 
 
 def get_mean_std(dataset):
+    """Get mean and std from a dataset"""
     imgs = [item[0] for item in dataset]
     imgs = torch.stack(imgs, dim=0).numpy()
     num_channels = imgs[0].shape[0]
@@ -29,14 +30,8 @@ def get_mean_std(dataset):
     normalize_values['std'] = std
 
 
-def get_transforms():
-    transform_list = [T.ToTensor(), T.Normalize(
-        mean=normalize_values['mean'], std=normalize_values['std'])]
-
-    return T.Compose(transform_list)
-
-
 def normalize_datasets(dataset_train, dataset_test):
+    """Normalize the training and testing datasets"""
     transform_tensor = T.Compose([
         T.ToTensor(),
     ])
@@ -45,7 +40,10 @@ def normalize_datasets(dataset_train, dataset_test):
 
     get_mean_std(dataset_train)
 
-    dataset_train.transform = get_transforms()
-    dataset_test.transform = get_transforms()
+    transform_list = [T.ToTensor(), T.Normalize(
+        mean=normalize_values['mean'], std=normalize_values['std'])]
+
+    dataset_train.transform = transform_list
+    dataset_test.transform = transform_list
 
     return dataset_test, dataset_train
