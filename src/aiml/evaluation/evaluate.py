@@ -36,9 +36,9 @@ def evaluate(
     Evaluate the model's performance using the provided data and attack methods.
 
     Parameters:
-        input_model (str): Path to the trained machine learning model.
-        input_train_data (str, optional): Path to the training data (default is None).
-        input_test_data (str): Path to the test data.
+        input_model (model): The machine learning model to be evaluated.
+        input_test_data (Dataset): A dataset containing testing data.
+        input_train_data (Dataset, optional): A dataset containing training data (default is None).
         input_shape (tuple, optional): Shape of input data (default is None).
         clip_values (tuple, optional): Range of input data values (default is None).
         nb_classes (int, optional): Number of classes in the dataset (default is None).
@@ -46,6 +46,7 @@ def evaluate(
         num_threads_attack (int, optional): Number of threads for attack testing (default is 0).
         batch_size_train (int, optional): Batch size for training data (default is 64).
         batch_size_test (int, optional): Batch size for test data (default is 64).
+        num_workers (int, optional): Number of workers to use for data loading (default is half of the available CPU cores).
 
     Returns:
         None.
