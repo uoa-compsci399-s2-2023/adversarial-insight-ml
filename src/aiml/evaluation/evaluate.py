@@ -84,8 +84,7 @@ def evaluate(
                     raise Exception("Failed to create surrogate model.")
 
             elif user_response in ["n", "no"]:
-                raise Exception(
-                    "Model creation aborted. No testing dataset included")
+                raise Exception("Evaluation aborted.")
 
             else:
                 user_response = input(
