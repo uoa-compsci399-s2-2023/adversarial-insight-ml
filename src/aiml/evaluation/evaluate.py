@@ -37,8 +37,8 @@ def evaluate(
 
     Parameters:
         input_model (model): The machine learning model to be evaluated.
-        input_test_data (Dataset): A dataset containing testing data.
-        input_train_data (Dataset, optional): A dataset containing training data (default is None).
+        input_test_data (dataset): A dataset containing testing data.
+        input_train_data (dataset, optional): A dataset containing training data (default is None).
         input_shape (tuple, optional): Shape of input data (default is None).
         clip_values (tuple, optional): Range of input data values (default is None).
         nb_classes (int, optional): Number of classes in the dataset (default is None).
