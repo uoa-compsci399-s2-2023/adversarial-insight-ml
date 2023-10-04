@@ -12,7 +12,7 @@ from torch.utils.data import DataLoader
 from art.estimators.classification import PyTorchClassifier
 
 from aiml.load_data.generate_parameter import generate_parameter
-from aiml.load_data.normalize_dataset import normalize_dataset
+from aiml.load_data.normalize_dataset import normalize_datasets
 from aiml.attack.test_attack import test_attack
 from aiml.evaluation.test_accuracy import test_accuracy
 from aiml.evaluation.dynamic import decide_attack
@@ -68,7 +68,7 @@ def evaluate(
                 print("Creating the surrogate model...")
 
                 try:
-                    dataset_train, dataset_test = normalize_dataset(
+                    dataset_train, dataset_test = normalize_datasets(
                         input_train_data, input_test_data)
 
                     dataloader_train = DataLoader(

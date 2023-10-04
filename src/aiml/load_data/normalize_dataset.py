@@ -36,7 +36,7 @@ def get_transforms():
     return T.Compose(transform_list)
 
 
-def normalize_dataset(dataset_train, dataset_test):
+def normalize_datasets(dataset_train, dataset_test):
     transform_tensor = T.Compose([
         T.ToTensor(),
     ])
