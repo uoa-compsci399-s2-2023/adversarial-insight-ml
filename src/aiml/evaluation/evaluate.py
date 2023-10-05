@@ -77,15 +77,12 @@ def evaluate(
                 dataloader_train = DataLoader(
                     dataset_train, batch_size=batch_size_train, shuffle=True, num_workers=num_workers)
 
-                try:
-                    model = create_surrogate_model(
-                        model, dataloader_train, dataloader_test)
-                    print("Surrogate model created successfully.")
+                model = create_surrogate_model(
+                    model, dataloader_train, dataloader_test)
+                print("Surrogate model created successfully.")
 
-                    acc_train = test_accuracy(model, dataloader_train, device)
-                    print(f"Train accuracy: {acc_train * 100:.2f}%")
-                except:
-                    raise Exception("Failed to create surrogate model.")
+                acc_train = test_accuracy(model, dataloader_train, device)
+                print(f"Train accuracy: {acc_train * 100:.2f}%")
 
             elif user_response in ["n", "no"]:
                 responded = True
