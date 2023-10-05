@@ -56,7 +56,17 @@ def evaluate(
 
     model = input_model.to(device)
 
+    # Check if the user wants to create surrogate model
     if input_train_data:
+        dataset_train, dataset_test = normalize_datasets(
+            input_train_data, input_test_data)
+
+        dataloader_train = DataLoader(
+            dataset_train, batch_size=batch_size_train, shuffle=True, num_workers=num_workers)
+
+        dataloader_test = DataLoader(
+            dataset_test, batch_size=batch_size_test, shuffle=False, num_workers=num_workers)
+
         print("Including a training dataset will create a surrogate model. This may take a long time.")
         user_response = input(
             "Do you want to proceed in the creation of a surrogate model? (Yes/No): ").strip().lower()
@@ -68,15 +78,6 @@ def evaluate(
                 print("Creating the surrogate model...")
 
                 try:
-                    dataset_train, dataset_test = normalize_datasets(
-                        input_train_data, input_test_data)
-
-                    dataloader_train = DataLoader(
-                        dataset_train, batch_size=batch_size_train, shuffle=True, num_workers=num_workers)
-
-                    dataloader_test = DataLoader(
-                        dataset_test, batch_size=batch_size_test, shuffle=False, num_workers=num_workers)
-
                     model = create_surrogate_model(
                         model, dataloader_train, dataloader_test)
                     print("Surrogate model created successfully.")
@@ -85,10 +86,8 @@ def evaluate(
                     raise Exception("Failed to create surrogate model.")
 
             elif user_response in ["n", "no"]:
+                responded = True
                 print("Continuing without creating surrogate model.")
-
-                dataloader_test = DataLoader(
-                    dataset_test, batch_size=batch_size_test, shuffle=False, num_workers=num_workers)
 
             else:
                 user_response = input(
