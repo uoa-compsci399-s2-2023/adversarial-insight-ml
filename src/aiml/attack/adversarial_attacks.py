@@ -1,8 +1,16 @@
 """
 adversarial_attacks.py
 
-This module provides definition for various adversarial attacks using 
-the ART library.
+This module provides adversarial attacks using 
+the ART library. It contains eight attacks:
+    1.AutoProjectedGradientDescent,
+    2.CarliniL0Method,
+    3.CarliniL2Method,
+    4.CarliniLInfMethod,
+    5.DeepFool,
+    6.PixelAttack,
+    7.SquareAttack,
+    8.ZooAttack
 """
 
 
