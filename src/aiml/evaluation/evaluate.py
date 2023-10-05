@@ -12,7 +12,7 @@ from torch.utils.data import DataLoader
 from art.estimators.classification import PyTorchClassifier
 
 from aiml.load_data.generate_parameter import generate_parameter
-from aiml.load_data.normalize_dataset import normalize_datasets
+from aiml.load_data.normalize_datasets import normalize_datasets
 from aiml.attack.test_attack import test_attack
 from aiml.evaluation.test_accuracy import test_accuracy
 from aiml.evaluation.dynamic import decide_attack
