@@ -1,8 +1,8 @@
 """
 dynamic.py
 
-This module provides the decide_attack_order function which will decide 
-the parameter of attacks to be applied.
+This module provides the decide_attack function which will decide the next attack to be applied and its parameter.
+
 """
 
 
