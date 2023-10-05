@@ -28,12 +28,7 @@ def get_num_classes(dataloader):
 
 def create_substitute(dataloader_train, num_classes):
     """Create a substitute model based on training dataloader"""
-    dataset_size = len(dataloader_train.dataset)
     num_channels = dataloader_train.dataset[0][0].shape[0]
-
-    # Retrieve the image size from the first sample in the dataset
-    sample_image, _ = next(iter(dataloader_train))
-    image_size = sample_image.shape[-2:]
 
     surrogate = create_substitute_model(num_classes, num_channels)
 
