@@ -11,16 +11,16 @@ from aiml.attack.adversarial_attacks import *
 
 def decide_attack(result_list):
     """
-     the function will decide the next attack to be applied and its parameter based on previous attack history
+     the function will write the results of previous attack to txt file and decide the next attack to be applied and its parameter based on previous attack history
      arg:
      result_list:the first element is overall mark that briefly record the previous performance as a score. 
                  the left elements are lists contain the history of previous attack. attack number, parameter number, and its accuracy is stored in every list
 
     return:
-                int:next attack number(may be same or next attack in the attack_method_list),
-                int:next parameter number,
-                boolean: whether continue test attack or not
-                int:overall_mark:a score briefly record the previous performance
+                next attack number(int)(may be same or next attack in the attack_method_list),
+                next parameter number(int),
+                b(boolean): whether continue test attack or not
+                overall_mark(int):a score briefly record the previous performance
     """
 
     """
@@ -96,7 +96,7 @@ def decide_attack(result_list):
             ["batch"]
         ],
     ]
-    if result_list[-1] == 0:
+    if result_list[-1] == 0: #add the first attack to initial result list
         return (
             0,
             0,
@@ -105,12 +105,12 @@ def decide_attack(result_list):
         )  # current_attack_n,para,current_attack,b
 
     overall_mark = result_list[0]
-    previous = result_list[-1]
+    previous = result_list[-1] #get information of previous attack result
     previous_attack_n = previous[0]
     previous_acc = previous[2]
     previous_para_n = previous[1]
 
-    with open("example.txt", "a") as f:
+    with open("example.txt", "a") as f: #write the results of previous attack to txt file
         f.write(attack_method_list[previous_attack_n][3])
         f.write("    ")
         for i in range(len(attack_method_list[previous_attack_n][2][previous_para_n])):
@@ -122,7 +122,13 @@ def decide_attack(result_list):
         f.write(str(previous_acc))
         f.write("\n")
 
-    print(previous_acc)
+    """
+    if the accuracy of previous attack is small enough, it means that the attack with previous parameters is strong enough for the model,
+    then it skip more strong parameter and test next attack.
+    if the previous parameters is the most strongest, test next attack
+    """
+
+
     if (
         previous_acc < 0.4
         or previous_para_n >= len(attack_method_list[previous_attack_n][2]) - 1
@@ -142,7 +148,7 @@ def decide_attack(result_list):
                 True,
                 overall_mark,
             )
-        else:  # finish
+        else:  # all attack are tested and finish
             return (
                 0,
                 0,
