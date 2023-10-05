@@ -10,7 +10,27 @@ from aiml.attack.adversarial_attacks import *
 
 
 def decide_attack(result_list):
-    # attack_number,attack_function,attack_parameter_list,attack_name,attack_parameter_name
+    """
+     the function will decide the next attack to be applied and its parameter based on previous attack history
+     arg:
+     result_list:the first element is overall mark that briefly record the previous performance as a score. 
+                 the left elements are lists contain the history of previous attack. attack number, parameter number, and its accuracy is stored in every list
+
+    return:
+                int:next attack number(may be same or next attack in the attack_method_list),
+                int:next parameter number,
+                boolean: whether continue test attack or not
+                int:overall_mark:a score briefly record the previous performance
+    """
+
+    """
+    attack_method_list contains all eight attack methods. 
+    every attack has a list to contain the information about the attack. the first element is attack number. second element is attack function. third element is combinations of parameters.
+    fourth element is the name of the attack. fifth element is the parameter name for every combination of parameters
+
+    for example, for the auto_projected_cross_entropy attack method, the attack number is 0. the function is auto_projected_cross_entropy.
+    three possible parameter choices: batch=16, batch=20 or batch=32
+    """
     attack_method_list = [
         [
             0,
