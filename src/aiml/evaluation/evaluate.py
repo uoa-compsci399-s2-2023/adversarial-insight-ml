@@ -82,6 +82,8 @@ def evaluate(
                         model, dataloader_train, dataloader_test)
                     print("Surrogate model created successfully.")
 
+                    acc_train = test_accuracy(model, dataloader_train, device)
+                    print(f"Train accuracy: {acc_train * 100:.2f}%")
                 except:
                     raise Exception("Failed to create surrogate model.")
 
@@ -102,12 +104,8 @@ def evaluate(
         raise Exception(
             "Failed to normalized testing dataset. Please manually normalize it.")
 
-    if input_train_data:
-        acc_train = test_accuracy(model, dataloader_train, device)
-        print(f"Train accuracy: {acc_train * 100:.2f}")
-
     acc_test = test_accuracy(model, dataloader_test, device)
-    print(f"Test accuracy:  {acc_test * 100:.2f}")
+    print(f"Test accuracy: {acc_test * 100:.2f}%")
 
     input_shape, clip_values, nb_classes = generate_parameter(
         input_shape, clip_values, nb_classes, dataset_test, dataloader_test
