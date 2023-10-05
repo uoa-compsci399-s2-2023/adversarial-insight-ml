@@ -1,8 +1,9 @@
 """
 test_attack.py
 
-This module contains functions for testing white-box attack methods on a
-PyTorch classifier model, and returns respecitve accuracies in a list.
+This module contains a function test_attack that use the inputted attack method and parameter, generate adversarial images by changing the 
+given images a little using adversarial attack. Then output the images into "img" folder and return accuracy
+
 """
 
 
@@ -30,7 +31,7 @@ def test_attack(
     require_n=3,
 ):
     """
-    Test the performance of a single white-box attack method against a PyTorch classifier.
+    Test the performance of a single specified attack method against the ML model.
     To be used by test_all_white_box_attack() to test multiple white-box attack methods.
 
     Returns:
