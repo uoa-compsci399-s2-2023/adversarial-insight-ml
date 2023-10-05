@@ -35,16 +35,16 @@ def test_attack(
     To be used by test_all_white_box_attack() to test multiple white-box attack methods.
 
     args:
-    attack_n: attack number. There are eight attacks so it range from 0 to 7
-    para_n :parameter number. It points out which combination of parameter we will use in applying attack.
-    model: the machine learning model
-    classifer: the pytorch classifer defined using ART library
+    attack_n(int): attack number. There are eight attacks so it range from 0 to 7
+    para_n(int) :parameter number. It points out which combination of parameter we will use in applying attack.
+    model(ML model): the machine learning model
+    classifer(PytorchClassifer): the pytorch classifer defined using ART library
     dataset: the dataset we will modify with adversarial attack
-    batch_size_attack: parameter for adversarial images dataloader
-    num_threads_attack:  parameter for adversarial images dataloader
+    batch_size_attack(int): parameter for adversarial images dataloader
+    num_threads_attack(int):  parameter for adversarial images dataloader
     device: "cpu" or "gpu"
-    nb_classes: the amount of the possible label
-    require_n: For every label, how many images marked as this label will be modified to get adversarial images
+    nb_classes(int): the amount of the possible label
+    require_n(int): For every label, how many images marked as this label will be modified to get adversarial images
     
     Returns:
         acc_advx: Accuracy of the classifier on the adversarial examples as a percentage,
