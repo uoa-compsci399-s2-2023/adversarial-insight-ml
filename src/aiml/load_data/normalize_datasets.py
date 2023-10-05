@@ -58,4 +58,4 @@ def normalize_datasets(dataset_train, dataset_test):
     dataset_train.transform = get_transforms()
     dataset_test.transform = get_transforms()
 
-    return dataset_test, dataset_train
+    return dataset_train, dataset_test
