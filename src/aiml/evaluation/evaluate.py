@@ -56,17 +56,14 @@ def evaluate(
 
     model = input_model.to(device)
 
+    dataset_test, dataset_train = normalize_datasets(
+        input_test_data, input_train_data)
+
+    dataloader_test = DataLoader(
+        dataset_test, batch_size=batch_size_test, shuffle=False, num_workers=num_workers)
+
     # Check if the user wants to create surrogate model
     if input_train_data:
-        dataset_train, dataset_test = normalize_datasets(
-            input_train_data, input_test_data)
-
-        dataloader_train = DataLoader(
-            dataset_train, batch_size=batch_size_train, shuffle=True, num_workers=num_workers)
-
-        dataloader_test = DataLoader(
-            dataset_test, batch_size=batch_size_test, shuffle=False, num_workers=num_workers)
-
         print("Including a training dataset will create a surrogate model. This may take a long time.")
         user_response = input(
             "Do you want to proceed in the creation of a surrogate model? (Yes/No): ").strip().lower()
@@ -76,6 +73,9 @@ def evaluate(
             if user_response in ["y", "yes", ""]:
                 responded = True
                 print("Creating the surrogate model...")
+
+                dataloader_train = DataLoader(
+                    dataset_train, batch_size=batch_size_train, shuffle=True, num_workers=num_workers)
 
                 try:
                     model = create_surrogate_model(
@@ -92,9 +92,15 @@ def evaluate(
             else:
                 user_response = input(
                     "Invalid Input. Please enter Yes or No: ").strip().lower()
-    else:
-        dataloader_test = DataLoader(
-            dataset_test, batch_size=batch_size_test, shuffle=False, num_workers=num_workers)
+
+    # Check if the testing dataset is normalized
+    data = next(iter(dataloader_test))
+    mean = data[0].mean()
+    std = data[0].std()
+
+    if mean > 0.1 or mean < -0.1 or std > 1.1 or std < 0.9:
+        raise Exception(
+            "Failed to normalized testing dataset. Please manually normalize it.")
 
     if input_train_data:
         acc_train = test_accuracy(model, dataloader_train, device)

@@ -45,17 +45,29 @@ def get_transforms():
     return T.Compose(transform_list)
 
 
-def normalize_datasets(dataset_train, dataset_test):
-    """Normalize the training and testing datasets"""
+def transform_dataset_to_tensor(dataset):
+    """Transforms the given dataset to a tensor format."""
     transform_tensor = T.Compose([
         T.ToTensor(),
     ])
 
-    dataset_train.transform = transform_tensor
+    dataset.transform = transform_tensor
 
-    get_mean_std(dataset_train)
+    return dataset
 
-    dataset_train.transform = get_transforms()
+
+def normalize_datasets(dataset_test, dataset_train=None):
+    """Normalize the training and testing datasets"""
+    if dataset_train:
+        dataset_find_mean_std = transform_dataset_to_tensor(dataset_train)
+    else:
+        dataset_find_mean_std = transform_dataset_to_tensor(dataset_test)
+
+    get_mean_std(dataset_find_mean_std)
+
+    if dataset_train:
+        dataset_train.transform = get_transforms()
+
     dataset_test.transform = get_transforms()
 
-    return dataset_train, dataset_test
+    return dataset_test, dataset_train
