@@ -34,12 +34,32 @@ def test_attack(
     Test the performance of a single specified attack method against the ML model.
     To be used by test_all_white_box_attack() to test multiple white-box attack methods.
 
+    args:
+    attack_n: attack number. There are eight attacks so it range from 0 to 7
+    para_n :parameter number. It points out which combination of parameter we will use in applying attack.
+    model: the machine learning model
+    classifer: the pytorch classifer defined using ART library
+    dataset: the dataset we will modify with adversarial attack
+    batch_size_attack: parameter for adversarial images dataloader
+    num_threads_attack:  parameter for adversarial images dataloader
+    device: "cpu" or "gpu"
+    nb_classes: the amount of the possible label
+    require_n: For every label, how many images marked as this label will be modified to get adversarial images
+    
     Returns:
         acc_advx: Accuracy of the classifier on the adversarial examples as a percentage,
         where 1 = 100% accuracy.
     """
 
-    # Create the attack instance
+    """
+    attack_method_list contains all eight attack methods. 
+    every attack has a list to contain the information about the attack. the first element is attack number. second element is attack function. third element is combinations of parameters.
+    fourth element is the name of the attack. fifth element is the parameter name for every combination of parameters
+
+    for example, for the auto_projected_cross_entropy attack method, the attack number is 0. the function is auto_projected_cross_entropy.
+    three possible parameter choices: batch=16, batch=20 or batch=32
+    """
+    
     attack_method_list = [
         [
             0, 
@@ -105,8 +125,11 @@ def test_attack(
             ["batch"]
         ]
     ]
-
-    para = attack_method_list[attack_n][2][para_n]
+   
+    para = attack_method_list[attack_n][2][para_n] #get parameter
+    """
+    generate attack object with attack function. The parameter of the attack function is pytorch classifer and given parameter
+    """
     if len(para) == 1:
         attack = attack_method_list[attack_n][1](classifer, para[0])
     elif len(para) == 2:
@@ -117,31 +140,31 @@ def test_attack(
         attack = attack_method_list[attack_n][1](
             classifer, para[0], para[1], para[2], para[3]
         )
-    X = []
-    y = []
+    X = [] #store the tensors of images
+    y = [] #store the corresponding labels of images
 
-    require_y = [require_n] * nb_classes
-    enough = False
+    require_y = [require_n] * nb_classes #create a list to record how many images are needed for every label
+    enough = False 
     i = 0
-    while not enough:
+    while not enough: # if all element in require_y are zero or all images in dataset are looked through then loop will stop
         a, b = dataset[i]
         i += 1
         if i >= len(dataset) - 1:
-            enough = True
+            enough = True #all images in dataset are looked through then loop will stop
         if require_y[b] <= 0:
             continue
-        outputs = model(a)
+        outputs = model(a) #test whether the original image can be correctly recognized by the ML model
         _, predictions = torch.max(outputs, 1)
 
         if b != predictions.numpy()[0]:
-            continue
+            continue  #if original image can not be correctly recognized by the ML model, we won't use it to generate adversarial image.
 
         X += [a.numpy()]
         y += [b]
         require_y[b] = require_y[b] - 1
-
+        #add the image for generating adversarial image further
         all_zero = True
-        for requ_n in require_y:
+        for requ_n in require_y: #check whether the required images are enough
             if requ_n > 0:
                 all_zero = False
                 break
@@ -155,8 +178,7 @@ def test_attack(
 
     # Generate adversarial examples
     X_advx = attack.generate(X)
-    print("ori", len(X), type(X))
-    print("adv", len(X_advx), type(X))
+    
     X_tensor = torch.Tensor(X)
     X_advx_tensor = torch.Tensor(X_advx)
 
@@ -173,11 +195,8 @@ def test_attack(
 
     # Test the model's accuracy on the adversarial examples
     acc_advx, correct_advx = test_accuracy_with_flags(model, dataloader_advx, device)
-    print(correct_advx, len(correct_advx))
-
-    # generate image
-    print(len(correct_advx))
-    for i in range(len(correct_advx[0])):
+   
+    for i in range(len(correct_advx[0])): #put images in the folder
         if correct_advx[0][i] == False:
             transform = T.ToPILImage()
             orig_img = transform(X_tensor[i])
