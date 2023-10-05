@@ -8,7 +8,15 @@ This script is responsible for loading the test dataset for model evaluation.
 import torch
 
 from aiml.surrogate_model.utils import load_cifar10
-
+"""
+The function is for loading test data set
+args:
+dataset(dataset/string):if input is string, it will find the target dataset
+batch_size_test(int)
+return 
+dataset,
+dataset_loader
+"""
 
 def load_test_set(test_set, batch_size_test):
     if type(test_set) == type("a"):
@@ -31,7 +39,15 @@ def load_test_set(test_set, batch_size_test):
     else:
         print("the dataset is normalized dataset")
     return test_set, loader
-
+"""
+The function is for loading train data set
+args:
+dataset(dataset/string):if input is string, it will find the target dataset
+batch_size_test(int)
+return 
+dataset,
+dataset_loader
+"""
 
 def load_train_set(test_set, batch_size_test):
     if type(test_set) == type("a"):
