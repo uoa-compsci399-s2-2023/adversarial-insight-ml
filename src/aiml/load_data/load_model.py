@@ -7,7 +7,14 @@ This script is responsible for loading the model.
 
 import detectors
 
-
+"""
+The function is for loading model
+args:
+model(model/string):if input is string, it will find the target model by detectors
+device:cpu or gpu
+return 
+model
+"""
 def load_model(model, device):
     if type(model) == type("a"):
         try:
