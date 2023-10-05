@@ -59,7 +59,7 @@ def evaluate(
     if input_train_data:
         print("Including a training dataset will create a surrogate model. This may take a long time.")
         user_response = input(
-            "Do you want to proceed? (Yes/No): ").strip().lower()
+            "Do you want to proceed with the creation of a surrogate model? (Yes/No): ").strip().lower()
 
         responded = False
         while not responded:
@@ -82,7 +82,10 @@ def evaluate(
                     print("Surrogate model created successfully.")
 
                 except:
-                    raise Exception("Failed to create surrogate model.")
+                    print("Continuing without creating surrogate model.")
+
+                    dataloader_test = DataLoader(
+                        dataset_test, batch_size=batch_size_test, shuffle=False, num_workers=num_workers)
 
             elif user_response in ["n", "no"]:
                 raise Exception("Evaluation aborted.")
