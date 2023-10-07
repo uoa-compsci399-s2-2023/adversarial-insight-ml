@@ -12,7 +12,15 @@ normalize_values = {}
 
 
 def get_mean_std(dataset):
-    """Get mean and std from a dataset"""
+    """
+    Get the mean and standard deviation of the dataset's image channels.
+
+    Parameters:
+        dataset (dataset): The dataset containing images.
+
+    Returns:
+        None.
+    """
     imgs = [item[0] for item in dataset]
     imgs = torch.stack(imgs, dim=0).numpy()
     num_channels = imgs[0].shape[0]
@@ -38,7 +46,12 @@ def get_mean_std(dataset):
 
 
 def get_transforms():
-    """Get transformation list for datasets"""
+    """
+    Get a list of transformations for datasets, including normalization.
+
+    Returns:
+        torchvision.transforms.Compose: A composition of transformations.
+    """
     transform_list = [T.ToTensor(), T.Normalize(
         mean=normalize_values['mean'], std=normalize_values['std'])]
 
@@ -46,7 +59,15 @@ def get_transforms():
 
 
 def transform_dataset_to_tensor(dataset):
-    """Transforms the given dataset to a tensor format."""
+    """
+    Transform the given dataset to a tensor format.
+
+    Parameters:
+        dataset (dataset): The dataset to be transformed.
+
+    Returns:
+        dataset: The transformed dataset with tensors.
+    """
     transform_tensor = T.Compose([
         T.ToTensor(),
     ])
@@ -57,7 +78,16 @@ def transform_dataset_to_tensor(dataset):
 
 
 def normalize_datasets(dataset_test, dataset_train=None):
-    """Normalize the training and testing datasets"""
+    """
+    Normalize the training and testing datasets.
+
+    Parameters:
+        dataset_test (dataset): The testing dataset.
+        dataset_train (dataset, optional): The training dataset (Default is None).
+
+    Returns:
+        tuple: A tuple containing the normalized testing dataset and, if provided, the normalized training dataset.
+    """
     if dataset_train:
         dataset_find_mean_std = transform_dataset_to_tensor(dataset_train)
     else:

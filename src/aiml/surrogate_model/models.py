@@ -18,7 +18,16 @@ from torchmetrics import Accuracy
 
 
 def create_substitute_model(num_classes, num_channels):
-    """Create a substitute model based on the input model."""
+    """
+    Create a substitute model based on the input model.
+
+    Parameters:
+        num_classes (int): The number of output classes for the model.
+        num_channels (int): The number of input channels.
+
+    Returns:
+        nn.Module: The created substitute model.
+    """
     model = tv.models.vgg16(weights=None, num_classes=num_classes)
     model.features[0] = nn.Conv2d(
         num_channels, 64, kernel_size=3, stride=1, padding=1, bias=False)
@@ -43,7 +52,6 @@ class Surrogate(pl.LightningModule):
         self.save_hyperparameters(ignore=["oracle", "substitute", "loss_fn"])
 
         self.oracle = oracle
-        # Oracle's parameters should not alter.
         for param in self.oracle.parameters():
             param.requires_grad = False
         self.substitute = substitute
@@ -54,7 +62,7 @@ class Surrogate(pl.LightningModule):
         return self.substitute(x)
 
     def training_step(self, batch, batch_idx):
-        x, _ = batch  # Ignore true labels
+        x, _ = batch
         out = self(x)
         if self.hparams.softmax:
             out = F.log_softmax(out, 1)
