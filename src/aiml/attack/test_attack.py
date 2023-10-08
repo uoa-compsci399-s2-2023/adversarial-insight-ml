@@ -29,6 +29,7 @@ def test_attack(
     device,
     nb_classes,
     require_n=3,
+    dry=False,
 ):
     """
     Test the performance of a single specified attack method against the ML model.
@@ -45,7 +46,7 @@ def test_attack(
     device: "cpu" or "gpu"
     nb_classes(int): the amount of the possible label
     require_n(int): For every label, how many images marked as this label will be modified to get adversarial images
-    
+    dry: default value is false. when it is True, the code should only do the absolute minimum(test only one example)
     Returns:
         acc_advx: Accuracy of the classifier on the adversarial examples as a percentage,
         where 1 = 100% accuracy.
@@ -170,6 +171,8 @@ def test_attack(
                 break
         if all_zero:
             enough = True
+        if dry:
+            enough =True
 
     X = np.array(X)
     y = np.array(y)
