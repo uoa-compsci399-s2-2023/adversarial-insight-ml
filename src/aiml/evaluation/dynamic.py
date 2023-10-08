@@ -31,70 +31,70 @@ def decide_attack(result_list):
     for example, for the auto_projected_cross_entropy attack method, the attack number is 0. the function is auto_projected_cross_entropy.
     three possible parameter choices: batch=16, batch=20 or batch=32
     """
-    attack_method_list = [
+   attack_method_list = [
         [
-            0,
-            auto_projected_cross_entropy,
-            [[16], [20], [32]],
-            "auto_projected_cross_entropy",
-            ["batch"],
+            0, 
+            auto_projected_cross_entropy, 
+            attack_para_list[0],
+            "auto_projected_cross_entropy", 
+            attack_para_list[1]
         ],
         [
-            1,
-            auto_projected_difference_logits_ratio,
-            [[1], [16], [32]],
-            "auto_projected_difference_logits_ratio",
-            ["batch"],
+            1, 
+            auto_projected_difference_logits_ratio, 
+            attack_para_list[2],
+            "auto_projected_difference_logits_ratio", 
+            attack_para_list[3],
         ],
         [
             2, 
             carlini_L0_attack, 
-            [[1], [16], [32]], 
+            attack_para_list[4],
             "carlini_L0_attack", 
-            ["batch"]
+            attack_para_list[5],
         ],
         [
             3, 
             carlini_L2_attack, 
-            [[1], [16], [32]], 
+            attack_para_list[6],
             "carlini_L2_attack", 
-            ["batch"]
+            attack_para_list[7],
         ],
         [
             4, 
             carlini_Linf_attack, 
-            [[1], [16], [32]], 
+            attack_para_list[8],
             "carlini_Linf_attack", 
-            ["batch"]
+            attack_para_list[9],
         ],
         [
             5, 
             deep_fool_attack, 
-            [[1], [16], [32]], 
+            attack_para_list[10],
             "deep_fool_attack", 
-            ["batch"]
+            attack_para_list[11],
         ],
         [
             6, 
-            pixel_attack, 
-            [[None]], 
+            attack_para_list[12], 
+            [[None]],
             "pixel_attack", 
-            ["th"]
+            attack_para_list[13],
         ],
         [
-            7,
+            7, 
             square_attack, 
-            [[1], [16], [32]], 
+            attack_para_list[14],
             "square_attack", 
-            ["batch"]
+            attack_para_list[15],
         ],
         [
             8, 
             zoo_attack, 
-            [[1], [16], [32]], 
+            attack_para_list[16],
             "zoo_attack", 
-            ["batch"]
-        ],
+            attack_para_list[17],
+        ]
     ]
     if result_list[-1] == 0: #add the first attack to initial result list
         return (
