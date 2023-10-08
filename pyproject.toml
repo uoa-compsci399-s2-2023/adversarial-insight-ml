@@ -1,10 +1,65 @@
-[tool.poetry]
-name = "adversarial-insight-ml"
-version = "0.1.1"
-
 [build-system]
-requires = [
-    "setuptools>=67",
-    "wheel"
-]
+requires = ["setuptools", "setuptools-scm", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "adversarial-insight-ml"
+dynamic = ["version"]
+authors = [
+    { name = "Sungjae Jang", email = "sjan260@aucklanduni.ac.nz" },
+    { name = "Takuya Saegusa", email = "tsae032@aucklanduni.ac.nz" },
+    { name = "Haozhe Wei", email = "hwei313@aucklanduni.ac.nz" },
+    { name = "Terence Zhang", email = "tzha820@aucklanduni.ac.nz" },
+    { name = "Yuming Zhou", email = "yzho739@aucklanduni.ac.nz" },
+    { name = "Luke Chang", email = "luke.x.chang@gmail.com" },
+]
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+
+]
+dependencies = [
+    "adversarial-robustness-toolbox",
+    "torch",
+    "detectors",
+    "lightning",
+    "torchmetrics",
+]
+
+[project.optional-dependencies]
+dev = [
+    "autopep8",
+    "bumpver",
+    "pytest",
+    "Sphinx",
+    "scikit-learn",
+    "jupyterlab",
+    "pip-tools",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["aiml"]
+
+[tool.setuptools.dynamic]
+version = { attr = "aiml.__version__" }
+
+[tool.bumpver]
+current_version = "0.1.1"
+version_pattern = "MAJOR.MINOR.PATCH"
+commit_message = "bump version {old_version} -> {new_version}"
+tag_message = "{new_version}"
+tag_scope = "default"
+commit = true
+tag = true
+push = true
+
+[tool.bumpver.file_patterns]
+"pyproject.toml" = ['current_version = "{version}"']
+"src/aiml/__init__.py" = ['^__version__ = "{version}"$']
