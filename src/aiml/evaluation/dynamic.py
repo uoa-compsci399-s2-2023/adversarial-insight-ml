@@ -126,6 +126,8 @@ def decide_attack(result_list):
     if the accuracy of previous attack is small enough, it means that the attack with previous parameters is strong enough for the model,
     then it skip more strong parameter and test next attack.
     if the previous parameters is the most strongest, test next attack
+    the (overall_mark / (len(result_list)-1)) briefly record the robustness of the model. if it >2 it means that it pass the middle strong attack
+    on average. it will skip the weak attack later.
     """
 
 
@@ -133,12 +135,11 @@ def decide_attack(result_list):
         previous_acc < 0.4
         or previous_para_n >= len(attack_method_list[previous_attack_n][2]) - 1
     ):
-        if previous_acc < 0.4:
-            overall_mark += (
-                len(attack_method_list[previous_attack_n][2]) - previous_para_n
-            )
+        
+        overall_mark += previous_para_n
+            
         if previous_attack_n < 8:
-            if overall_mark > 5 and (overall_mark / len(result_list)) > 2:
+            if overall_mark > 5 and (overall_mark / (len(result_list)-1)) > 2:
                 next_para_n = 1
             else:
                 next_para_n = 0
