@@ -9,7 +9,18 @@ This module provides the decide_attack function which will decide the next attac
 from aiml.attack.adversarial_attacks import *
 
 
-def decide_attack(result_list):
+def decide_attack(result_list,
+                attack_para_list=[[[1], [16], [32]],["batch"],
+                      [[1], [16], [32]],["batch"],
+                      [[1], [16], [32]],["batch"],
+                      [[1], [16], [32]],["batch"],
+                      [[1], [16], [32]],["batch"],
+                      [[1], [16], [32]],["batch"],
+                      [[None]],["th"],
+                      [[1], [16], [32]],["batch"],
+                      [[1], [16], [32]],["batch"]
+                     ]
+                 ):
     """
      the function will write the results of previous attack to txt file and decide the next attack to be applied and its parameter based on previous attack history
      arg:
