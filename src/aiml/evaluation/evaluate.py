@@ -67,6 +67,7 @@ def evaluate(
         None.
     """
     # Load model and data
+    ori_model=input_model
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     input_model=load_model(input_model)
     input_test_set=load_test_set(input_test_set)
@@ -117,7 +118,7 @@ def evaluate(
         raise Exception(
             "Failed to normalized testing dataset. Please manually normalize it.")
 
-    acc_test = test_accuracy(model, dataloader_test, device)
+    acc_test = test_accuracy(ori_model, dataloader_test, device)
     print(f"Test accuracy: {acc_test * 100:.2f}%")
 
     input_shape, clip_values, nb_classes = generate_parameter(
