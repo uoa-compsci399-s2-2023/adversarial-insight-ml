@@ -67,7 +67,7 @@ def evaluate(
         None.
     """
     # Load model and data
-    ori_model=input_model
+    
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     input_model=load_model(input_model)
     input_test_set=load_test_set(input_test_set)
@@ -94,7 +94,7 @@ def evaluate(
                 dataloader_train = DataLoader(
                     dataset_train, batch_size=batch_size_train, shuffle=True, num_workers=num_workers)
 
-                model = create_surrogate_model(
+                surrogate_model = create_surrogate_model(
                     model, dataloader_train, dataloader_test)
                 print("Surrogate model created successfully.")
 
@@ -118,7 +118,7 @@ def evaluate(
         raise Exception(
             "Failed to normalized testing dataset. Please manually normalize it.")
 
-    acc_test = test_accuracy(ori_model, dataloader_test, device)
+    acc_test = test_accuracy(model, dataloader_test, device)
     print(f"Test accuracy: {acc_test * 100:.2f}%")
 
     input_shape, clip_values, nb_classes = generate_parameter(
@@ -126,7 +126,7 @@ def evaluate(
     )
 
     classifier = PyTorchClassifier(
-        model=model,
+        model=surrogate_model,
         clip_values=clip_values,
         loss=None,
         optimizer=None,
@@ -137,7 +137,7 @@ def evaluate(
     result_list = [0]
     b = True
     current_attack_n, para_n, b, overall_mark = decide_attack(
-        result_list,
+        result_list,attack_para_list=attack_para_list
     )
 
     while b:
