@@ -1,5 +1,5 @@
 """
-load_test_set.py
+load_set.py
 
 This script is responsible for loading the test dataset for model evaluation.
 """
@@ -13,7 +13,7 @@ def load_test_set(test_set):
     Load a test dataset.
 
     Parameters:
-        dataset (dataset or string): If a string is provided, it will search for the target dataset.
+        dataset (dataset or string): Given a string, it will search for the target dataset.
 
     Returns:
         dataset: The loaded test dataset.
@@ -34,7 +34,7 @@ def load_train_set(test_set):
     Load a training dataset.
 
     Parameters:
-        dataset (dataset or string): If a string is provided, it will search for the target dataset.
+        dataset (dataset or string): Given a string, it will search for the target dataset.
 
     Returns:
         dataset: The loaded training dataset.
