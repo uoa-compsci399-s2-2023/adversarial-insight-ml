@@ -15,7 +15,7 @@ from torch.utils.data import DataLoader
 from torch.utils.data import TensorDataset
 import torchvision.transforms as T
 
-from aiml.evaluation.check_accuracy import test_accuracy_with_flags
+from aiml.evaluation.check_accuracy import check_accuracy_with_flags
 from aiml.attack.adversarial_attacks import (
     auto_projected_cross_entropy,
     auto_projected_difference_logits_ratio,
@@ -56,7 +56,7 @@ def attack_evaluation(
     """
     Check the performance of adversarial attack methods against the ML model.
 
-    args:
+    Parameters:
         attack_n (int): Attack number (0 to 7).
         para_n (int): Parameter number for selecting a combination of attack parameters.
         model (MLModel): The machine learning model.
@@ -73,7 +73,6 @@ def attack_evaluation(
 
     Returns:
         float: Accuracy of the classifier on the adversarial examples as a percentage (1 = 100%).
-
     """
 
     attack_method_list = [
@@ -258,7 +257,7 @@ def attack_evaluation(
     )  # high num_workers may cause err
 
     # Test the model's accuracy on the adversarial examples
-    acc_advx, correct_advx = test_accuracy_with_flags(model, dataloader_advx, device)
+    acc_advx, correct_advx = check_accuracy_with_flags(model, dataloader_advx, device)
 
     for i in range(len(correct_advx[0])):  # put images in the folder
         if correct_advx[0][i] == False:
