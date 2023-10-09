@@ -22,7 +22,6 @@ from aiml.load_data.load_set import load_test_set
 from aiml.load_data.load_set import load_train_set
 
 
-
 def evaluate(
     input_model,
     input_test_data,
@@ -34,7 +33,7 @@ def evaluate(
     num_threads_attack=0,
     batch_size_train=64,
     batch_size_test=64,
-    num_workers=int(os.cpu_count() / 2)
+    num_workers=int(os.cpu_count() / 2),
     dry=False,
     attack_para_list=[[[1], [16], [32]],
                       [[1], [16], [32]],
