@@ -34,7 +34,7 @@ def setup_package():
     This function can be used to perform any necessary initialization or setup
     when the package is imported.
     """
-    print("AIML package ({})is being initialized.".format(__version__))
+    print("AIML package ({}) is being initialized.".format(__version__))
 
 
 setup_package()

@@ -1,8 +1,7 @@
 """
 adversarial_attacks.py
 
-This module provides adversarial attacks using 
-the ART library. It contains eight attacks:
+This module contains eight adversarial attacks from the ART library:
     1.AutoProjectedGradientDescent,
     2.CarliniL0Method,
     3.CarliniL2Method,
@@ -28,13 +27,13 @@ import numpy as np
 
 
 def auto_projected_cross_entropy(
-    estimator, batch_size=32, norm=np.inf, eps=0.3, eps_step=0.1
+    estimator, batch_size=32,eps=0.3, eps_step=0.1, norm=np.inf
 ):
     """
     Create an Auto Projected Gradient Descent attack instance with 
     cross-entropy loss.
 
-    Args:
+    Parameters:
         estimator: The classifier to attack.
         batch_size (int): Batch size for the attack.
         norm: Norm to use for the attack.
@@ -52,13 +51,13 @@ def auto_projected_cross_entropy(
 
 
 def auto_projected_difference_logits_ratio(
-    estimator, batch_size=32, norm=np.inf, eps=0.3, eps_step=0.1
+    estimator, batch_size=32, eps=0.3, eps_step=0.1,norm=np.inf
 ):
     """
     Create an Auto Projected Gradient Descent attack instance with 
     difference logits ratio loss.
 
-    Args:
+    Parameters:
         estimator: The classifier to attack.
         batch_size (int): Batch size for the attack.
         norm: Norm to use for the attack.
@@ -76,15 +75,15 @@ def auto_projected_difference_logits_ratio(
 
 
 def carlini_L0_attack(
-    classifier, batch_size=32, confidence=0.0, targeted=False, 
-    learning_rate=0.01, binary_search_steps=10, max_iter=10, 
+    classifier, batch_size=32,learning_rate=0.01, binary_search_steps=10, max_iter=10, 
+    confidence=0.0, targeted=False, 
     initial_const=0.01, mask=None, warm_start=True, max_halving=5, 
     max_doubling=5, verbose=True
 ):
     """
     Create a Carlini L0 attack instance.
 
-    Args:
+    Parameters:
         classifier: The classifier to attack.
         batch_size (int): Batch size for the attack.
         confidence (float): Confidence parameter.
@@ -110,14 +109,15 @@ def carlini_L0_attack(
 
 
 def carlini_L2_attack(
-    classifier, batch_size=32, confidence=0.0, targeted=False, 
+    classifier, batch_size=32, 
     learning_rate=0.01, binary_search_steps=10, max_iter=10, 
+    confidence=0.0, targeted=False, 
     initial_const=0.01, max_halving=5, max_doubling=5, verbose=True
 ):
     """
     Create a Carlini L2 attack instance.
 
-    Args:
+    Parameters:
         classifier: The classifier to attack.
         batch_size (int): Batch size for the attack.
         confidence (float): Confidence parameter.
@@ -141,14 +141,14 @@ def carlini_L2_attack(
 
 
 def carlini_Linf_attack(
-    classifier, batch_size=32, confidence=0.0, targeted=False, 
-    learning_rate=0.01, max_iter=10, decrease_factor=0.9, initial_const=1e-05, 
+    classifier, batch_size=32, learning_rate=0.01,  max_iter=10, confidence=0.0, targeted=False, 
+    decrease_factor=0.9, initial_const=1e-05, 
     largest_const=20.0, const_factor=2.0, verbose=True
 ):
     """
     Create a Carlini Linf attack instance.
 
-    Args:
+    Parameters:
         classifier: The classifier to attack.
         batch_size (int): Batch size for the attack.
         confidence (float): Confidence parameter.
@@ -178,7 +178,7 @@ def deep_fool_attack(
     """
     Create a Deep Fool attack instance.
 
-    Args:
+    Parameters:
         classifier: The classifier to attack.
         batch_size (int): Batch size for the attack.
         max_iter (int): Maximum number of iterations.
@@ -196,12 +196,12 @@ def deep_fool_attack(
 
 
 def pixel_attack(
-        classifier, th=None, es=1, max_iter=100, targeted=False, verbose=True
+        classifier, max_iter=100,th=None, es=1,  targeted=False, verbose=True
     ):
     """
     Create a Pixel Attack instance.
 
-    Args:
+    Parameters:
         classifier: The classifier to attack.
         th: Threshold for attack.
         es (int): Early stopping criterion.
@@ -216,13 +216,13 @@ def pixel_attack(
 
 
 def square_attack(
-    estimator, batch_size=32, norm=np.inf, adv_criterion=None, loss=None,
-    max_iter=100, eps=0.3, p_init=0.8, nb_restarts=1, verbose=True
+    estimator, batch_size=32, max_iter=100, norm=np.inf, adv_criterion=None, loss=None,
+ eps=0.3, p_init=0.8, nb_restarts=1, verbose=True
 ):
     """
     Create a Square Attack instance.
 
-    Args:
+    Parameters:
         estimator: The estimator to attack.
         batch_size (int): Batch size for the attack.
         norm: Norm to use for the attack.
@@ -244,15 +244,15 @@ def square_attack(
 
 
 def zoo_attack(
-    classifier, batch_size=32, confidence=0.0, targeted=False, 
-    learning_rate=0.01, max_iter=10, binary_search_steps=1, 
+    classifier, batch_size=32, learning_rate=0.01, max_iter=10, binary_search_steps=1, 
+    confidence=0.0, targeted=False, 
     initial_const=0.001, abort_early=True, use_resize=True, 
     use_importance=True, nb_parallel=128, variable_h=0.0001, verbose=True,
 ):
     """
     Create a Zoo Attack instance.
 
-    Args:
+    Parameters:
         classifier: The classifier to attack.
         batch_size (int): Batch size for the attack.
         confidence (float): Confidence parameter.
