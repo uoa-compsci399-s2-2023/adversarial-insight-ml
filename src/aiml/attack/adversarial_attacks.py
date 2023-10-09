@@ -28,7 +28,7 @@ import numpy as np
 
 
 def auto_projected_cross_entropy(
-    estimator, batch_size=32, norm=np.inf, eps=0.3, eps_step=0.1
+    estimator, batch_size=32,eps=0.3, eps_step=0.1, norm=np.inf
 ):
     """
     Create an Auto Projected Gradient Descent attack instance with 
@@ -52,7 +52,7 @@ def auto_projected_cross_entropy(
 
 
 def auto_projected_difference_logits_ratio(
-    estimator, batch_size=32, norm=np.inf, eps=0.3, eps_step=0.1
+    estimator, batch_size=32, eps=0.3, eps_step=0.1,norm=np.inf
 ):
     """
     Create an Auto Projected Gradient Descent attack instance with 
