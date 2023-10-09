@@ -110,8 +110,9 @@ def carlini_L0_attack(
 
 
 def carlini_L2_attack(
-    classifier, batch_size=32, confidence=0.0, targeted=False, 
+    classifier, batch_size=32, 
     learning_rate=0.01, binary_search_steps=10, max_iter=10, 
+    confidence=0.0, targeted=False, 
     initial_const=0.01, max_halving=5, max_doubling=5, verbose=True
 ):
     """
@@ -141,8 +142,8 @@ def carlini_L2_attack(
 
 
 def carlini_Linf_attack(
-    classifier, batch_size=32, confidence=0.0, targeted=False, 
-    learning_rate=0.01, max_iter=10, decrease_factor=0.9, initial_const=1e-05, 
+    classifier, batch_size=32, learning_rate=0.01,  max_iter=10, confidence=0.0, targeted=False, 
+    decrease_factor=0.9, initial_const=1e-05, 
     largest_const=20.0, const_factor=2.0, verbose=True
 ):
     """
