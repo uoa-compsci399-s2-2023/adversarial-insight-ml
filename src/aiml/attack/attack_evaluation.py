@@ -1,7 +1,7 @@
 """
-test_attack.py
+attack_evaluation.py
 
-This module contains a function test_attack that use the inputted attack
+This module contains a function attack_evaluation that use the inputted attack
 method and parameter, generate adversarial images by changing the given 
 images a little using adversarial attack. Then output the images into 
 "img" folder and return accuracy.
@@ -19,7 +19,7 @@ from aiml.evaluation.test_accuracy import test_accuracy_with_flags
 from aiml.attack.adversarial_attacks import *
 
 
-def test_attack(
+def attack_evaluation(
     attack_n,
     para_n,
     model,
@@ -44,8 +44,7 @@ def test_attack(
     ],
 ):
     """
-    Test the performance of a single specified attack method against the ML 
-    model. To be used by test_all_white_box_attack() to test multiple white-box attack methods.
+    Check the performance of adversarial attack methods against the ML model. 
 
     args:
     attack_n (int): Attack number (0 to 7).
