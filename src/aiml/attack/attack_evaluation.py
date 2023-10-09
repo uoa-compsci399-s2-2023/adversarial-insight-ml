@@ -15,7 +15,7 @@ from torch.utils.data import DataLoader
 from torch.utils.data import TensorDataset
 import torchvision.transforms as T
 
-from aiml.evaluation.test_accuracy import test_accuracy_with_flags
+from aiml.evaluation.check_accuracy import test_accuracy_with_flags
 from aiml.attack.adversarial_attacks import (
     auto_projected_cross_entropy,
     auto_projected_difference_logits_ratio,
@@ -57,19 +57,19 @@ def attack_evaluation(
     Check the performance of adversarial attack methods against the ML model.
 
     args:
-    attack_n (int): Attack number (0 to 7).
-    para_n (int): Parameter number for selecting a combination of attack parameters.
-    model (MLModel): The machine learning model.
-    classifier (PytorchClassifier): The PyTorch classifier defined using the ART library.
-    dataset: The dataset to be modified with adversarial attacks.
-    batch_size_attack (int): Parameter for adversarial images data loader.
-    num_threads_attack (int): Parameter for adversarial images data loader.
-    device (str): "cpu" or "gpu".
-    nb_classes (int): The number of possible labels.
-    require_n (int): For every label, how many images marked as this label will be modified to get
-                     adversarial images.
-    dry (bool): When True, the code only tests one example.
-    attack_para_list (list): List of parameter combinations for the attack.
+        attack_n (int): Attack number (0 to 7).
+        para_n (int): Parameter number for selecting a combination of attack parameters.
+        model (MLModel): The machine learning model.
+        classifier (PytorchClassifier): The PyTorch classifier defined using the ART library.
+        dataset: The dataset to be modified with adversarial attacks.
+        batch_size_attack (int): Parameter for adversarial images data loader.
+        num_threads_attack (int): Parameter for adversarial images data loader.
+        device (str): "cpu" or "gpu".
+        nb_classes (int): The number of possible labels.
+        require_n (int): For every label, how many images marked as this label will be modified to 
+                         get adversarial images.
+        dry (bool): When True, the code only tests one example.
+        attack_para_list (list): List of parameter combinations for the attack.
 
     Returns:
         float: Accuracy of the classifier on the adversarial examples as a percentage (1 = 100%).
