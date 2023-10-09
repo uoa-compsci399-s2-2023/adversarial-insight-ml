@@ -197,7 +197,7 @@ def deep_fool_attack(
 
 
 def pixel_attack(
-        classifier, th=None, es=1, max_iter=100, targeted=False, verbose=True
+        classifier, max_iter=100,th=None, es=1,  targeted=False, verbose=True
     ):
     """
     Create a Pixel Attack instance.
@@ -217,8 +217,8 @@ def pixel_attack(
 
 
 def square_attack(
-    estimator, batch_size=32, norm=np.inf, adv_criterion=None, loss=None,
-    max_iter=100, eps=0.3, p_init=0.8, nb_restarts=1, verbose=True
+    estimator, batch_size=32, max_iter=100, norm=np.inf, adv_criterion=None, loss=None,
+ eps=0.3, p_init=0.8, nb_restarts=1, verbose=True
 ):
     """
     Create a Square Attack instance.
