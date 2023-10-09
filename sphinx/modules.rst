@@ -1,5 +1,5 @@
-src
-===
+aiml
+====
 
 .. toctree::
    :maxdepth: 4

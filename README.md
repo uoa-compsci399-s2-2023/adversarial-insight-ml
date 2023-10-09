@@ -1,15 +1,18 @@
 <p align="center">
-  <img
-    src="./images/aiml_logo.png"
-    alt="AIML Logo"
-    style="
-      width: 418px;
-      height: 418px;
-      max-width: 100%;
-      height: auto;
-    "
-  >
+  <a href="https://uoa-compsci399-s2-2023.github.io/capstone-project-team-7/">
+    <img
+      src="./docs/_static/logo.png"
+      alt="AIML Logo"
+      style="
+        width: 418px;
+        height: 418px;
+        max-width: 100%;
+        height: auto;
+      "
+    >
+  </a>
 </p>
+
 
 <h2 align="center">Adversarial Insight ML (AIML)</h2>
 

@@ -23,6 +23,22 @@ aiml.test\_c module
    :undoc-members:
    :show-inheritance:
 
+aiml.test\_cc module
+--------------------
+
+.. automodule:: aiml.test_cc
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+aiml.test\_cifar module
+-----------------------
+
+.. automodule:: aiml.test_cifar
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 

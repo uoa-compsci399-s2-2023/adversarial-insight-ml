@@ -1,13 +1,27 @@
 """
 generate_parameter.py
 
-This module provides a function for generating parameters based on input data and settings.
+This module provides a function for generating parameters based on input dataset.
 """
 
 
 import torch
 import numpy as np
+"""
+generate the images shape, clip values and the number of classes based on input dataset.
+args:
+ input_shape(nparray):images shape, if it is given(not None) it will not change
+ clip_values(tuple):the range of the data, if it is given(not None) it will not change
+ nb_classes(int):the number of classes, if it is given(not None) it will not change
+ dataset_test:given dataset
+ dataloader_test:the loader of the given dataset
+return:
+input_shape(nparray):images shape
+ clip_values(tuple):the range of the data
+ nb_classes(int):the number of classes
+ 
 
+"""
 
 def generate_parameter(
     input_shape, clip_values, nb_classes, dataset_test, dataloader_test
