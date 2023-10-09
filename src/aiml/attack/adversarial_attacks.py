@@ -245,8 +245,8 @@ def square_attack(
 
 
 def zoo_attack(
-    classifier, batch_size=32, confidence=0.0, targeted=False, 
-    learning_rate=0.01, max_iter=10, binary_search_steps=1, 
+    classifier, batch_size=32, learning_rate=0.01, max_iter=10, binary_search_steps=1, 
+    confidence=0.0, targeted=False, 
     initial_const=0.001, abort_early=True, use_resize=True, 
     use_importance=True, nb_parallel=128, variable_h=0.0001, verbose=True,
 ):
