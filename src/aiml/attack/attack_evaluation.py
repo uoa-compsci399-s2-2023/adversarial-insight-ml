@@ -16,7 +16,15 @@ from torch.utils.data import TensorDataset
 import torchvision.transforms as T
 
 from aiml.evaluation.test_accuracy import test_accuracy_with_flags
-from aiml.attack.adversarial_attacks import *
+from aiml.attack.adversarial_attacks import (
+    auto_projected_cross_entropy,
+    carlini_L0_attack,
+    carlini_L2_attack,
+    carlini_Linf_attack,
+    deep_fool_attack,
+    square_attack,
+    zoo_attack,
+)
 
 
 def attack_evaluation(
@@ -44,7 +52,7 @@ def attack_evaluation(
     ],
 ):
     """
-    Check the performance of adversarial attack methods against the ML model. 
+    Check the performance of adversarial attack methods against the ML model.
 
     args:
     attack_n (int): Attack number (0 to 7).
@@ -56,7 +64,7 @@ def attack_evaluation(
     num_threads_attack (int): Parameter for adversarial images data loader.
     device (str): "cpu" or "gpu".
     nb_classes (int): The number of possible labels.
-    require_n (int): For every label, how many images marked as this label will be modified to get 
+    require_n (int): For every label, how many images marked as this label will be modified to get
                      adversarial images.
     dry (bool): When True, the code only tests one example.
     attack_para_list (list): List of parameter combinations for the attack.
@@ -209,7 +217,6 @@ def attack_evaluation(
 
         if b != predictions.numpy()[0]:
             continue  # Skip unrecognizable original images for adversarial generation
-
 
         X += [a.numpy()]
         y += [b]
