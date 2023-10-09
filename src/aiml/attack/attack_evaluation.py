@@ -22,6 +22,7 @@ from aiml.attack.adversarial_attacks import (
     carlini_L2_attack,
     carlini_Linf_attack,
     deep_fool_attack,
+    pixel_attack,
     square_attack,
     zoo_attack,
 )
