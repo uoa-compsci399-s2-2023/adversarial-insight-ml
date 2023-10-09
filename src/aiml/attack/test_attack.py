@@ -77,14 +77,14 @@ def test_attack(
             auto_projected_cross_entropy, 
             attack_para_list[0],
             "auto_projected_cross_entropy", 
-            ["batch"],
+            ["batch","eps","eps_step"],
         ],
         [
             1, 
             auto_projected_difference_logits_ratio, 
             attack_para_list[1],
             "auto_projected_difference_logits_ratio", 
-            ["batch"],
+            ["batch","eps","eps_step"],
         ],
         [
             2, 
