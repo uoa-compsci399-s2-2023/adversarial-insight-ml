@@ -54,7 +54,7 @@ def check_accuracy_with_flags(model, dataloader, device):
 
     Returns:
         float: The accuracy of the dataset when tested on the provided model.
-        list: A list indicating which images were correctly recognized (True) or misrecognized (False).
+        list: A list showing which images were correctly recognized (True) or not (False).
     """
     correct = 0
     total = 0
