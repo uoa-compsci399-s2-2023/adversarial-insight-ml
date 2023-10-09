@@ -133,7 +133,7 @@ def test_attack(
             zoo_attack, 
             attack_para_list[8],
             "zoo_attack", 
-            ["batch"],
+            ["batch","learning_rate", "max_iter", "binary_search_steps", ],
         ]
     ]
    
