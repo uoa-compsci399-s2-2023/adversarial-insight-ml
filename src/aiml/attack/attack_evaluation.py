@@ -18,6 +18,7 @@ import torchvision.transforms as T
 from aiml.evaluation.test_accuracy import test_accuracy_with_flags
 from aiml.attack.adversarial_attacks import (
     auto_projected_cross_entropy,
+    auto_projected_difference_logits_ratio,
     carlini_L0_attack,
     carlini_L2_attack,
     carlini_Linf_attack,
@@ -134,6 +135,7 @@ def attack_evaluation(
         ],
         [
             6,
+            pixel_attack,
             attack_para_list[6],
             "pixel_attack",
             ["max_iter"],
