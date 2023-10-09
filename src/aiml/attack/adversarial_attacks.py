@@ -1,8 +1,7 @@
 """
 adversarial_attacks.py
 
-This module provides adversarial attacks using 
-the ART library. It contains eight attacks:
+This module contains eight adversarial attacks from the ART library:
     1.AutoProjectedGradientDescent,
     2.CarliniL0Method,
     3.CarliniL2Method,
@@ -34,7 +33,7 @@ def auto_projected_cross_entropy(
     Create an Auto Projected Gradient Descent attack instance with 
     cross-entropy loss.
 
-    Args:
+    Parameters:
         estimator: The classifier to attack.
         batch_size (int): Batch size for the attack.
         norm: Norm to use for the attack.
@@ -58,7 +57,7 @@ def auto_projected_difference_logits_ratio(
     Create an Auto Projected Gradient Descent attack instance with 
     difference logits ratio loss.
 
-    Args:
+    Parameters:
         estimator: The classifier to attack.
         batch_size (int): Batch size for the attack.
         norm: Norm to use for the attack.
@@ -84,7 +83,7 @@ def carlini_L0_attack(
     """
     Create a Carlini L0 attack instance.
 
-    Args:
+    Parameters:
         classifier: The classifier to attack.
         batch_size (int): Batch size for the attack.
         confidence (float): Confidence parameter.
@@ -118,7 +117,7 @@ def carlini_L2_attack(
     """
     Create a Carlini L2 attack instance.
 
-    Args:
+    Parameters:
         classifier: The classifier to attack.
         batch_size (int): Batch size for the attack.
         confidence (float): Confidence parameter.
@@ -149,7 +148,7 @@ def carlini_Linf_attack(
     """
     Create a Carlini Linf attack instance.
 
-    Args:
+    Parameters:
         classifier: The classifier to attack.
         batch_size (int): Batch size for the attack.
         confidence (float): Confidence parameter.
@@ -179,7 +178,7 @@ def deep_fool_attack(
     """
     Create a Deep Fool attack instance.
 
-    Args:
+    Parameters:
         classifier: The classifier to attack.
         batch_size (int): Batch size for the attack.
         max_iter (int): Maximum number of iterations.
@@ -202,7 +201,7 @@ def pixel_attack(
     """
     Create a Pixel Attack instance.
 
-    Args:
+    Parameters:
         classifier: The classifier to attack.
         th: Threshold for attack.
         es (int): Early stopping criterion.
@@ -223,7 +222,7 @@ def square_attack(
     """
     Create a Square Attack instance.
 
-    Args:
+    Parameters:
         estimator: The estimator to attack.
         batch_size (int): Batch size for the attack.
         norm: Norm to use for the attack.
@@ -253,7 +252,7 @@ def zoo_attack(
     """
     Create a Zoo Attack instance.
 
-    Args:
+    Parameters:
         classifier: The classifier to attack.
         batch_size (int): Batch size for the attack.
         confidence (float): Confidence parameter.
