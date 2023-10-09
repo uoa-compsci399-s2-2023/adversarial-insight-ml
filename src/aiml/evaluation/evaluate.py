@@ -18,8 +18,8 @@ from aiml.evaluation.test_accuracy import test_accuracy
 from aiml.evaluation.dynamic import decide_attack
 from aiml.surrogate_model.create_surrogate_model import create_surrogate_model
 from aiml.load_data.load_model import load_model
-from aiml.load_data.load_test_set import load_test_set
-from aiml.load_data.load_test_set import load_train_set
+from aiml.load_data.load_set import load_test_set
+from aiml.load_data.load_set import load_train_set
 
 
 
