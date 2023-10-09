@@ -35,6 +35,16 @@ def evaluate(
     batch_size_train=64,
     batch_size_test=64,
     num_workers=int(os.cpu_count() / 2)
+    attack_para_list=[[[1], [16], [32]],
+                      [[1], [16], [32]],
+                      [[1], [16], [32]],
+                      [[1], [16], [32]],
+                      [[1], [16], [32]],
+                      [[1], [16], [32]],
+                      [[None]],
+                      [[1], [16], [32]],
+                      [[1], [16], [32]],
+                     ]
 ):
     """
     Evaluate the model's performance using the provided data and attack methods.
@@ -144,12 +154,13 @@ def evaluate(
                     num_threads_attack,
                     device,
                     nb_classes,
+                    attack_para_list=attack_para_list
                 ),
             ]
         ]
         print(result_list)
 
         current_attack_n, para_n, b, overall_mark = decide_attack(
-            result_list,
+            result_list,attack_para_list=attack_para_list
         )
     print(result_list)
