@@ -78,7 +78,7 @@ def evaluate(
 
     dataloader_test = DataLoader(
         dataset_test, batch_size=batch_size_test, shuffle=False, num_workers=num_workers)
-
+    surrogate_model=None
     # Check if the user wants to create surrogate model
     if input_train_data:
         print("Including a training dataset will create a surrogate model. This may take a long time.")
@@ -124,7 +124,8 @@ def evaluate(
     input_shape, clip_values, nb_classes = generate_parameter(
         input_shape, clip_values, nb_classes, dataset_test, dataloader_test
     )
-
+    if surrogate_model==None:
+        surrogate_model=model
     classifier = PyTorchClassifier(
         model=surrogate_model,
         clip_values=clip_values,
