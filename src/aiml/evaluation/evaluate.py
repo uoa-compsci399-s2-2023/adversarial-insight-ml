@@ -14,7 +14,7 @@ from art.estimators.classification import PyTorchClassifier
 from aiml.load_data.generate_parameter import generate_parameter
 from aiml.load_data.normalize_datasets import normalize_datasets
 from aiml.attack.attack_evaluation import attack_evaluation
-from aiml.evaluation.test_accuracy import test_accuracy
+from aiml.evaluation.check_accuracy import check_accuracy
 from aiml.evaluation.dynamic import decide_attack
 from aiml.surrogate_model.create_surrogate_model import create_surrogate_model
 from aiml.load_data.load_model import load_model
@@ -35,7 +35,7 @@ def evaluate(
     batch_size_train=64,
     batch_size_test=64,
     num_workers=int(os.cpu_count() / 2)
-    dry=False
+    dry=False,
     attack_para_list=[[[1], [16], [32]],
                       [[1], [16], [32]],
                       [[1], [16], [32]],
@@ -98,7 +98,7 @@ def evaluate(
                     model, dataloader_train, dataloader_test)
                 print("Surrogate model created successfully.")
 
-                acc_train = test_accuracy(model, dataloader_train, device)
+                acc_train = check_accuracy(model, dataloader_train, device)
                 print(f"Train accuracy: {acc_train * 100:.2f}%")
 
             elif user_response in ["n", "no"]:
@@ -118,7 +118,7 @@ def evaluate(
         raise Exception(
             "Failed to normalized testing dataset. Please manually normalize it.")
 
-    acc_test = test_accuracy(model, dataloader_test, device)
+    acc_test = check_accuracy(model, dataloader_test, device)
     print(f"Test accuracy: {acc_test * 100:.2f}%")
 
     input_shape, clip_values, nb_classes = generate_parameter(
@@ -147,7 +147,7 @@ def evaluate(
             [
                 current_attack_n,
                 para_n,
-                test_attack(
+                attack_evaluation(
                     current_attack_n,
                     para_n,
                     model,
