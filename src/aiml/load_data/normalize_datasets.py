@@ -1,8 +1,9 @@
 """
 normalize_datasets.py
 
-This module provides functions for calculating the mean and standard deviation of image channels 
-in a dataset and normalizing the training and testing datasets using the calculated values.
+This module provides functions for calculating the mean and standard 
+deviation of image channels in a dataset and normalizing the training 
+and testing datasets using the calculated values.
 """
 
 import torch
@@ -41,8 +42,8 @@ def get_mean_std(dataset):
         mean = [imgs[:, 0, :, :].mean()]
         std = [imgs[:, 0, :, :].std()]
 
-    normalize_values['mean'] = mean
-    normalize_values['std'] = std
+    normalize_values["mean"] = mean
+    normalize_values["std"] = std
 
 
 def get_transforms():
@@ -52,8 +53,10 @@ def get_transforms():
     Returns:
         torchvision.transforms.Compose: A composition of transformations.
     """
-    transform_list = [T.ToTensor(), T.Normalize(
-        mean=normalize_values['mean'], std=normalize_values['std'])]
+    transform_list = [
+        T.ToTensor(),
+        T.Normalize(mean=normalize_values["mean"], std=normalize_values["std"]),
+    ]
 
     return T.Compose(transform_list)
 
@@ -68,9 +71,11 @@ def transform_dataset_to_tensor(dataset):
     Returns:
         dataset: The transformed dataset with tensors.
     """
-    transform_tensor = T.Compose([
-        T.ToTensor(),
-    ])
+    transform_tensor = T.Compose(
+        [
+            T.ToTensor(),
+        ]
+    )
 
     dataset.transform = transform_tensor
 
