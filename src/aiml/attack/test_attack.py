@@ -30,16 +30,17 @@ def test_attack(
     nb_classes,
     require_n=3,
     dry=False,
-    attack_para_list=[[[1], [16], [32]],
-                      [[1], [16], [32]],
-                      [[1], [16], [32]],
-                      [[1], [16], [32]],
-                      [[1], [16], [32]],
-                      [[1], [16], [32]],
-                      [[50],[100],[150]],
-                      [[1], [16], [32]],
-                      [[1], [16], [32]],
-                     ]
+    attack_para_list=[
+        [[1], [16], [32]],
+        [[1], [16], [32]],
+        [[1], [16], [32]],
+        [[1], [16], [32]],
+        [[1], [16], [32]],
+        [[1], [16], [32]],
+        [[50], [100], [150]],
+        [[1], [16], [32]],
+        [[1], [16], [32]],
+    ],
 ):
     """
     Test the performance of a single specified attack method against the ML model.
@@ -70,73 +71,92 @@ def test_attack(
     for example, for the auto_projected_cross_entropy attack method, the attack number is 0. the function is auto_projected_cross_entropy.
     three possible parameter choices: batch=16, batch=20 or batch=32
     """
-    
+
     attack_method_list = [
         [
-            0, 
-            auto_projected_cross_entropy, 
+            0,
+            auto_projected_cross_entropy,
             attack_para_list[0],
-            "auto_projected_cross_entropy", 
-            ["batch","eps","eps_step"],
+            "auto_projected_cross_entropy",
+            ["batch", "eps", "eps_step"],
         ],
         [
-            1, 
-            auto_projected_difference_logits_ratio, 
+            1,
+            auto_projected_difference_logits_ratio,
             attack_para_list[1],
-            "auto_projected_difference_logits_ratio", 
-            ["batch","eps","eps_step"],
+            "auto_projected_difference_logits_ratio",
+            ["batch", "eps", "eps_step"],
         ],
         [
-            2, 
-            carlini_L0_attack, 
+            2,
+            carlini_L0_attack,
             attack_para_list[2],
-            "carlini_L0_attack", 
-            ["batch","learning_rate", "binary_search_steps", "max_iter", ],
+            "carlini_L0_attack",
+            [
+                "batch",
+                "learning_rate",
+                "binary_search_steps",
+                "max_iter",
+            ],
         ],
         [
-            3, 
-            carlini_L2_attack, 
+            3,
+            carlini_L2_attack,
             attack_para_list[3],
-            "carlini_L2_attack", 
-            ["batch","learning_rate", "binary_search_steps", "max_iter",],
+            "carlini_L2_attack",
+            [
+                "batch",
+                "learning_rate",
+                "binary_search_steps",
+                "max_iter",
+            ],
         ],
         [
-            4, 
-            carlini_Linf_attack, 
+            4,
+            carlini_Linf_attack,
             attack_para_list[4],
-            "carlini_Linf_attack", 
-            ["batch","learning_rate",  "max_iter",],
+            "carlini_Linf_attack",
+            [
+                "batch",
+                "learning_rate",
+                "max_iter",
+            ],
         ],
         [
-            5, 
-            deep_fool_attack, 
+            5,
+            deep_fool_attack,
             attack_para_list[5],
-            "deep_fool_attack", 
-            ["batch","max_iter"],
+            "deep_fool_attack",
+            ["batch", "max_iter"],
         ],
         [
-            6, 
-            attack_para_list[6], 
-            "pixel_attack", 
+            6,
+            attack_para_list[6],
+            "pixel_attack",
             ["max_iter"],
         ],
         [
-            7, 
-            square_attack, 
+            7,
+            square_attack,
             attack_para_list[7],
-            "square_attack", 
-            ["batch","max_iter"],
+            "square_attack",
+            ["batch", "max_iter"],
         ],
         [
-            8, 
-            zoo_attack, 
+            8,
+            zoo_attack,
             attack_para_list[8],
-            "zoo_attack", 
-            ["batch","learning_rate", "max_iter", "binary_search_steps", ],
-        ]
+            "zoo_attack",
+            [
+                "batch",
+                "learning_rate",
+                "max_iter",
+                "binary_search_steps",
+            ],
+        ],
     ]
-   
-    para = attack_method_list[attack_n][2][para_n] #get parameter
+
+    para = attack_method_list[attack_n][2][para_n]  # get parameter
     """
     generate attack object with attack function. The parameter of the attack function is pytorch classifer and given parameter
     """
@@ -150,38 +170,46 @@ def test_attack(
         attack = attack_method_list[attack_n][1](
             classifer, para[0], para[1], para[2], para[3]
         )
-    X = [] #store the tensors of images
-    y = [] #store the corresponding labels of images
+    X = []  # store the tensors of images
+    y = []  # store the corresponding labels of images
 
-    require_y = [require_n] * nb_classes #create a list to record how many images are needed for every label
-    enough = False 
+    require_y = [
+        require_n
+    ] * nb_classes  # create a list to record how many images are needed for every label
+    enough = False
     i = 0
-    while not enough: # if all element in require_y are zero or all images in dataset are looked through then loop will stop
+    while (
+        not enough
+    ):  # if all element in require_y are zero or all images in dataset are looked through then loop will stop
         a, b = dataset[i]
         i += 1
         if i >= len(dataset) - 1:
-            enough = True #all images in dataset are looked through then loop will stop
+            enough = (
+                True  # all images in dataset are looked through then loop will stop
+            )
         if require_y[b] <= 0:
             continue
-        outputs = model(a) #test whether the original image can be correctly recognized by the ML model
+        outputs = model(
+            a
+        )  # test whether the original image can be correctly recognized by the ML model
         _, predictions = torch.max(outputs, 1)
 
         if b != predictions.numpy()[0]:
-            continue  #if original image can not be correctly recognized by the ML model, we won't use it to generate adversarial image.
+            continue  # if original image can not be correctly recognized by the ML model, we won't use it to generate adversarial image.
 
         X += [a.numpy()]
         y += [b]
         require_y[b] = require_y[b] - 1
-        #add the image for generating adversarial image further
+        # add the image for generating adversarial image further
         all_zero = True
-        for requ_n in require_y: #check whether the required images are enough
+        for requ_n in require_y:  # check whether the required images are enough
             if requ_n > 0:
                 all_zero = False
                 break
         if all_zero:
             enough = True
         if dry:
-            enough =True
+            enough = True
 
     X = np.array(X)
     y = np.array(y)
@@ -190,7 +218,7 @@ def test_attack(
 
     # Generate adversarial examples
     X_advx = attack.generate(X)
-    
+
     X_tensor = torch.Tensor(X)
     X_advx_tensor = torch.Tensor(X_advx)
 
@@ -207,8 +235,8 @@ def test_attack(
 
     # Test the model's accuracy on the adversarial examples
     acc_advx, correct_advx = test_accuracy_with_flags(model, dataloader_advx, device)
-   
-    for i in range(len(correct_advx[0])): #put images in the folder
+
+    for i in range(len(correct_advx[0])):  # put images in the folder
         if correct_advx[0][i] == False:
             transform = T.ToPILImage()
             orig_img = transform(X_tensor[i])
