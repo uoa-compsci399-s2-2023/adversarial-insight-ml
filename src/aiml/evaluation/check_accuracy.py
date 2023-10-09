@@ -1,5 +1,5 @@
 """
-test_accuracy.py
+check_accuracy.py
 
 This module defines functions for calculating the accuracy of a given 
 dataset on a model.
@@ -7,18 +7,20 @@ dataset on a model.
 
 
 import torch
-"""
-calculating the accuracy of a given dataset on a model.
-args:
-model:ML model
-dataloader: the dataloader of the tested dataset
-device: cpu or gpu
-return:
-accuracy(float):the accuracy of the dataset tested on the given model
-"""
 
-def test_accuracy(model, dataloader, device):
-    """This function returns the accuracy of a given dataset on a pre-trained model."""
+
+def check_accuracy(model, dataloader, device):
+    """
+    Calculate the accuracy of a dataset using a pre-trained machine learning model.
+
+    Parameters:
+        model: The pre-trained machine learning model.
+        dataloader: The dataloader for the dataset to be tested.
+        device (str): The device to use, either 'cpu' or 'gpu'.
+
+    Returns:
+        float: The accuracy of the dataset when tested on the provided model.
+    """
     correct = 0
     total = 0
     model.eval()
@@ -40,18 +42,20 @@ def test_accuracy(model, dataloader, device):
 
     return accuracy
 
-"""
-calculating the accuracy of a given dataset on a model.
-args:
-model:ML model
-dataloader: the dataloader of the tested dataset
-device: cpu or gpu
-return:
-accuracy(float):the accuracy of the dataset tested on the given model
-correct_image_bool: a list that figure out which images are correctly recognised and which images are misrecognised.
 
-"""
-def test_accuracy_with_flags(model, dataloader, device):
+def check_accuracy_with_flags(model, dataloader, device):
+    """
+    Calculate the accuracy of a dataset using a machine learning model.
+
+    Parameters:
+        model: The machine learning model for evaluation.
+        dataloader: The dataloader for the dataset to be tested.
+        device (str): The device to use, either 'cpu' or 'gpu'.
+
+    Returns:
+        float: The accuracy of the dataset when tested on the provided model.
+        list: A list indicating which images were correctly recognized (True) or misrecognized (False).
+    """
     correct = 0
     total = 0
 
