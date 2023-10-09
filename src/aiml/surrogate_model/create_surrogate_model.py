@@ -15,7 +15,15 @@ from aiml.surrogate_model.models import LogSoftmaxModule, Surrogate, create_subs
 
 
 def get_num_classes(dataloader):
-    """Get number of classes from a dataloader"""
+    """
+    Get the number of classes from a dataloader.
+
+    Parameters:
+        dataloader (torch.utils.data.DataLoader): The dataloader containing the dataset.
+
+    Returns:
+        int: The number of classes in the dataset.
+    """
     try:
         return len(dataloader.dataset.classes)
     except:
@@ -27,21 +35,35 @@ def get_num_classes(dataloader):
 
 
 def create_substitute(dataloader_train, num_classes):
-    """Create a substitute model based on training dataloader"""
-    dataset_size = len(dataloader_train.dataset)
+    """
+    Create a substitute model based on the training dataloader.
+
+    Parameters:
+        dataloader_train (torch.utils.data.DataLoader): The training dataloader.
+        num_classes (int): The number of classes in the dataset.
+
+    Returns:
+        nn.Module: The created substitute model.
+    """
     num_channels = dataloader_train.dataset[0][0].shape[0]
 
-    # Retrieve the image size from the first sample in the dataset
-    sample_image, _ = next(iter(dataloader_train))
-    image_size = sample_image.shape[-2:]
-
-    surrogate = create_substitute_model(num_classes,num_channels)
+    surrogate = create_substitute_model(num_classes, num_channels)
 
     return surrogate
 
 
 def create_surrogate_model(model, dataloader_train, dataloader_test):
-    """Create and train a surrogate model using PyTorch Lightning."""
+    """
+    Create and train a surrogate model using PyTorch Lightning.
+
+    Parameters:
+        model (nn.Module): The black-box model to create a surrogate for.
+        dataloader_train (torch.utils.data.DataLoader): The training dataloader.
+        dataloader_test (torch.utils.data.DataLoader): The testing dataloader.
+
+    Returns:
+        pytorch_lightning.LightningModule: The trained surrogate model.
+    """
     MAX_EPOCHS = 50
     LEARNING_RATE = 0.0005
 

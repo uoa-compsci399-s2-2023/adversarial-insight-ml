@@ -22,7 +22,7 @@ def test_accuracy(model, dataloader, device):
     correct = 0
     total = 0
     model.eval()
-    
+
     with torch.no_grad():
         for batch in dataloader:
             x, y = batch

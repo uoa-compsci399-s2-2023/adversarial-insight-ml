@@ -69,5 +69,5 @@ def load_train_set(test_set, batch_size_test):
         print("the dataset is unnormalized dataset")
     else:
         print("the dataset is normalized dataset")
-    
+
     return test_set, loader
