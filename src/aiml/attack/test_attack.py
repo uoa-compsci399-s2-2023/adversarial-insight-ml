@@ -112,7 +112,7 @@ def test_attack(
             deep_fool_attack, 
             attack_para_list[5],
             "deep_fool_attack", 
-            ["batch"],
+            ["batch","max_iter"],
         ],
         [
             6, 
