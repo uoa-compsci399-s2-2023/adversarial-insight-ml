@@ -36,7 +36,7 @@ def test_attack(
                       [[1], [16], [32]],
                       [[1], [16], [32]],
                       [[1], [16], [32]],
-                      [[None]],
+                      [[50],[100],[150]],
                       [[1], [16], [32]],
                       [[1], [16], [32]],
                      ]
@@ -117,16 +117,15 @@ def test_attack(
         [
             6, 
             attack_para_list[6], 
-            [[None]],
             "pixel_attack", 
-            ["th"],
+            ["max_iter"],
         ],
         [
             7, 
             square_attack, 
             attack_para_list[7],
             "square_attack", 
-            ["batch"],
+            ["batch","max_iter"],
         ],
         [
             8, 
