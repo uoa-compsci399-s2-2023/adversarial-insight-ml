@@ -35,16 +35,17 @@ def evaluate(
     batch_size_test=64,
     num_workers=int(os.cpu_count() / 2),
     dry=False,
-    attack_para_list=[[[1], [16], [32]],
-                      [[1], [16], [32]],
-                      [[1], [16], [32]],
-                      [[1], [16], [32]],
-                      [[1], [16], [32]],
-                      [[1], [16], [32]],
-                      [[50],[100],[150]],
-                      [[1], [16], [32]],
-                      [[1], [16], [32]],
-                     ]
+    attack_para_list=[
+        [[1], [16], [32]],
+        [[1], [16], [32]],
+        [[1], [16], [32]],
+        [[1], [16], [32]],
+        [[1], [16], [32]],
+        [[1], [16], [32]],
+        [[50], [100], [150]],
+        [[1], [16], [32]],
+        [[1], [16], [32]],
+    ],
 ):
     """
     Evaluate the model's performance using the provided data and attack methods.
@@ -60,29 +61,37 @@ def evaluate(
         num_threads_attack (int, optional): Number of threads for attack testing (default is 0).
         batch_size_train (int, optional): Batch size for training data (default is 64).
         batch_size_test (int, optional): Batch size for test data (default is 64).
-        num_workers (int, optional): Number of workers to use for data loading (default is half of the available CPU cores).
+        num_workers (int, optional): Number of workers to use for data loading 
+            (default is half of the available CPU cores).
 
     Returns:
         None.
     """
     # Load model and data
-    
+
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    input_model=load_model(input_model)
-    input_test_set=load_test_set(input_test_set)
+    input_model = load_model(input_model)
+    input_test_set = load_test_set(input_test_set)
     model = input_model.to(device)
-    input_train_set=load_train_set(input_train_set)
-    dataset_test, dataset_train = normalize_datasets(
-        input_test_data, input_train_data)
+    input_train_set = load_train_set(input_train_set)
+    dataset_test, dataset_train = normalize_datasets(input_test_data, input_train_data)
 
     dataloader_test = DataLoader(
-        dataset_test, batch_size=batch_size_test, shuffle=False, num_workers=num_workers)
-    surrogate_model=None
+        dataset_test, batch_size=batch_size_test, shuffle=False, num_workers=num_workers
+    )
+    surrogate_model = None
     # Check if the user wants to create surrogate model
     if input_train_data:
-        print("Including a training dataset will create a surrogate model. This may take a long time.")
-        user_response = input(
-            "Do you want to proceed in the creation of a surrogate model? (Yes/No): ").strip().lower()
+        print(
+            "Include a training dataset to create a surrogate model. This may take a long time."
+        )
+        user_response = (
+            input(
+                "Do you want to proceed in the creation of a surrogate model? (Yes/No): "
+            )
+            .strip()
+            .lower()
+        )
 
         responded = False
         while not responded:
@@ -91,10 +100,15 @@ def evaluate(
                 print("Creating the surrogate model...")
 
                 dataloader_train = DataLoader(
-                    dataset_train, batch_size=batch_size_train, shuffle=True, num_workers=num_workers)
+                    dataset_train,
+                    batch_size=batch_size_train,
+                    shuffle=True,
+                    num_workers=num_workers,
+                )
 
                 surrogate_model = create_surrogate_model(
-                    model, dataloader_train, dataloader_test)
+                    model, dataloader_train, dataloader_test
+                )
                 print("Surrogate model created successfully.")
 
                 acc_train = check_accuracy(model, dataloader_train, device)
@@ -105,8 +119,9 @@ def evaluate(
                 print("Continuing without creating surrogate model.")
 
             else:
-                user_response = input(
-                    "Invalid Input. Please enter Yes or No: ").strip().lower()
+                user_response = (
+                    input("Invalid Input. Please enter Yes or No: ").strip().lower()
+                )
 
     # Check if the testing dataset is normalized
     data = next(iter(dataloader_test))
@@ -115,7 +130,8 @@ def evaluate(
 
     if mean > 0.1 or mean < -0.1 or std > 1.1 or std < 0.9:
         raise Exception(
-            "Failed to normalized testing dataset. Please manually normalize it.")
+            "Failed to normalized testing dataset. Please manually normalize it."
+        )
 
     acc_test = check_accuracy(model, dataloader_test, device)
     print(f"Test accuracy: {acc_test * 100:.2f}%")
@@ -123,8 +139,10 @@ def evaluate(
     input_shape, clip_values, nb_classes = generate_parameter(
         input_shape, clip_values, nb_classes, dataset_test, dataloader_test
     )
-    if surrogate_model==None:
-        surrogate_model=model
+
+    if surrogate_model == None:
+        surrogate_model = model
+
     classifier = PyTorchClassifier(
         model=surrogate_model,
         clip_values=clip_values,
@@ -137,7 +155,7 @@ def evaluate(
     result_list = [0]
     b = True
     current_attack_n, para_n, b, overall_mark = decide_attack(
-        result_list,attack_para_list=attack_para_list
+        result_list, attack_para_list=attack_para_list
     )
 
     while b:
@@ -157,13 +175,13 @@ def evaluate(
                     device,
                     nb_classes,
                     dry=dry,
-                    attack_para_list=attack_para_list
+                    attack_para_list=attack_para_list,
                 ),
             ]
         ]
         print(result_list)
 
         current_attack_n, para_n, b, overall_mark = decide_attack(
-            result_list,attack_para_list=attack_para_list
+            result_list, attack_para_list=attack_para_list
         )
     print(result_list)
