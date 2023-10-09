@@ -1,10 +1,10 @@
 """
 attack_evaluation.py
 
-This module contains a function attack_evaluation that use the inputted attack
-method and parameter, generate adversarial images by changing the given 
-images a little using adversarial attack. Then output the images into 
-"img" folder and return accuracy.
+This module contains a function attack_evaluation that use the inputted 
+attack method and parameter, generate adversarial images by changing the
+given images a little using adversarial attack. Then output the images 
+into the "img" folder and return accuracy.
 """
 
 
