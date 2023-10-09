@@ -15,7 +15,7 @@ device:cpu or gpu
 return 
 model
 """
-def load_model(model, device):
+def load_model(model):
     if type(model) == type("a"):
         try:
             model = detectors.create_model(model, pretrained=True)
