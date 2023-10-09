@@ -76,8 +76,8 @@ def auto_projected_difference_logits_ratio(
 
 
 def carlini_L0_attack(
-    classifier, batch_size=32, confidence=0.0, targeted=False, 
-    learning_rate=0.01, binary_search_steps=10, max_iter=10, 
+    classifier, batch_size=32,learning_rate=0.01, binary_search_steps=10, max_iter=10, 
+    confidence=0.0, targeted=False, 
     initial_const=0.01, mask=None, warm_start=True, max_halving=5, 
     max_doubling=5, verbose=True
 ):
