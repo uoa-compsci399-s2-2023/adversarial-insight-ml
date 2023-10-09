@@ -35,6 +35,7 @@ def evaluate(
     batch_size_train=64,
     batch_size_test=64,
     num_workers=int(os.cpu_count() / 2)
+    dry=False
     attack_para_list=[[[1], [16], [32]],
                       [[1], [16], [32]],
                       [[1], [16], [32]],
@@ -154,6 +155,7 @@ def evaluate(
                     num_threads_attack,
                     device,
                     nb_classes,
+                    dry=dry,
                     attack_para_list=attack_para_list
                 ),
             ]
