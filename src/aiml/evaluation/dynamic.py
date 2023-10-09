@@ -6,7 +6,17 @@ This module provides the decide_attack function which will decide the next attac
 """
 
 
-from aiml.attack.adversarial_attacks import *
+from aiml.attack.adversarial_attacks import (
+    auto_projected_cross_entropy,
+    auto_projected_difference_logits_ratio,
+    carlini_L0_attack,
+    carlini_L2_attack,
+    carlini_Linf_attack,
+    deep_fool_attack,
+    pixel_attack,
+    square_attack,
+    zoo_attack,
+)
 
 
 def decide_attack(result_list,
@@ -42,7 +52,7 @@ def decide_attack(result_list,
     for example, for the auto_projected_cross_entropy attack method, the attack number is 0. the function is auto_projected_cross_entropy.
     three possible parameter choices: batch=16, batch=20 or batch=32
     """
-   attack_method_list = [
+    attack_method_list = [
         [
             0, 
             auto_projected_cross_entropy, 
@@ -87,6 +97,7 @@ def decide_attack(result_list,
         ],
         [
             6, 
+            pixel_attack,
             attack_para_list[6], 
             "pixel_attack", 
             ["max_iter"],
