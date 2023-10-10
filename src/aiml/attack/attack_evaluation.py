@@ -14,6 +14,7 @@ import torch
 from torch.utils.data import DataLoader
 from torch.utils.data import TensorDataset
 import torchvision.transforms as T
+import numpy as np
 
 from aiml.evaluation.check_accuracy import check_accuracy_with_flags
 from aiml.attack.adversarial_attacks import (
@@ -212,13 +213,16 @@ def attack_evaluation(
             )
         if require_y[b] <= 0:
             continue
-        outputs = model(
-            a
-        )  # Test whether the original image can be correctly recognized by the ML model
-        _, predictions = torch.max(outputs, 1)
-
-        if b != predictions.numpy()[0]:
-            continue  # Skip unrecognizable original images for adversarial generation
+        try:
+            outputs = model(
+                a
+            )  # Test whether the original image can be correctly recognized by the ML model
+            _, predictions = torch.max(outputs, 1)
+    
+            if b != predictions.numpy()[0]:
+                continue  # Skip unrecognizable original images for adversarial generation
+        except:
+            print("processing")
 
         X += [a.numpy()]
         y += [b]
