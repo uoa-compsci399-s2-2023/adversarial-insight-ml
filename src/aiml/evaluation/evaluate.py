@@ -74,7 +74,8 @@ def evaluate(
     input_test_set = load_test_set(input_test_set)
     model = input_model.to(device)
     input_train_set = load_train_set(input_train_set)
-    dataset_test, dataset_train = normalize_datasets(input_test_data, input_train_data)
+    dataset_test, dataset_train = normalize_datasets(
+        input_test_data, input_train_data)
 
     dataloader_test = DataLoader(
         dataset_test, batch_size=batch_size_test, shuffle=False, num_workers=num_workers
@@ -82,46 +83,22 @@ def evaluate(
     surrogate_model = None
     # Check if the user wants to create surrogate model
     if input_train_data:
-        print(
-            "Include a training dataset to create a surrogate model. This may take a long time."
-        )
-        user_response = (
-            input(
-                "Do you want to proceed in the creation of a surrogate model? (Yes/No): "
-            )
-            .strip()
-            .lower()
+        print("Creating the surrogate model. This may take a long time.")
+
+        dataloader_train = DataLoader(
+            dataset_train,
+            batch_size=batch_size_train,
+            shuffle=True,
+            num_workers=num_workers,
         )
 
-        responded = False
-        while not responded:
-            if user_response in ["y", "yes", ""]:
-                responded = True
-                print("Creating the surrogate model...")
+        surrogate_model = create_surrogate_model(
+            model, dataloader_train, dataloader_test
+        )
+        print("Surrogate model created successfully.")
 
-                dataloader_train = DataLoader(
-                    dataset_train,
-                    batch_size=batch_size_train,
-                    shuffle=True,
-                    num_workers=num_workers,
-                )
-
-                surrogate_model = create_surrogate_model(
-                    model, dataloader_train, dataloader_test
-                )
-                print("Surrogate model created successfully.")
-
-                acc_train = check_accuracy(model, dataloader_train, device)
-                print(f"Train accuracy: {acc_train * 100:.2f}%")
-
-            elif user_response in ["n", "no"]:
-                responded = True
-                print("Continuing without creating surrogate model.")
-
-            else:
-                user_response = (
-                    input("Invalid Input. Please enter Yes or No: ").strip().lower()
-                )
+        acc_train = check_accuracy(model, dataloader_train, device)
+        print(f"Train accuracy: {acc_train * 100:.2f}%")
 
     # Check if the testing dataset is normalized
     data = next(iter(dataloader_test))
