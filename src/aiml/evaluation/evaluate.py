@@ -8,11 +8,10 @@ with the given data and attack methods.
 
 import torch
 import os
-from torch.utils.data import DataLoader
 from art.estimators.classification import PyTorchClassifier
 
 from aiml.load_data.generate_parameter import generate_parameter
-from aiml.load_data.normalize_datasets import check_datasets_normalise, check_normalize
+from aiml.load_data.normalize_datasets import normalize_and_check_datasets, check_normalize
 from aiml.attack.attack_evaluation import attack_evaluation
 from aiml.evaluation.check_accuracy import check_accuracy
 from aiml.evaluation.dynamic import decide_attack
@@ -75,28 +74,14 @@ def evaluate(
     model = input_model.to(device)
     input_train_data = load_train_set(input_train_data)
 
-    dataset_test, dataset_train = check_datasets_normalise(
+    dataset_test, dataset_train, dataloader_test, dataloader_train = normalize_and_check_datasets(
         num_workers, batch_size_test, batch_size_train, input_test_data, input_train_data)
-
-    dataloader_test = DataLoader(
-        dataset_test,
-        batch_size=batch_size_test,
-        shuffle=False,
-        num_workers=num_workers,
-    )
 
     surrogate_model = None
 
     # Check if the user wants to create surrogate model
-    if input_train_data:
+    if dataset_train:
         print("Creating the surrogate model. This may take a long time.")
-
-        dataloader_train = DataLoader(
-            dataset_train,
-            batch_size=batch_size_train,
-            shuffle=True,
-            num_workers=num_workers,
-        )
 
         # Check if the testing dataset is normalized
         if not check_normalize(dataloader_train):

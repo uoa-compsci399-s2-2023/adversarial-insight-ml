@@ -128,18 +128,25 @@ def normalize_datasets(dataset_test, dataset_train=None):
     return dataset_test, dataset_train
 
 
-def check_datasets_normalise(num_workers, batch_size_test, batch_size_train, dataset_test, dataset_train=None):
+def normalize_and_check_datasets(num_workers, batch_size_test, batch_size_train, dataset_test, dataset_train=None):
     """
-    Check if the given test and optionally, training datasets are normalized. If not, normalize them.
+    Normalize and check the given test and optionally, training datasets for normalization.
 
     Parameters:
-        dataset_test: The test dataset.
-        dataset_train (optional): The training dataset (Default is None).
+        num_workers (int): Number of workers for data loading.
+        batch_size_test (int): Batch size for the test dataset.
+        batch_size_train (int): Batch size for the training dataset (if provided).
+        test_dataset: The test dataset.
+        train_dataset (optional): The training dataset (Default is None).
 
     Returns:
-        Tuple: If normalization is required, returns a tuple containing the normalized test and training datasets. 
-        If no normalization is needed, returns the test dataset as-is.
+        Tuple: If normalization is required, returns a tuple containing the normalized test
+        and training datasets along with their data loaders. If no normalization is needed,
+        returns the test dataset as-is.
     """
+    dataloader_test = None
+    dataloader_train = None
+
     if dataset_train:
         dataloader_train = DataLoader(
             dataset_test,
@@ -168,7 +175,7 @@ def check_datasets_normalise(num_workers, batch_size_test, batch_size_train, dat
         if not check_normalize(dataloader_test):
             return normalize_datasets(dataset_test)
 
-    return dataset_test, dataset_train
+    return dataset_test, dataset_train, dataloader_test, dataloader_train
 
 
 def denormalize(batch, device):
