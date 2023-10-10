@@ -71,7 +71,7 @@ def evaluate(
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     input_model = load_model(input_model)
-    input_test_set = load_test_set(input_test_set)
+    input_test_data = load_test_set(input_test_data)
     model = input_model.to(device)
     input_train_set = load_train_set(input_train_set)
     dataset_test, dataset_train = normalize_datasets(
