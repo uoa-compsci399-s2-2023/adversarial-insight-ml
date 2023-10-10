@@ -81,6 +81,8 @@ def evaluate(
         dataset_test, batch_size=batch_size_test, shuffle=False, num_workers=num_workers
     )
 
+    surrogate_model = None
+
     # Check if the user wants to create surrogate model
     if input_train_data:
         print("Creating the surrogate model. This may take a long time.")
