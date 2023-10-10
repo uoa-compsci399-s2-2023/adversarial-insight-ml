@@ -1,9 +1,7 @@
 """
 normalize_datasets.py
 
-This module provides functions for calculating the mean and standard 
-deviation of image channels in a dataset and normalizing the training 
-and testing datasets using the calculated values.
+This module contains functions for normalizing and denormalizing a dataset.
 """
 
 import torch
@@ -171,3 +169,23 @@ def check_datasets_normalise(num_workers, batch_size_test, batch_size_train, dat
             return normalize_datasets(dataset_test)
 
     return dataset_test, dataset_train
+
+
+def denormalize(batch, device):
+    """
+    Denormalize a batch of normalized data using mean and standard deviation values.
+
+    Args:
+        batch (torch.Tensor): A batch of normalized data, typically in the shape
+            (batch_size, channels, height, width).
+        device (torch.device): The device on which to perform the denormalization.
+
+    Returns:
+        torch.Tensor: The denormalized batch of data with the same shape as the input.
+    """
+    if isinstance(normalize_values["mean"], list):
+        mean = torch.tensor(normalize_values["mean"]).to(device)
+    if isinstance(normalize_values["std"], list):
+        std = torch.tensor(normalize_values["std"]).to(device)
+
+    return batch * std.view(1, -1, 1, 1) + mean.view(1, -1, 1, 1)
