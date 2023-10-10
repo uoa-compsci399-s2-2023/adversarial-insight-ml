@@ -145,7 +145,7 @@ def check_datasets_normalise(num_workers, batch_size_test, batch_size_train, dat
     if dataset_train:
         dataloader_train = DataLoader(
             dataset_test,
-            batch_size=batch_size_test,
+            batch_size=batch_size_train,
             shuffle=False,
             num_workers=num_workers,
         )
