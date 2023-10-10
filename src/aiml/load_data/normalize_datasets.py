@@ -8,6 +8,7 @@ and testing datasets using the calculated values.
 
 import torch
 import torchvision.transforms as T
+from torch.utils.data import DataLoader
 
 normalize_values = {}
 
@@ -55,7 +56,8 @@ def get_transforms():
     """
     transform_list = [
         T.ToTensor(),
-        T.Normalize(mean=normalize_values["mean"], std=normalize_values["std"]),
+        T.Normalize(mean=normalize_values["mean"],
+                    std=normalize_values["std"]),
     ]
 
     return T.Compose(transform_list)
@@ -82,6 +84,28 @@ def transform_dataset_to_tensor(dataset):
     return dataset
 
 
+def check_normalize(dataloader):
+    """
+    Check if the data in a dataloader is normalized.
+
+    Parameters:
+        dataloader (torch.utils.data.DataLoader): A PyTorch DataLoader containing the dataset.
+
+    Returns:
+        bool: True if the data is normalized (mean close to 0, std close to 1), False otherwise.
+    """
+    data = next(iter(dataloader))
+    mean = data[0].mean()
+    std = data[0].std()
+
+    print(mean, std)
+
+    if mean > 0.1 or mean < -0.1 or std > 1.1 or std < 0.9:
+        return False
+
+    return True
+
+
 def normalize_datasets(dataset_test, dataset_train=None):
     """
     Normalize the training and testing datasets.
@@ -104,5 +128,48 @@ def normalize_datasets(dataset_test, dataset_train=None):
         dataset_train.transform = get_transforms()
 
     dataset_test.transform = get_transforms()
+
+    return dataset_test, dataset_train
+
+
+def check_datasets_normalise(num_workers, batch_size_test, batch_size_train, dataset_test, dataset_train=None):
+    """
+    Check if the given test and optionally, training datasets are normalized. If not, normalize them.
+
+    Parameters:
+        dataset_test: The test dataset.
+        dataset_train (optional): The training dataset (Default is None).
+
+    Returns:
+        Tuple: If normalization is required, returns a tuple containing the normalized test and training datasets. 
+        If no normalization is needed, returns the test dataset as-is.
+    """
+    if dataset_train:
+        dataloader_train = DataLoader(
+            dataset_test,
+            batch_size=batch_size_test,
+            shuffle=False,
+            num_workers=num_workers,
+        )
+
+        dataloader_test = DataLoader(
+            dataset_test,
+            batch_size=batch_size_test,
+            shuffle=False,
+            num_workers=num_workers,
+        )
+
+        if not check_normalize(dataloader_test) or not check_normalize(dataloader_train):
+            return normalize_datasets(dataset_test, dataset_train)
+    else:
+        dataloader_test = DataLoader(
+            dataset_test,
+            batch_size=batch_size_test,
+            shuffle=False,
+            num_workers=num_workers,
+        )
+
+        if not check_normalize(dataloader_test):
+            return normalize_datasets(dataset_test)
 
     return dataset_test, dataset_train

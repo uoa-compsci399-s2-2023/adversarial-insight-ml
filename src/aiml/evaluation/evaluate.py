@@ -12,7 +12,7 @@ from torch.utils.data import DataLoader
 from art.estimators.classification import PyTorchClassifier
 
 from aiml.load_data.generate_parameter import generate_parameter
-from aiml.load_data.normalize_datasets import normalize_datasets
+from aiml.load_data.normalize_datasets import check_datasets_normalise, check_normalize
 from aiml.attack.attack_evaluation import attack_evaluation
 from aiml.evaluation.check_accuracy import check_accuracy
 from aiml.evaluation.dynamic import decide_attack
@@ -74,11 +74,15 @@ def evaluate(
     input_test_data = load_test_set(input_test_data)
     model = input_model.to(device)
     input_train_data = load_train_set(input_train_data)
-    dataset_test, dataset_train = normalize_datasets(
-        input_test_data, input_train_data)
+
+    dataset_test, dataset_train = check_datasets_normalise(
+        num_workers, batch_size_test, batch_size_train, input_test_data, input_train_data)
 
     dataloader_test = DataLoader(
-        dataset_test, batch_size=batch_size_test, shuffle=False, num_workers=num_workers
+        dataset_test,
+        batch_size=batch_size_test,
+        shuffle=False,
+        num_workers=num_workers,
     )
 
     surrogate_model = None
@@ -94,6 +98,12 @@ def evaluate(
             num_workers=num_workers,
         )
 
+        # Check if the testing dataset is normalized
+        if not check_normalize(dataloader_train):
+            raise Exception(
+                "Failed to normalized training dataset. Please normalize it manually."
+            )
+
         surrogate_model = create_surrogate_model(
             model, dataloader_train, dataloader_test
         )
@@ -103,13 +113,9 @@ def evaluate(
         print(f"Train accuracy: {acc_train * 100:.2f}%")
 
     # Check if the testing dataset is normalized
-    data = next(iter(dataloader_test))
-    mean = data[0].mean()
-    std = data[0].std()
-
-    if mean > 0.1 or mean < -0.1 or std > 1.1 or std < 0.9:
+    if not check_normalize(dataloader_test):
         raise Exception(
-            "Failed to normalized testing dataset. Please manually normalize it."
+            "Failed to normalized testing dataset. Please normalize it manually."
         )
 
     acc_test = check_accuracy(model, dataloader_test, device)
