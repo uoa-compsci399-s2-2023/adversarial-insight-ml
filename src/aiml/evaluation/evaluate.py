@@ -80,7 +80,7 @@ def evaluate(
     dataloader_test = DataLoader(
         dataset_test, batch_size=batch_size_test, shuffle=False, num_workers=num_workers
     )
-    surrogate_model = None
+
     # Check if the user wants to create surrogate model
     if input_train_data:
         print("Creating the surrogate model. This may take a long time.")
@@ -117,11 +117,13 @@ def evaluate(
         input_shape, clip_values, nb_classes, dataset_test, dataloader_test
     )
 
-    if surrogate_model == None:
-        surrogate_model = model
+    if surrogate_model:
+        model_to_use = surrogate_model
+    else:
+        model_to_use = model
 
     classifier = PyTorchClassifier(
-        model=surrogate_model,
+        model=model_to_use,
         clip_values=clip_values,
         loss=None,
         optimizer=None,
