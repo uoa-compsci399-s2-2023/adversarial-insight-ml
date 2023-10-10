@@ -1,7 +1,7 @@
 <p align="center">
   <a href="https://uoa-compsci399-s2-2023.github.io/capstone-project-team-7/">
     <img
-      src="./docs/_static/logo.png"
+      src="./_static/logo.png"
       alt="AIML Logo"
       style="
         width: 418px;
