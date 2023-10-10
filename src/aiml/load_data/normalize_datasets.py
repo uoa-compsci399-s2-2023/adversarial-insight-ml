@@ -98,8 +98,6 @@ def check_normalize(dataloader):
     mean = data[0].mean()
     std = data[0].std()
 
-    print(mean, std)
-
     if mean > 0.1 or mean < -0.1 or std > 1.1 or std < 0.9:
         return False
 
