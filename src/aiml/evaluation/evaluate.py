@@ -8,11 +8,10 @@ with the given data and attack methods.
 
 import torch
 import os
-from torch.utils.data import DataLoader
 from art.estimators.classification import PyTorchClassifier
 
 from aiml.load_data.generate_parameter import generate_parameter
-from aiml.load_data.normalize_datasets import normalize_datasets
+from aiml.load_data.normalize_datasets import normalize_and_check_datasets, check_normalize
 from aiml.attack.attack_evaluation import attack_evaluation
 from aiml.evaluation.check_accuracy import check_accuracy
 from aiml.evaluation.dynamic import decide_attack
@@ -71,66 +70,37 @@ def evaluate(
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     input_model = load_model(input_model)
-    input_test_set = load_test_set(input_test_set)
+    input_test_data = load_test_set(input_test_data)
     model = input_model.to(device)
-    input_train_set = load_train_set(input_train_set)
-    dataset_test, dataset_train = normalize_datasets(input_test_data, input_train_data)
+    input_train_data = load_train_set(input_train_data)
 
-    dataloader_test = DataLoader(
-        dataset_test, batch_size=batch_size_test, shuffle=False, num_workers=num_workers
-    )
+    dataset_test, dataset_train, dataloader_test, dataloader_train = normalize_and_check_datasets(
+        num_workers, batch_size_test, batch_size_train, input_test_data, input_train_data)
+
     surrogate_model = None
+
     # Check if the user wants to create surrogate model
-    if input_train_data:
-        print(
-            "Include a training dataset to create a surrogate model. This may take a long time."
-        )
-        user_response = (
-            input(
-                "Do you want to proceed in the creation of a surrogate model? (Yes/No): "
+    if dataset_train:
+        print("Creating the surrogate model. This may take a long time.")
+
+        # Check if the testing dataset is normalized
+        if not check_normalize(dataloader_train):
+            raise Exception(
+                "Failed to normalized training dataset. Please normalize it manually."
             )
-            .strip()
-            .lower()
+
+        surrogate_model = create_surrogate_model(
+            model, dataloader_train, dataloader_test
         )
+        print("Surrogate model created successfully.")
 
-        responded = False
-        while not responded:
-            if user_response in ["y", "yes", ""]:
-                responded = True
-                print("Creating the surrogate model...")
-
-                dataloader_train = DataLoader(
-                    dataset_train,
-                    batch_size=batch_size_train,
-                    shuffle=True,
-                    num_workers=num_workers,
-                )
-
-                surrogate_model = create_surrogate_model(
-                    model, dataloader_train, dataloader_test
-                )
-                print("Surrogate model created successfully.")
-
-                acc_train = check_accuracy(model, dataloader_train, device)
-                print(f"Train accuracy: {acc_train * 100:.2f}%")
-
-            elif user_response in ["n", "no"]:
-                responded = True
-                print("Continuing without creating surrogate model.")
-
-            else:
-                user_response = (
-                    input("Invalid Input. Please enter Yes or No: ").strip().lower()
-                )
+        acc_train = check_accuracy(model, dataloader_train, device)
+        print(f"Train accuracy: {acc_train * 100:.2f}%")
 
     # Check if the testing dataset is normalized
-    data = next(iter(dataloader_test))
-    mean = data[0].mean()
-    std = data[0].std()
-
-    if mean > 0.1 or mean < -0.1 or std > 1.1 or std < 0.9:
+    if not check_normalize(dataloader_test):
         raise Exception(
-            "Failed to normalized testing dataset. Please manually normalize it."
+            "Failed to normalized testing dataset. Please normalize it manually."
         )
 
     acc_test = check_accuracy(model, dataloader_test, device)
@@ -140,11 +110,13 @@ def evaluate(
         input_shape, clip_values, nb_classes, dataset_test, dataloader_test
     )
 
-    if surrogate_model == None:
-        surrogate_model = model
+    if surrogate_model:
+        model_to_use = surrogate_model
+    else:
+        model_to_use = model
 
     classifier = PyTorchClassifier(
-        model=surrogate_model,
+        model=model_to_use,
         clip_values=clip_values,
         loss=None,
         optimizer=None,

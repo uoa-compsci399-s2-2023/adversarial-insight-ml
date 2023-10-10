@@ -1,13 +1,12 @@
 """
 normalize_datasets.py
 
-This module provides functions for calculating the mean and standard 
-deviation of image channels in a dataset and normalizing the training 
-and testing datasets using the calculated values.
+This module contains functions for normalizing and denormalizing a dataset.
 """
 
 import torch
 import torchvision.transforms as T
+from torch.utils.data import DataLoader
 
 normalize_values = {}
 
@@ -55,7 +54,8 @@ def get_transforms():
     """
     transform_list = [
         T.ToTensor(),
-        T.Normalize(mean=normalize_values["mean"], std=normalize_values["std"]),
+        T.Normalize(mean=normalize_values["mean"],
+                    std=normalize_values["std"]),
     ]
 
     return T.Compose(transform_list)
@@ -82,6 +82,26 @@ def transform_dataset_to_tensor(dataset):
     return dataset
 
 
+def check_normalize(dataloader):
+    """
+    Check if the data in a dataloader is normalized.
+
+    Parameters:
+        dataloader (torch.utils.data.DataLoader): A PyTorch DataLoader containing the dataset.
+
+    Returns:
+        bool: True if the data is normalized (mean close to 0, std close to 1), False otherwise.
+    """
+    data = next(iter(dataloader))
+    mean = data[0].mean()
+    std = data[0].std()
+
+    if mean > 0.1 or mean < -0.1 or std > 1.1 or std < 0.9:
+        return False
+
+    return True
+
+
 def normalize_datasets(dataset_test, dataset_train=None):
     """
     Normalize the training and testing datasets.
@@ -106,3 +126,73 @@ def normalize_datasets(dataset_test, dataset_train=None):
     dataset_test.transform = get_transforms()
 
     return dataset_test, dataset_train
+
+
+def normalize_and_check_datasets(num_workers, batch_size_test, batch_size_train, dataset_test, dataset_train=None):
+    """
+    Normalize and check the given test and optionally, training datasets for normalization.
+
+    Parameters:
+        num_workers (int): Number of workers for data loading.
+        batch_size_test (int): Batch size for the test dataset.
+        batch_size_train (int): Batch size for the training dataset (if provided).
+        test_dataset: The test dataset.
+        train_dataset (optional): The training dataset (Default is None).
+
+    Returns:
+        Tuple: If normalization is required, returns a tuple containing the normalized test
+        and training datasets along with their data loaders. If no normalization is needed,
+        returns the test dataset as-is.
+    """
+    dataloader_test = None
+    dataloader_train = None
+
+    if dataset_train:
+        dataloader_train = DataLoader(
+            dataset_test,
+            batch_size=batch_size_train,
+            shuffle=False,
+            num_workers=num_workers,
+        )
+
+        dataloader_test = DataLoader(
+            dataset_test,
+            batch_size=batch_size_test,
+            shuffle=False,
+            num_workers=num_workers,
+        )
+
+        if not check_normalize(dataloader_test) or not check_normalize(dataloader_train):
+            return normalize_datasets(dataset_test, dataset_train)
+    else:
+        dataloader_test = DataLoader(
+            dataset_test,
+            batch_size=batch_size_test,
+            shuffle=False,
+            num_workers=num_workers,
+        )
+
+        if not check_normalize(dataloader_test):
+            return normalize_datasets(dataset_test)
+
+    return dataset_test, dataset_train, dataloader_test, dataloader_train
+
+
+def denormalize(batch, device):
+    """
+    Denormalize a batch of normalized data using mean and standard deviation values.
+
+    Args:
+        batch (torch.Tensor): A batch of normalized data, typically in the shape
+            (batch_size, channels, height, width).
+        device (torch.device): The device on which to perform the denormalization.
+
+    Returns:
+        torch.Tensor: The denormalized batch of data with the same shape as the input.
+    """
+    if isinstance(normalize_values["mean"], list):
+        mean = torch.tensor(normalize_values["mean"]).to(device)
+    if isinstance(normalize_values["std"], list):
+        std = torch.tensor(normalize_values["std"]).to(device)
+
+    return batch * std.view(1, -1, 1, 1) + mean.view(1, -1, 1, 1)
