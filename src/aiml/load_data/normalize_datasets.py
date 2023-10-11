@@ -61,27 +61,6 @@ def get_transforms():
     return T.Compose(transform_list)
 
 
-def transform_dataset_to_tensor(dataset):
-    """
-    Transform the given dataset to a tensor format.
-
-    Parameters:
-        dataset (dataset): The dataset to be transformed.
-
-    Returns:
-        dataset: The transformed dataset with tensors.
-    """
-    transform_tensor = T.Compose(
-        [
-            T.ToTensor(),
-        ]
-    )
-
-    dataset.transform = transform_tensor
-
-    return dataset
-
-
 def check_normalize(dataloader):
     """
     Check if the data in a dataloader is normalized.
@@ -114,13 +93,6 @@ def normalize_datasets(dataset_test, dataset_train=None):
         tuple: A tuple containing the normalized testing dataset and, if provided, the normalized training dataset.
     """
     if dataset_train:
-        dataset_find_mean_std = transform_dataset_to_tensor(dataset_train)
-    else:
-        dataset_find_mean_std = transform_dataset_to_tensor(dataset_test)
-
-    get_mean_std(dataset_find_mean_std)
-
-    if dataset_train:
         dataset_train.transform = get_transforms()
 
     dataset_test.transform = get_transforms()
@@ -128,7 +100,7 @@ def normalize_datasets(dataset_test, dataset_train=None):
     return dataset_test, dataset_train
 
 
-def normalize_and_check_datasets(num_workers, batch_size_test, batch_size_train, dataset_test, dataset_train=None):
+def normalize_and_check_datasets(num_workers, batch_size_test, batch_size_train, dataset_test, dataset_train):
     """
     Normalize and check the given test and optionally, training datasets for normalization.
 
@@ -148,10 +120,12 @@ def normalize_and_check_datasets(num_workers, batch_size_test, batch_size_train,
     dataloader_train = None
 
     if dataset_train:
+        get_mean_std(dataset_train)
+
         dataloader_train = DataLoader(
-            dataset_test,
+            dataset_train,
             batch_size=batch_size_train,
-            shuffle=False,
+            shuffle=True,
             num_workers=num_workers,
         )
 
@@ -163,8 +137,25 @@ def normalize_and_check_datasets(num_workers, batch_size_test, batch_size_train,
         )
 
         if not check_normalize(dataloader_test) or not check_normalize(dataloader_train):
-            return normalize_datasets(dataset_test, dataset_train)
+            dataset_test_norm, dataset_train_norm = normalize_datasets(
+                dataset_test, dataset_train)
+
+            dataloader_train = DataLoader(
+                dataset_test_norm,
+                batch_size=batch_size_train,
+                shuffle=True,
+                num_workers=num_workers,
+            )
+
+            dataloader_test = DataLoader(
+                dataset_train_norm,
+                batch_size=batch_size_test,
+                shuffle=False,
+                num_workers=num_workers,
+            )
     else:
+        get_mean_std(dataset_test)
+
         dataloader_test = DataLoader(
             dataset_test,
             batch_size=batch_size_test,
@@ -173,7 +164,14 @@ def normalize_and_check_datasets(num_workers, batch_size_test, batch_size_train,
         )
 
         if not check_normalize(dataloader_test):
-            return normalize_datasets(dataset_test)
+            dataset_test_norm, _ = normalize_datasets(dataset_test)
+
+            dataloader_test = DataLoader(
+                dataset_test_norm,
+                batch_size=batch_size_test,
+                shuffle=False,
+                num_workers=num_workers,
+            )
 
     return dataset_test, dataset_train, dataloader_test, dataloader_train
 
