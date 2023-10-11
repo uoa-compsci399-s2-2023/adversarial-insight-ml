@@ -13,7 +13,6 @@
   </a>
 </p>
 
-
 <h2 align="center">Adversarial Insight ML (AIML)</h2>
 
 <p align="center">
@@ -34,39 +33,42 @@
   </a>
 </p>
 
-
 > “Why does your machine lie?”
 
 Adversarial Insight ML (AIML) is a PyPI package that evaluates the robustness of machine learning models in image classification against adversarial attacks. The final program in the package should automatically test potential adversarial attacks against each given machine learning model and give users accurate, efficient and robust feedback through several benchmarks we develop. Furthermore, the package should be designed to allow non-technical users to use it as well.
 
 For more information, you can also visit the [PyPI page](https://pypi.org/project/adversarial-insight-ml/) and [documentation](https://uoa-compsci399-s2-2023.github.io/capstone-project-team-7/).
 
-
 ## Table of Contents
+
 - [Installation](#installation)
 - [Usage](#usage)
 - [Features](#features)
 - [Contributing](#contributing)
 - [License](#license)
 
-
 ## Installation
+
 To install Adversarial Insight ML, you can use pip:
+
 ```bash
 pip install adversarial-insight-ml
 ```
 
-
 ## Usage
+
 You can evaluate your model with the `evaluate()` function, it requires two
 parameters as shown below:
+
 ```python
 from aiml.evaluation.evaluate import evaluate
 
 evaluate(model, test_dataset)
 ```
-All parameters including optional parameters for the `evaluate()` function are 
+
+All parameters including optional parameters for the `evaluate()` function are
 as follows:
+
 - `input_model (model)`: The machine learning model to be evaluated.
 - `input_test_data (dataset)`: A dataset containing testing data.
 
@@ -82,44 +84,47 @@ as follows:
 - `dry (bool, optional)`: When True, the code should only test one example.
 - `attack_para_list (list, optional)`: List of parameter combinations for the attack.
 
-See the demos in examples directory for the usage in action: 
-[demo_basic](examples/demo_basic.ipynb), 
-[demo_huggingface](examples/demo_huggingface.ipynb), 
+See the demos in examples directory for the usage in action:
+[demo_basic](examples/demo_basic.ipynb),
+[demo_huggingface](examples/demo_huggingface.ipynb),
 [demo_robustbench](examples/demo_robustbench.ipynb).
 
 ## Features
+
 After evaluating your model with `evaluate()` function, we provide
 the following insights:
-- Summary of adversarial attacks performed, found in `example.txt`:
-![Alt text](_static/example_text_screenshot.png)
-- Samples of failed and succeeded images, found in `img/` directory:
-![Alt text](_static/image_sample_screenshot.png)
 
+- Summary of adversarial attacks performed, found in `example.txt`:
+  ![Alt text](_static/example_text_screenshot.png)
+- Samples of failed and succeeded images, found in `img/` directory:
+  ![Alt text](_static/image_sample_screenshot.png)
 
 ## Contributing
+
 **Code Style**  
 Always adhere to the [PEP 8](https://www.python.org/dev/peps/pep-0008/) style guide for writing Python code, allowing upto 99 characters per line as the absolute maximum. Alternatively, just use [black](https://github.com/psf/black).
 
 **Commit Messages**  
 When making changes to the codebase, please refer to the [Documentation/SubmittingPatches](https://git.kernel.org/pub/scm/git/git.git/tree/Documentation/SubmittingPatches?h=v2.36.1#n181) in the Git repo:
+
 - Write commit messages in present tense and imperative mood, e.g., "Add feature" instead of "Added feature" or "Adding feature."
 - Craft your messages as if you're giving orders to the codebase to change its behaviour.
 
 **Branching**  
 We conform to a variation of the "GitHub Flow'' convention, but not strictly. For example, see the following types of branches:
-- main: This branch is always deployable and reflects the production state.
-- bugfix/*: For bug fixes.
 
+- main: This branch is always deployable and reflects the production state.
+- bugfix/\*: For bug fixes.
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgements
 
 We extend our sincere appreciation to the following individuals who have been instrumental in the success of this project:
 
-Firstly, our client Dr. Xinglong Chang. His invaluable guidance and insights guided us from the beginning through every phase, ensuring our work remained aligned with practical needs. This project would not have been possible without his efforts.
+Firstly, our client Mr. Xinglong Chang. His invaluable guidance and insights guided us from the beginning through every phase, ensuring our work remained aligned with practical needs. This project would not have been possible without his efforts.
 
 We'd also like to express our gratitude to Dr. Asma Shakil, who has coordinated and provided an opportunity for us to work together on this project.
 
@@ -128,11 +133,10 @@ Thank you for being part of this journey.
 Warm regards,
 Team 7
 
-
 ## Contacts
 
-Terence Zhang tzha820@aucklanduni.ac.nz  
-Yuming Zhou yzho739@aucklanduni.ac.nz  
 Sungjae Jang sjan260@aucklanduni.ac.nz  
 Takuya Saegusa tsae032@aucklanduni.ac.nz  
 Haozhe Wei hwei313@aucklanduni.ac.nz  
+Yuming Zhou yzho739@aucklanduni.ac.nz  
+Terence Zhang tzha820@aucklanduni.ac.nz
