@@ -85,7 +85,7 @@ as follows:
 See the demos in examples directory for the usage in action: 
 [demo_basic](examples/demo_basic.ipynb), 
 [demo_huggingface](examples/demo_huggingface.ipynb), 
-[demo_robustbench](examples/demo_robustbench.ipynb), 
+[demo_robustbench](examples/demo_robustbench.ipynb).
 
 ## Features
 After evaluating your model with `evaluate()` function, we provide
