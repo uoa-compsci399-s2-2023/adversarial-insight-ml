@@ -62,6 +62,8 @@ def evaluate(
         batch_size_test (int, optional): Batch size for test data (default is 64).
         num_workers (int, optional): Number of workers to use for data loading 
             (default is half of the available CPU cores).
+        dry (bool, optional): When True, the code should only test one example.
+        attack_para_list (list, optional): List of parameter combinations for the attack.
 
     Returns:
         None.
