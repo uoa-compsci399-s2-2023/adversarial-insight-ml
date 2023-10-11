@@ -88,7 +88,12 @@ See the demos in examples directory for the usage in action:
 [demo_robustbench](examples/demo_robustbench.ipynb), 
 
 ## Features
-[*Highlight the key features or functionalities of your project. List them in a concise and easy-to-understand manner.*]
+After evaluating your model with `evaluate()` function, we provide
+the following insights:
+- Summary of adversarial attacks performed, found in `example.txt`:
+![Alt text](example_text_screenshot.png)
+- Samples of failed and succeeded images, found in `img/` directory:
+![Alt text](image.png)
 
 
 ## Contributing
