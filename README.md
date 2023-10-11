@@ -69,10 +69,9 @@ evaluate(model, test_dataset)
 All parameters including optional parameters for the `evaluate()` function are
 as follows:
 
-- `input_model (model)`: The machine learning model to be evaluated.
-- `input_test_data (dataset)`: A dataset containing testing data.
-
-- `input_train_data (dataset, optional)`: A dataset containing training data (default is None).
+- `input_model (str or model)`: A string of the name of the machine learning model or the machine learning model itself.
+- `input_test_data (str or dataset)`: A string of the name of the testing dataset or the testing dataset itself.
+- `input_train_data (str or dataset, optional)`: A string of the name of the training dataset or the training dataset itself (default is None).
 - `input_shape (tuple, optional)`: Shape of input data (default is None).
 - `clip_values (tuple, optional)`: Range of input data values (default is None).
 - `nb_classes (int, optional)`: Number of classes in the dataset (default is None).
