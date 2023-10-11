@@ -60,14 +60,14 @@ pip install adversarial-insight-ml
 ## Usage
 You can evaluate your model with the `evaluate()` function, it requires two
 parameters as shown below:
-```bash
+```python
 from aiml.evaluation.evaluate import evaluate
 
 evaluate(model, test_dataset)
 ```
 All parameters including optional parameters for the `evaluate()` function are 
 as follows:
-```bash
+```python
 # Required parameters:
 input_model (model): The machine learning model to be evaluated.
 
