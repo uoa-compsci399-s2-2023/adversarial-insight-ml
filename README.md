@@ -95,7 +95,7 @@ the following insights:
 
 - Summary of adversarial attacks performed, found in `example.txt`:
   ![Alt text](_static/example_text_screenshot.png)
-- Samples of failed and succeeded images, found in `img/` directory:
+- Samples of the images can be found in `img/` directory, for example:
   ![Alt text](_static/image_sample_screenshot.png)
 
 ## Contributing
