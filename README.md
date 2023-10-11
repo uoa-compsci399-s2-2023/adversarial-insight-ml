@@ -58,7 +58,45 @@ pip install adversarial-insight-ml
 
 
 ## Usage
-[*Instructions on how to use your project. Provide examples or code snippets to demonstrate its functionality.*]
+You can evaluate your model with the `evaluate()` function, it requires two
+parameters as shown below:
+```bash
+from aiml.evaluation.evaluate import evaluate
+
+evaluate(model, test_dataset)
+```
+All parameters including optional parameters for the `evaluate()` function are 
+as follows:
+```bash
+# Required parameters:
+input_model (model): The machine learning model to be evaluated.
+
+input_test_data (dataset): A dataset containing testing data.
+
+# Optional parameters:
+input_train_data (dataset, optional): A dataset containing training data (default is None).
+
+input_shape (tuple, optional): Shape of input data (default is None).
+
+clip_values (tuple, optional): Range of input data values (default is None).
+
+nb_classes (int, optional): Number of classes in the dataset (default is None).
+
+batch_size_attack (int, optional): Batch size for attack testing (default is 64).
+
+num_threads_attack (int, optional): Number of threads for attack testing (default is 0).
+
+batch_size_train (int, optional): Batch size for training data (default is 64).
+
+batch_size_test (int, optional): Batch size for test data (default is 64).
+
+num_workers (int, optional): Number of workers to use for data loading 
+    (default is half of the available CPU cores).
+
+dry (bool, optional): When True, the code should only test one example.
+
+attack_para_list (list, optional): List of parameter combinations for the attack.
+```
 
 
 ## Features
