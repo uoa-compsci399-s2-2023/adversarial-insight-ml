@@ -16,6 +16,7 @@ from torch.utils.data import TensorDataset
 import torchvision.transforms as T
 import numpy as np
 
+from aiml.load_data.normalize_datasets import denormalize
 from aiml.evaluation.check_accuracy import check_accuracy_with_flags
 from aiml.attack.adversarial_attacks import (
     auto_projected_cross_entropy,
@@ -189,7 +190,8 @@ def attack_evaluation(
     elif len(para) == 2:
         attack = attack_method_list[attack_n][1](classifer, para[0], para[1])
     elif len(para) == 3:
-        attack = attack_method_list[attack_n][1](classifer, para[0], para[1], para[2])
+        attack = attack_method_list[attack_n][1](
+            classifer, para[0], para[1], para[2])
     else:
         attack = attack_method_list[attack_n][1](
             classifer, para[0], para[1], para[2], para[3]
@@ -218,7 +220,7 @@ def attack_evaluation(
                 a
             )  # Test whether the original image can be correctly recognized by the ML model
             _, predictions = torch.max(outputs, 1)
-    
+
             if b != predictions.numpy()[0]:
                 continue  # Skip unrecognizable original images for adversarial generation
         except:
@@ -261,11 +263,14 @@ def attack_evaluation(
     )  # high num_workers may cause err
 
     # Test the model's accuracy on the adversarial examples
-    acc_advx, correct_advx = check_accuracy_with_flags(model, dataloader_advx, device)
+    acc_advx, correct_advx = check_accuracy_with_flags(
+        model, dataloader_advx, device)
 
     for i in range(len(correct_advx[0])):  # put images in the folder
         if correct_advx[0][i] == False:
             transform = T.ToPILImage()
+            X_tensor[i] = denormalize(X_tensor[i])
+            X_advx_tensor[i] = denormalize(X_advx_tensor[i])
             orig_img = transform(X_tensor[i])
             advx_img = transform(X_advx_tensor[i])
             img_path = (
@@ -279,6 +284,8 @@ def attack_evaluation(
             advx_img.save(f"{img_path}/{i}advers.png", "PNG")
         else:
             transform = T.ToPILImage()
+            X_tensor[i] = denormalize(X_tensor[i])
+            X_advx_tensor[i] = denormalize(X_advx_tensor[i])
             orig_img = transform(X_tensor[i])
             advx_img = transform(X_advx_tensor[i])
             img_path = (

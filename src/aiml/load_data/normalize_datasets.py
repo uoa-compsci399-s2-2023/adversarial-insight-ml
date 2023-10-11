@@ -23,23 +23,53 @@ def get_mean_std(dataset):
     """
     imgs = [item[0] for item in dataset]
     imgs = torch.stack(imgs, dim=0).numpy()
-    num_channels = imgs[0].shape[0]
+    sample_image = imgs[0]
+    num_channels, height, width = sample_image.shape
+    num_images = len(dataset)
+    num_classes = len(set([y for _, y in dataset]))
 
     if num_channels == 3:
-        mean_r = imgs[:, 0, :, :].mean()
-        mean_g = imgs[:, 1, :, :].mean()
-        mean_b = imgs[:, 2, :, :].mean()
+        # CIFAR10
+        if num_classes == 10 and height == 32 and width == 32 and num_images in [50000, 10000]:
+            mean = [0.4914, 0.4822, 0.4465]
+            std = [0.2470, 0.2435, 0.2616]
+        # SVHN
+        elif num_classes == 10 and height == 32 and width == 32 and num_images in [73257, 26032]:
+            mean = [0.4377, 0.44378, 0.4728]
+            std = [0.1980, 0.2010, 0.19704]
+        # GTSRB
+        elif num_classes == 43 and num_images in [39209, 26640, 12630]:
+            mean = [0.3417, 0.3126, 0.3217]
+            std = [0.2768, 0.2646, 0.2706]
+        # CIFAR100
+        elif num_classes == 100 and height == 32 and width == 32 and num_images in [50000, 10000]:
+            mean = [0.5071, 0.4867, 0.4408]
+            std = [0.2675, 0.2565, 0.2761]
+        # Tiny ImageNet
+        elif num_classes == 200 and height == 64 and width == 64 and num_images in [100000, 10000]:
+            mean = [0.485, 0.456, 0.406]
+            std = [0.229, 0.224, 0.225]
+        else:
+            mean_r = imgs[:, 0, :, :].mean()
+            mean_g = imgs[:, 1, :, :].mean()
+            mean_b = imgs[:, 2, :, :].mean()
 
-        mean = [mean_r, mean_g, mean_b]
+            mean = [mean_r, mean_g, mean_b]
 
-        std_r = imgs[:, 0, :, :].std()
-        std_g = imgs[:, 1, :, :].std()
-        std_b = imgs[:, 2, :, :].std()
+            std_r = imgs[:, 0, :, :].std()
+            std_g = imgs[:, 1, :, :].std()
+            std_b = imgs[:, 2, :, :].std()
 
-        std = [std_r, std_g, std_b]
+            std = [std_r, std_g, std_b]
+
     else:
-        mean = [imgs[:, 0, :, :].mean()]
-        std = [imgs[:, 0, :, :].std()]
+        # MNIST
+        if num_classes == 10 and height == 28 and width == 28 and num_images in [60000, 10000]:
+            mean = [0.1307,]
+            std = [0.3081,]
+        else:
+            mean = [imgs[:, 0, :, :].mean()]
+            std = [imgs[:, 0, :, :].std()]
 
     normalize_values["mean"] = mean
     normalize_values["std"] = std
@@ -176,21 +206,17 @@ def normalize_and_check_datasets(num_workers, batch_size_test, batch_size_train,
     return dataset_test, dataset_train, dataloader_test, dataloader_train
 
 
-def denormalize(batch, device):
+def denormalize(batch):
     """
     Denormalize a batch of normalized data using mean and standard deviation values.
 
-    Args:
-        batch (torch.Tensor): A batch of normalized data, typically in the shape
-            (batch_size, channels, height, width).
-        device (torch.device): The device on which to perform the denormalization.
+    Parameters:
+        batch (torch.Tensor): A batch of normalized data.
 
     Returns:
         torch.Tensor: The denormalized batch of data with the same shape as the input.
     """
-    if isinstance(normalize_values["mean"], list):
-        mean = torch.tensor(normalize_values["mean"]).to(device)
-    if isinstance(normalize_values["std"], list):
-        std = torch.tensor(normalize_values["std"]).to(device)
+    mean = torch.Tensor(normalize_values["mean"])
+    std = torch.Tensor(normalize_values["std"])
 
     return batch * std.view(1, -1, 1, 1) + mean.view(1, -1, 1, 1)
