@@ -98,6 +98,10 @@ dry (bool, optional): When True, the code should only test one example.
 attack_para_list (list, optional): List of parameter combinations for the attack.
 ```
 
+See the demos in examples directory: 
+[demo_basic](examples/demo_basic.ipynb), 
+[demo_huggingface](examples/demo_huggingface.ipynb), 
+[demo_robustbench](examples/demo_robustbench.ipynb), 
 
 ## Features
 [*Highlight the key features or functionalities of your project. List them in a concise and easy-to-understand manner.*]
