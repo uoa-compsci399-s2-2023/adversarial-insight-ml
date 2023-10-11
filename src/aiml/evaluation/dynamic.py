@@ -167,7 +167,7 @@ def decide_attack(
     previous_para_n = previous[1]
 
     with open(
-        "example.txt", "a"
+        "attack evaluation result.txt", "a" #the result will output to attack evaluation result.txt
     ) as f:  # write the results of previous attack to txt file
         f.write(attack_method_list[previous_attack_n][3])
         f.write("    ")
