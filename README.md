@@ -93,10 +93,11 @@ See the demos in examples directory for the usage in action:
 After evaluating your model with `evaluate()` function, we provide
 the following insights:
 
-- Summary of adversarial attacks performed, found in `example.txt`:
-  ![Alt text](_static/example_text_screenshot.png)
+- Summary of adversarial attacks performed, found in `attack_evaluation_result.txt`:
+  ![Alt text](_static/evaluation_example.png)
 - Samples of the images can be found in `img/` directory, for example:
-  ![Alt text](_static/image_sample_screenshot.png)
+  ![Alt text](_static/img_overview.png)
+  ![Alt text](_static/image_sample.png)
 
 ## Contributing
 
