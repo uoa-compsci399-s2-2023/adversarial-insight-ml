@@ -96,8 +96,12 @@ the following insights:
 - Summary of adversarial attacks performed, found in `attack_evaluation_result.txt`:
   ![Alt text](_static/evaluation_example.png)
 - Samples of the images can be found in `img/` directory, for example:
-  ![Alt text](_static/img_overview.png)
-  ![Alt text](_static/image_sample.png)
+  <div style="text-align: center;">
+    <img src="_static/img_overview.png" alt="Alt text" width="300" height="200">
+    <img src="_static/image_sample.png" alt="Alt text" width="200" height="100">
+  </div>
+
+
 
 ## Contributing
 
