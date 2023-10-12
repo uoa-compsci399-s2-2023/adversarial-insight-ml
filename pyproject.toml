@@ -55,7 +55,7 @@ version = { attr = "aiml.__version__" }
 [tool.bumpver]
 current_version = "0.2.0"
 version_pattern = "MAJOR.MINOR.PATCH"
-commit_message = "bump version {old_version} -> {new_version}"
+commit_message = "Bump version {old_version} -> {new_version}"
 tag_message = "{new_version}"
 tag_scope = "default"
 commit = true
