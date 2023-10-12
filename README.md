@@ -128,7 +128,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 We extend our sincere appreciation to the following individuals who have been instrumental in the success of this project:
 
-Firstly, our client Mr. Xinglong Chang. His invaluable guidance and insights guided us from the beginning through every phase, ensuring our work remained aligned with practical needs. This project would not have been possible without his efforts.
+Firstly, our client Mr. Luke Chang. His invaluable guidance and insights guided us from the beginning through every phase, ensuring our work remained aligned with practical needs. This project would not have been possible without his efforts.
 
 We'd also like to express our gratitude to Dr. Asma Shakil, who has coordinated and provided an opportunity for us to work together on this project.
 
