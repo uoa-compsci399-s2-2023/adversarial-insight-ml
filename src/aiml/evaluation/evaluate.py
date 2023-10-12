@@ -33,6 +33,7 @@ def evaluate(
     batch_size_train=64,
     batch_size_test=64,
     num_workers=int(os.cpu_count() / 2),
+    require_n=3,
     dry=False,
     attack_para_list=[
         [[1], [16], [32]],
@@ -62,6 +63,7 @@ def evaluate(
         batch_size_test (int, optional): Batch size for test data (default is 64).
         num_workers (int, optional): Number of workers to use for data loading 
             (default is half of the available CPU cores).
+        require_n(int, optional): the number of adversarial images for each class.
         dry (bool, optional): When True, the code should only test one example.
         attack_para_list (list, optional): List of parameter combinations for the attack.
 
@@ -148,6 +150,7 @@ def evaluate(
                     num_threads_attack,
                     device,
                     nb_classes,
+                    require_n,
                     dry=dry,
                     attack_para_list=attack_para_list,
                 ),
