@@ -224,7 +224,7 @@ def attack_evaluation(
             if b != predictions.numpy()[0]:
                 continue  # Skip unrecognizable original images for adversarial generation
         except:
-            print("processing")
+            good_work=True #meaningless word
 
         X += [a.numpy()]
         y += [b]
