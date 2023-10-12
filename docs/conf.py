@@ -12,9 +12,7 @@ sys.path.insert(0, os.path.abspath('..'))
 
 project = 'Adversarial Insight ML'
 copyright = '2023, Sungjae Jang, Takuya Saegusa, Terence Zhang, Yuming Zhou, Haozhe Wei, Luke Chang'
-author = [
-    'Sungjae Jang', 'Takuya Saegusa', 'Terence Zhang', 'Yuming Zhou', 'Haozhe Wei', 'Luke Chang'
-]
+author = 'Sungjae Jang, Takuya Saegusa, Terence Zhang, Yuming Zhou, Haozhe Wei, Luke Chang'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
