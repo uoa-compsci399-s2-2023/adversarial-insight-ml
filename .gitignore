@@ -23,7 +23,7 @@ __pyenv__/
 data/
 logs/
 *.txt
-*.png
+examples/img/
 
 # Model
 *.pth
@@ -53,7 +53,5 @@ __pycache__/
 *.DS_Store
 src/aiml/test_c.py
 
-# Docs
-*.rst
-conf.py
-!_build/html/
+venv*/
+!dev-requirements.txt
