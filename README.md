@@ -57,6 +57,11 @@ pip install adversarial-insight-ml
 
 ## Usage
 
+Here's a simple overview of the usage of our package:
+<p align="center">
+  <img src="_static/workflow_overview.png" alt="img overview" width="400" height="360" align="center">
+</p>
+
 You can evaluate your model with the `evaluate()` function, it requires two
 parameters as shown below:
 
@@ -94,11 +99,11 @@ After evaluating your model with `evaluate()` function, we provide
 the following insights:
 
 - Summary of adversarial attacks performed, found in `attack_evaluation_result.txt`:
-  ![Alt text](_static/evaluation_example.png)
+  ![Result Example](_static/evaluation_example.png)
 - Samples of the images can be found in `img/` directory, for example:
   <p align="center">
-    <img src="_static/img_overview.png" alt="Alt text" width="300" height="200" align="center">
-    <img src="_static/image_sample.png" alt="Alt text" width="200" height="100" align="center">
+    <img src="_static/img_overview.png" alt="img overview" width="300" height="200" align="center">
+    <img src="_static/image_sample.png" alt="sample image" width="200" height="100" align="center">
   </p>
 
 
