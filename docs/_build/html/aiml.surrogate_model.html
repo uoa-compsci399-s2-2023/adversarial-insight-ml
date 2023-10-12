@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>aiml.surrogate_model package &mdash; Adversarial Insight ML  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="aiml.load_data package" href="aiml.load_data.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Adversarial Insight ML
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">src</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="aiml.html">aiml package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="aiml.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="aiml.attack.html">aiml.attack package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aiml.evaluation.html">aiml.evaluation package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aiml.load_data.html">aiml.load_data package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">aiml.surrogate_model package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="aiml.html#module-aiml">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Adversarial Insight ML</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">src</a></li>
+          <li class="breadcrumb-item"><a href="aiml.html">aiml package</a></li>
+      <li class="breadcrumb-item active">aiml.surrogate_model package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/aiml.surrogate_model.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="aiml-surrogate-model-package">
+<h1>aiml.surrogate_model package<a class="headerlink" href="#aiml-surrogate-model-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-aiml.surrogate_model.create_surrogate_model">
+<span id="aiml-surrogate-model-create-surrogate-model-module"></span><h2>aiml.surrogate_model.create_surrogate_model module<a class="headerlink" href="#module-aiml.surrogate_model.create_surrogate_model" title="Link to this heading"></a></h2>
+<p>create_surrogate_model.py</p>
+<p>This module creates surrogate models for black-box attacks.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="aiml.surrogate_model.create_surrogate_model.create_substitute">
+<span class="sig-prename descclassname"><span class="pre">aiml.surrogate_model.create_surrogate_model.</span></span><span class="sig-name descname"><span class="pre">create_substitute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataloader_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_classes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aiml/surrogate_model/create_surrogate_model.html#create_substitute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aiml.surrogate_model.create_surrogate_model.create_substitute" title="Link to this definition"></a></dt>
+<dd><p>Create a substitute model based on the training dataloader.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataloader_train</strong> (<em>torch.utils.data.DataLoader</em>) – The training dataloader.</p></li>
+<li><p><strong>num_classes</strong> (<em>int</em>) – The number of classes in the dataset.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The created substitute model.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>nn.Module</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aiml.surrogate_model.create_surrogate_model.create_surrogate_model">
+<span class="sig-prename descclassname"><span class="pre">aiml.surrogate_model.create_surrogate_model.</span></span><span class="sig-name descname"><span class="pre">create_surrogate_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataloader_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataloader_test</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aiml/surrogate_model/create_surrogate_model.html#create_surrogate_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aiml.surrogate_model.create_surrogate_model.create_surrogate_model" title="Link to this definition"></a></dt>
+<dd><p>Create and train a surrogate model using PyTorch Lightning.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>nn.Module</em>) – The black-box model to create a surrogate for.</p></li>
+<li><p><strong>dataloader_train</strong> (<em>torch.utils.data.DataLoader</em>) – The training dataloader.</p></li>
+<li><p><strong>dataloader_test</strong> (<em>torch.utils.data.DataLoader</em>) – The testing dataloader.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The trained surrogate model.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pytorch_lightning.LightningModule</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aiml.surrogate_model.create_surrogate_model.get_num_classes">
+<span class="sig-prename descclassname"><span class="pre">aiml.surrogate_model.create_surrogate_model.</span></span><span class="sig-name descname"><span class="pre">get_num_classes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataloader</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aiml/surrogate_model/create_surrogate_model.html#get_num_classes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aiml.surrogate_model.create_surrogate_model.get_num_classes" title="Link to this definition"></a></dt>
+<dd><p>Get the number of classes from a dataloader.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dataloader</strong> (<em>torch.utils.data.DataLoader</em>) – The dataloader containing the dataset.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The number of classes in the dataset.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-aiml.surrogate_model.models">
+<span id="aiml-surrogate-model-models-module"></span><h2>aiml.surrogate_model.models module<a class="headerlink" href="#module-aiml.surrogate_model.models" title="Link to this heading"></a></h2>
+<p>models.py</p>
+<p>This module contains utility functions and PyTorch Lightning modules for
+working with the CIFAR-10 dataset. The VGG16 BN model is used as a
+substitute for the black box model. This functions and classes in this
+file are used in the “create_surrogate_model.py” file.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="aiml.surrogate_model.models.LogSoftmaxModule">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aiml.surrogate_model.models.</span></span><span class="sig-name descname"><span class="pre">LogSoftmaxModule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aiml/surrogate_model/models.html#LogSoftmaxModule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aiml.surrogate_model.models.LogSoftmaxModule" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">LightningModule</span></code></p>
+<p>A PyTorch Lightning module that wraps a model and applies LogSoftmax to its output.</p>
+<p>This module is designed to enhance the functionality of an existing neural network model
+by applying LogSoftmax to its output. It can be used for various machine learning tasks
+such as classification.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="aiml.surrogate_model.models.LogSoftmaxModule.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#aiml.surrogate_model.models.LogSoftmaxModule.model" title="Link to this definition"></a></dt>
+<dd><p>The underlying model to wrap with LogSoftmax.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>nn.Module</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aiml.surrogate_model.models.LogSoftmaxModule.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aiml/surrogate_model/models.html#LogSoftmaxModule.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aiml.surrogate_model.models.LogSoftmaxModule.forward" title="Link to this definition"></a></dt>
+<dd><p>Same as <code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.nn.Module.forward()</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>*args</strong> – Whatever you decide to pass into the forward method.</p></li>
+<li><p><strong>**kwargs</strong> – Keyword arguments are also possible.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Your model’s output</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aiml.surrogate_model.models.LogSoftmaxModule.predict_step">
+<span class="sig-name descname"><span class="pre">predict_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataloader_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aiml/surrogate_model/models.html#LogSoftmaxModule.predict_step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aiml.surrogate_model.models.LogSoftmaxModule.predict_step" title="Link to this definition"></a></dt>
+<dd><p>Step function called during <code class="xref py py-meth docutils literal notranslate"><span class="pre">predict()</span></code>. By default, it
+calls <code class="xref py py-meth docutils literal notranslate"><span class="pre">forward()</span></code>. Override to add any processing logic.</p>
+<p>The <code class="xref py py-meth docutils literal notranslate"><span class="pre">predict_step()</span></code> is used
+to scale inference on multi-devices.</p>
+<p>To prevent an OOM error, it is possible to use <code class="xref py py-class docutils literal notranslate"><span class="pre">BasePredictionWriter</span></code>
+callback to write the predictions to disk or database after each batch or on epoch end.</p>
+<p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">BasePredictionWriter</span></code> should be used while using a spawn
+based accelerator. This happens for <code class="docutils literal notranslate"><span class="pre">Trainer(strategy=&quot;ddp_spawn&quot;)</span></code>
+or training on 8 TPU cores with <code class="docutils literal notranslate"><span class="pre">Trainer(accelerator=&quot;tpu&quot;,</span> <span class="pre">devices=8)</span></code> as predictions won’t be returned.</p>
+<p>Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">LightningModule</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">predict_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="n">dataloader_idx</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span>
+
+<span class="n">dm</span> <span class="o">=</span> <span class="o">...</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">MyModel</span><span class="p">()</span>
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span><span class="n">accelerator</span><span class="o">=</span><span class="s2">&quot;gpu&quot;</span><span class="p">,</span> <span class="n">devices</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">trainer</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">dm</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>batch</strong> – Current batch.</p></li>
+<li><p><strong>batch_idx</strong> – Index of current batch.</p></li>
+<li><p><strong>dataloader_idx</strong> – Index of the current dataloader.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Predicted output</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="aiml.surrogate_model.models.Surrogate">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aiml.surrogate_model.models.</span></span><span class="sig-name descname"><span class="pre">Surrogate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_training_batches</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oracle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">substitute</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_classes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">softmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aiml/surrogate_model/models.html#Surrogate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aiml.surrogate_model.models.Surrogate" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">LightningModule</span></code></p>
+<p>A PyTorch Lightning module representing a surrogate model.</p>
+<p>This surrogate model is designed to mimic the behavior of an oracle model.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="aiml.surrogate_model.models.Surrogate.oracle">
+<span class="sig-name descname"><span class="pre">oracle</span></span><a class="headerlink" href="#aiml.surrogate_model.models.Surrogate.oracle" title="Link to this definition"></a></dt>
+<dd><p>The oracle model for reference.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>nn.Module</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="aiml.surrogate_model.models.Surrogate.substitute">
+<span class="sig-name descname"><span class="pre">substitute</span></span><a class="headerlink" href="#aiml.surrogate_model.models.Surrogate.substitute" title="Link to this definition"></a></dt>
+<dd><p>The surrogate model to be trained.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>nn.Module</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="aiml.surrogate_model.models.Surrogate.loss_fn">
+<span class="sig-name descname"><span class="pre">loss_fn</span></span><a class="headerlink" href="#aiml.surrogate_model.models.Surrogate.loss_fn" title="Link to this definition"></a></dt>
+<dd><p>The loss function for surrogate training.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="aiml.surrogate_model.models.Surrogate.accuracy">
+<span class="sig-name descname"><span class="pre">accuracy</span></span><a class="headerlink" href="#aiml.surrogate_model.models.Surrogate.accuracy" title="Link to this definition"></a></dt>
+<dd><p>A metric for computing accuracy during training/validation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Accuracy</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aiml.surrogate_model.models.Surrogate.configure_optimizers">
+<span class="sig-name descname"><span class="pre">configure_optimizers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aiml/surrogate_model/models.html#Surrogate.configure_optimizers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aiml.surrogate_model.models.Surrogate.configure_optimizers" title="Link to this definition"></a></dt>
+<dd><p>Choose what optimizers and learning-rate schedulers to use in your optimization. Normally you’d need one.
+But in the case of GANs or similar you might have multiple. Optimization with multiple optimizers only works in
+the manual optimization mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><p>Any of these 6 options.</p>
+<ul class="simple">
+<li><p><strong>Single optimizer</strong>.</p></li>
+<li><p><strong>List or Tuple</strong> of optimizers.</p></li>
+<li><p><strong>Two lists</strong> - The first list has multiple optimizers, and the second has multiple LR schedulers
+(or multiple <code class="docutils literal notranslate"><span class="pre">lr_scheduler_config</span></code>).</p></li>
+<li><p><strong>Dictionary</strong>, with an <code class="docutils literal notranslate"><span class="pre">&quot;optimizer&quot;</span></code> key, and (optionally) a <code class="docutils literal notranslate"><span class="pre">&quot;lr_scheduler&quot;</span></code>
+key whose value is a single LR scheduler or <code class="docutils literal notranslate"><span class="pre">lr_scheduler_config</span></code>.</p></li>
+<li><p><strong>None</strong> - Fit will run without any optimizer.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p>The <code class="docutils literal notranslate"><span class="pre">lr_scheduler_config</span></code> is a dictionary which contains the scheduler and its associated configuration.
+The default configuration is shown below.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lr_scheduler_config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1"># REQUIRED: The scheduler instance</span>
+    <span class="s2">&quot;scheduler&quot;</span><span class="p">:</span> <span class="n">lr_scheduler</span><span class="p">,</span>
+    <span class="c1"># The unit of the scheduler&#39;s step size, could also be &#39;step&#39;.</span>
+    <span class="c1"># &#39;epoch&#39; updates the scheduler on epoch end whereas &#39;step&#39;</span>
+    <span class="c1"># updates it after a optimizer update.</span>
+    <span class="s2">&quot;interval&quot;</span><span class="p">:</span> <span class="s2">&quot;epoch&quot;</span><span class="p">,</span>
+    <span class="c1"># How many epochs/steps should pass between calls to</span>
+    <span class="c1"># `scheduler.step()`. 1 corresponds to updating the learning</span>
+    <span class="c1"># rate after every epoch/step.</span>
+    <span class="s2">&quot;frequency&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="c1"># Metric to to monitor for schedulers like `ReduceLROnPlateau`</span>
+    <span class="s2">&quot;monitor&quot;</span><span class="p">:</span> <span class="s2">&quot;val_loss&quot;</span><span class="p">,</span>
+    <span class="c1"># If set to `True`, will enforce that the value specified &#39;monitor&#39;</span>
+    <span class="c1"># is available when the scheduler is updated, thus stopping</span>
+    <span class="c1"># training if not found. If set to `False`, it will only produce a warning</span>
+    <span class="s2">&quot;strict&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="c1"># If using the `LearningRateMonitor` callback to monitor the</span>
+    <span class="c1"># learning rate progress, this keyword can be used to specify</span>
+    <span class="c1"># a custom logged name</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>When there are schedulers in which the <code class="docutils literal notranslate"><span class="pre">.step()</span></code> method is conditioned on a value, such as the
+<code class="xref py py-class docutils literal notranslate"><span class="pre">torch.optim.lr_scheduler.ReduceLROnPlateau</span></code> scheduler, Lightning requires that the
+<code class="docutils literal notranslate"><span class="pre">lr_scheduler_config</span></code> contains the keyword <code class="docutils literal notranslate"><span class="pre">&quot;monitor&quot;</span></code> set to the metric name that the scheduler
+should be conditioned on.</p>
+<p>Metrics can be made available to monitor by simply logging it using
+<code class="docutils literal notranslate"><span class="pre">self.log('metric_to_track',</span> <span class="pre">metric_val)</span></code> in your <code class="xref py py-class docutils literal notranslate"><span class="pre">LightningModule</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some things to know:</p>
+<ul class="simple">
+<li><p>Lightning calls <code class="docutils literal notranslate"><span class="pre">.backward()</span></code> and <code class="docutils literal notranslate"><span class="pre">.step()</span></code> automatically in case of automatic optimization.</p></li>
+<li><p>If a learning rate scheduler is specified in <code class="docutils literal notranslate"><span class="pre">configure_optimizers()</span></code> with key
+<code class="docutils literal notranslate"><span class="pre">&quot;interval&quot;</span></code> (default “epoch”) in the scheduler configuration, Lightning will call
+the scheduler’s <code class="docutils literal notranslate"><span class="pre">.step()</span></code> method automatically in case of automatic optimization.</p></li>
+<li><p>If you use 16-bit precision (<code class="docutils literal notranslate"><span class="pre">precision=16</span></code>), Lightning will automatically handle the optimizer.</p></li>
+<li><p>If you use <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.optim.LBFGS</span></code>, Lightning handles the closure function automatically for you.</p></li>
+<li><p>If you use multiple optimizers, you will have to switch to ‘manual optimization’ mode and step them
+yourself.</p></li>
+<li><p>If you need to control how often the optimizer steps, override the <code class="xref py py-meth docutils literal notranslate"><span class="pre">optimizer_step()</span></code> hook.</p></li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aiml.surrogate_model.models.Surrogate.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aiml/surrogate_model/models.html#Surrogate.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aiml.surrogate_model.models.Surrogate.forward" title="Link to this definition"></a></dt>
+<dd><p>Same as <code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.nn.Module.forward()</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>*args</strong> – Whatever you decide to pass into the forward method.</p></li>
+<li><p><strong>**kwargs</strong> – Keyword arguments are also possible.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Your model’s output</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aiml.surrogate_model.models.Surrogate.predict_step">
+<span class="sig-name descname"><span class="pre">predict_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataloader_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aiml/surrogate_model/models.html#Surrogate.predict_step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aiml.surrogate_model.models.Surrogate.predict_step" title="Link to this definition"></a></dt>
+<dd><p>Step function called during <code class="xref py py-meth docutils literal notranslate"><span class="pre">predict()</span></code>. By default, it
+calls <code class="xref py py-meth docutils literal notranslate"><span class="pre">forward()</span></code>. Override to add any processing logic.</p>
+<p>The <code class="xref py py-meth docutils literal notranslate"><span class="pre">predict_step()</span></code> is used
+to scale inference on multi-devices.</p>
+<p>To prevent an OOM error, it is possible to use <code class="xref py py-class docutils literal notranslate"><span class="pre">BasePredictionWriter</span></code>
+callback to write the predictions to disk or database after each batch or on epoch end.</p>
+<p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">BasePredictionWriter</span></code> should be used while using a spawn
+based accelerator. This happens for <code class="docutils literal notranslate"><span class="pre">Trainer(strategy=&quot;ddp_spawn&quot;)</span></code>
+or training on 8 TPU cores with <code class="docutils literal notranslate"><span class="pre">Trainer(accelerator=&quot;tpu&quot;,</span> <span class="pre">devices=8)</span></code> as predictions won’t be returned.</p>
+<p>Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">LightningModule</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">predict_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="n">dataloader_idx</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span>
+
+<span class="n">dm</span> <span class="o">=</span> <span class="o">...</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">MyModel</span><span class="p">()</span>
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span><span class="n">accelerator</span><span class="o">=</span><span class="s2">&quot;gpu&quot;</span><span class="p">,</span> <span class="n">devices</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">trainer</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">dm</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>batch</strong> – Current batch.</p></li>
+<li><p><strong>batch_idx</strong> – Index of current batch.</p></li>
+<li><p><strong>dataloader_idx</strong> – Index of the current dataloader.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Predicted output</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aiml.surrogate_model.models.Surrogate.training_step">
+<span class="sig-name descname"><span class="pre">training_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_idx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aiml/surrogate_model/models.html#Surrogate.training_step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aiml.surrogate_model.models.Surrogate.training_step" title="Link to this definition"></a></dt>
+<dd><p>Here you compute and return the training loss and some additional metrics for e.g. the progress bar or
+logger.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>batch</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code> | (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>, …) | [<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>, …]) – The output of your <code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code>. A tensor, tuple or list.</p></li>
+<li><p><strong>batch_idx</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) – Integer displaying index of this batch</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>Any of.</p>
+<ul class="simple">
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code> - The loss tensor</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dict</span></code> - A dictionary. Can include any keys, but must include the key <code class="docutils literal notranslate"><span class="pre">'loss'</span></code></p></li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">None</span></code> - Training will skip to the next batch. This is only for automatic optimization.</dt><dd><p>This is not supported for multi-GPU, TPU, IPU, or DeepSpeed.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</p>
+</dd>
+</dl>
+<p>In this step you’d normally do the forward pass and calculate the loss for a batch.
+You can also do fancier things like multiple forward passes or something model specific.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">training_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">batch</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">loss</span>
+</pre></div>
+</div>
+<p>To use multiple optimizers, you can switch to ‘manual optimization’ and control their stepping:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">automatic_optimization</span> <span class="o">=</span> <span class="kc">False</span>
+
+
+<span class="c1"># Multiple optimizers (e.g.: GANs)</span>
+<span class="k">def</span> <span class="nf">training_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">):</span>
+    <span class="n">opt1</span><span class="p">,</span> <span class="n">opt2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">optimizers</span><span class="p">()</span>
+
+    <span class="c1"># do training_step with encoder</span>
+    <span class="o">...</span>
+    <span class="n">opt1</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+    <span class="c1"># do training_step with decoder</span>
+    <span class="o">...</span>
+    <span class="n">opt2</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">accumulate_grad_batches</span></code> &gt; 1, the loss returned here will be automatically
+normalized by <code class="docutils literal notranslate"><span class="pre">accumulate_grad_batches</span></code> internally.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aiml.surrogate_model.models.Surrogate.validation_step">
+<span class="sig-name descname"><span class="pre">validation_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_idx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aiml/surrogate_model/models.html#Surrogate.validation_step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aiml.surrogate_model.models.Surrogate.validation_step" title="Link to this definition"></a></dt>
+<dd><p>Operates on a single batch of data from the validation set. In this step you’d might generate examples or
+calculate anything of interest like accuracy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>batch</strong> – The output of your <code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code>.</p></li>
+<li><p><strong>batch_idx</strong> – The index of this batch.</p></li>
+<li><p><strong>dataloader_idx</strong> – The index of the dataloader that produced this batch.
+(only if multiple val dataloaders used)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>Any object or value</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code> - Validation will skip to the next batch</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># if you have one val dataloader:</span>
+<span class="k">def</span> <span class="nf">validation_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">):</span>
+    <span class="o">...</span>
+
+
+<span class="c1"># if you have multiple val dataloaders:</span>
+<span class="k">def</span> <span class="nf">validation_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="n">dataloader_idx</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># CASE 1: A single validation dataset</span>
+<span class="k">def</span> <span class="nf">validation_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">batch</span>
+
+    <span class="c1"># implement your own</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+    <span class="c1"># log 6 example images</span>
+    <span class="c1"># or generated text... or whatever</span>
+    <span class="n">sample_imgs</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:</span><span class="mi">6</span><span class="p">]</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">make_grid</span><span class="p">(</span><span class="n">sample_imgs</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">experiment</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="s1">&#39;example_images&#39;</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># calculate acc</span>
+    <span class="n">labels_hat</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">val_acc</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="n">labels_hat</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1.0</span><span class="p">)</span>
+
+    <span class="c1"># log the outputs!</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">log_dict</span><span class="p">({</span><span class="s1">&#39;val_loss&#39;</span><span class="p">:</span> <span class="n">loss</span><span class="p">,</span> <span class="s1">&#39;val_acc&#39;</span><span class="p">:</span> <span class="n">val_acc</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>If you pass in multiple val dataloaders, <a class="reference internal" href="#aiml.surrogate_model.models.Surrogate.validation_step" title="aiml.surrogate_model.models.Surrogate.validation_step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">validation_step()</span></code></a> will have an additional argument. We recommend
+setting the default value of 0 so that you can quickly switch between single and multiple dataloaders.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># CASE 2: multiple validation dataloaders</span>
+<span class="k">def</span> <span class="nf">validation_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="n">dataloader_idx</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="c1"># dataloader_idx tells you which dataset this is.</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you don’t need to validate you don’t need to implement this method.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When the <a class="reference internal" href="#aiml.surrogate_model.models.Surrogate.validation_step" title="aiml.surrogate_model.models.Surrogate.validation_step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">validation_step()</span></code></a> is called, the model has been put in eval mode
+and PyTorch gradients have been disabled. At the end of validation,
+the model goes back to training mode and gradients are enabled.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aiml.surrogate_model.models.create_substitute_model">
+<span class="sig-prename descclassname"><span class="pre">aiml.surrogate_model.models.</span></span><span class="sig-name descname"><span class="pre">create_substitute_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_classes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_channels</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aiml/surrogate_model/models.html#create_substitute_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aiml.surrogate_model.models.create_substitute_model" title="Link to this definition"></a></dt>
+<dd><p>Create a substitute model based on the input model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_classes</strong> (<em>int</em>) – The number of output classes for the model.</p></li>
+<li><p><strong>num_channels</strong> (<em>int</em>) – The number of input channels.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The created substitute model.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>nn.Module</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-aiml.surrogate_model.utils">
+<span id="aiml-surrogate-model-utils-module"></span><h2>aiml.surrogate_model.utils module<a class="headerlink" href="#module-aiml.surrogate_model.utils" title="Link to this heading"></a></h2>
+<p>utils.py</p>
+<p>This module contains various utility functions and configurations for
+working with the CIFAR-10 dataset and PyTorch Lightning-based training
+for creating and training a surrogate model. This file supports the
+“create_surrogate_model.py” file.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="aiml.surrogate_model.utils.choose_dataset">
+<span class="sig-prename descclassname"><span class="pre">aiml.surrogate_model.utils.</span></span><span class="sig-name descname"><span class="pre">choose_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_sample</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_workers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dataset</span></span></span><a class="reference internal" href="_modules/aiml/surrogate_model/utils.html#choose_dataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aiml.surrogate_model.utils.choose_dataset" title="Link to this definition"></a></dt>
+<dd><p>Random choose n samples from a dataset without replacement.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aiml.surrogate_model.utils.find_clip_range">
+<span class="sig-prename descclassname"><span class="pre">aiml.surrogate_model.utils.</span></span><span class="sig-name descname"><span class="pre">find_clip_range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dataset</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/aiml/surrogate_model/utils.html#find_clip_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aiml.surrogate_model.utils.find_clip_range" title="Link to this definition"></a></dt>
+<dd><p>Return the range of a dataset.</p>
+<p>WARNING: Adversarial examples should NOT use a clip range after normalization.
+The scale of the perturbation will be wrong.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aiml.surrogate_model.utils.get_data">
+<span class="sig-prename descclassname"><span class="pre">aiml.surrogate_model.utils.</span></span><span class="sig-name descname"><span class="pre">get_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataloader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataLoader</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="reference internal" href="_modules/aiml/surrogate_model/utils.html#get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aiml.surrogate_model.utils.get_data" title="Link to this definition"></a></dt>
+<dd><p>Extract data from a dataloader.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aiml.surrogate_model.utils.get_labels">
+<span class="sig-prename descclassname"><span class="pre">aiml.surrogate_model.utils.</span></span><span class="sig-name descname"><span class="pre">get_labels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataloader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataLoader</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="reference internal" href="_modules/aiml/surrogate_model/utils.html#get_labels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aiml.surrogate_model.utils.get_labels" title="Link to this definition"></a></dt>
+<dd><p>Extract labels from a dataloader.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aiml.surrogate_model.utils.get_transforms">
+<span class="sig-prename descclassname"><span class="pre">aiml.surrogate_model.utils.</span></span><span class="sig-name descname"><span class="pre">get_transforms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">require_normalize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Compose</span></span></span><a class="reference internal" href="_modules/aiml/surrogate_model/utils.html#get_transforms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aiml.surrogate_model.utils.get_transforms" title="Link to this definition"></a></dt>
+<dd><p>Get data transformations for CIFAR-10 dataset.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aiml.surrogate_model.utils.inverse_normalize">
+<span class="sig-prename descclassname"><span class="pre">aiml.surrogate_model.utils.</span></span><span class="sig-name descname"><span class="pre">inverse_normalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="reference internal" href="_modules/aiml/surrogate_model/utils.html#inverse_normalize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aiml.surrogate_model.utils.inverse_normalize" title="Link to this definition"></a></dt>
+<dd><p>Convert a tensor to their original scale.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aiml.surrogate_model.utils.load_cifar10">
+<span class="sig-prename descclassname"><span class="pre">aiml.surrogate_model.utils.</span></span><span class="sig-name descname"><span class="pre">load_cifar10</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">require_normalize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dataset</span></span></span><a class="reference internal" href="_modules/aiml/surrogate_model/utils.html#load_cifar10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aiml.surrogate_model.utils.load_cifar10" title="Link to this definition"></a></dt>
+<dd><p>Return CIFAR10 dataset.</p>
+</dd></dl>
+
+</section>
+<section id="module-aiml.surrogate_model">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-aiml.surrogate_model" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="aiml.load_data.html" class="btn btn-neutral float-left" title="aiml.load_data package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Sungjae Jang, Takuya Saegusa, Terence Zhang, Yuming Zhou, Haozhe Wei.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

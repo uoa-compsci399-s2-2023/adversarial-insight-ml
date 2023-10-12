@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>aiml.evaluation.evaluate &mdash; Adversarial Insight ML  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Adversarial Insight ML
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">src</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Adversarial Insight ML</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">aiml.evaluation.evaluate</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for aiml.evaluation.evaluate</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">evaluate.py</span>
+
+<span class="sd">This module provides the evaluate function which will evaluate the model</span>
+<span class="sd">with the given data and attack methods.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">art.estimators.classification</span> <span class="kn">import</span> <span class="n">PyTorchClassifier</span>
+
+<span class="kn">from</span> <span class="nn">aiml.load_data.generate_parameter</span> <span class="kn">import</span> <span class="n">generate_parameter</span>
+<span class="kn">from</span> <span class="nn">aiml.load_data.normalize_datasets</span> <span class="kn">import</span> <span class="n">normalize_and_check_datasets</span><span class="p">,</span> <span class="n">check_normalize</span>
+<span class="kn">from</span> <span class="nn">aiml.attack.attack_evaluation</span> <span class="kn">import</span> <span class="n">attack_evaluation</span>
+<span class="kn">from</span> <span class="nn">aiml.evaluation.check_accuracy</span> <span class="kn">import</span> <span class="n">check_accuracy</span>
+<span class="kn">from</span> <span class="nn">aiml.evaluation.dynamic</span> <span class="kn">import</span> <span class="n">decide_attack</span>
+<span class="kn">from</span> <span class="nn">aiml.surrogate_model.create_surrogate_model</span> <span class="kn">import</span> <span class="n">create_surrogate_model</span>
+<span class="kn">from</span> <span class="nn">aiml.load_data.load_model</span> <span class="kn">import</span> <span class="n">load_model</span>
+<span class="kn">from</span> <span class="nn">aiml.load_data.load_set</span> <span class="kn">import</span> <span class="n">load_test_set</span>
+<span class="kn">from</span> <span class="nn">aiml.load_data.load_set</span> <span class="kn">import</span> <span class="n">load_train_set</span>
+
+
+<div class="viewcode-block" id="evaluate">
+<a class="viewcode-back" href="../../../aiml.evaluation.html#aiml.evaluation.evaluate.evaluate">[docs]</a>
+<span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span>
+    <span class="n">input_model</span><span class="p">,</span>
+    <span class="n">input_test_data</span><span class="p">,</span>
+    <span class="n">input_train_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">input_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">clip_values</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">nb_classes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">batch_size_attack</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
+    <span class="n">num_threads_attack</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">batch_size_train</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
+    <span class="n">batch_size_test</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
+    <span class="n">num_workers</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="n">dry</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">attack_para_list</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">[[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="p">[</span><span class="mi">32</span><span class="p">]],</span>
+        <span class="p">[[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="p">[</span><span class="mi">32</span><span class="p">]],</span>
+        <span class="p">[[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="p">[</span><span class="mi">32</span><span class="p">]],</span>
+        <span class="p">[[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="p">[</span><span class="mi">32</span><span class="p">]],</span>
+        <span class="p">[[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="p">[</span><span class="mi">32</span><span class="p">]],</span>
+        <span class="p">[[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="p">[</span><span class="mi">32</span><span class="p">]],</span>
+        <span class="p">[[</span><span class="mi">50</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="mi">150</span><span class="p">]],</span>
+        <span class="p">[[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="p">[</span><span class="mi">32</span><span class="p">]],</span>
+        <span class="p">[[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="p">[</span><span class="mi">32</span><span class="p">]],</span>
+    <span class="p">],</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Evaluate the model&#39;s performance using the provided data and attack methods.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        input_model (str or model): A string of the name of the machine learning model or the machine learning model itself.</span>
+<span class="sd">        input_test_data (str or dataset): A string of the name of the testing dataset or the testing dataset itself.</span>
+<span class="sd">        input_train_data (str or dataset, optional): A string of the name of the training dataset or the training dataset itself (default is None).</span>
+<span class="sd">        input_shape (tuple, optional): Shape of input data (default is None).</span>
+<span class="sd">        clip_values (tuple, optional): Range of input data values (default is None).</span>
+<span class="sd">        nb_classes (int, optional): Number of classes in the dataset (default is None).</span>
+<span class="sd">        batch_size_attack (int, optional): Batch size for attack testing (default is 64).</span>
+<span class="sd">        num_threads_attack (int, optional): Number of threads for attack testing (default is 0).</span>
+<span class="sd">        batch_size_train (int, optional): Batch size for training data (default is 64).</span>
+<span class="sd">        batch_size_test (int, optional): Batch size for test data (default is 64).</span>
+<span class="sd">        num_workers (int, optional): Number of workers to use for data loading </span>
+<span class="sd">            (default is half of the available CPU cores).</span>
+<span class="sd">        dry (bool, optional): When True, the code should only test one example.</span>
+<span class="sd">        attack_para_list (list, optional): List of parameter combinations for the attack.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Load model and data</span>
+
+    <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda:0&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+    <span class="n">input_model</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">input_model</span><span class="p">)</span>
+    <span class="n">input_test_data</span> <span class="o">=</span> <span class="n">load_test_set</span><span class="p">(</span><span class="n">input_test_data</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">input_model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+    <span class="n">input_train_data</span> <span class="o">=</span> <span class="n">load_train_set</span><span class="p">(</span><span class="n">input_train_data</span><span class="p">)</span>
+
+    <span class="n">dataset_test</span><span class="p">,</span> <span class="n">dataset_train</span><span class="p">,</span> <span class="n">dataloader_test</span><span class="p">,</span> <span class="n">dataloader_train</span> <span class="o">=</span> <span class="n">normalize_and_check_datasets</span><span class="p">(</span>
+        <span class="n">num_workers</span><span class="p">,</span> <span class="n">batch_size_test</span><span class="p">,</span> <span class="n">batch_size_train</span><span class="p">,</span> <span class="n">input_test_data</span><span class="p">,</span> <span class="n">input_train_data</span><span class="p">)</span>
+
+    <span class="n">surrogate_model</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># Check if the user wants to create surrogate model</span>
+    <span class="k">if</span> <span class="n">dataset_train</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Creating the surrogate model. This may take a long time.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Check if the testing dataset is normalized</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">check_normalize</span><span class="p">(</span><span class="n">dataloader_train</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
+                <span class="s2">&quot;Failed to normalized training dataset. Please normalize it manually.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="n">surrogate_model</span> <span class="o">=</span> <span class="n">create_surrogate_model</span><span class="p">(</span>
+            <span class="n">model</span><span class="p">,</span> <span class="n">dataloader_train</span><span class="p">,</span> <span class="n">dataloader_test</span>
+        <span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Surrogate model created successfully.&quot;</span><span class="p">)</span>
+
+        <span class="n">acc_train</span> <span class="o">=</span> <span class="n">check_accuracy</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">dataloader_train</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Train accuracy: </span><span class="si">{</span><span class="n">acc_train</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Check if the testing dataset is normalized</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">check_normalize</span><span class="p">(</span><span class="n">dataloader_test</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
+            <span class="s2">&quot;Failed to normalized testing dataset. Please normalize it manually.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="n">acc_test</span> <span class="o">=</span> <span class="n">check_accuracy</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">dataloader_test</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test accuracy: </span><span class="si">{</span><span class="n">acc_test</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+
+    <span class="n">input_shape</span><span class="p">,</span> <span class="n">clip_values</span><span class="p">,</span> <span class="n">nb_classes</span> <span class="o">=</span> <span class="n">generate_parameter</span><span class="p">(</span>
+        <span class="n">input_shape</span><span class="p">,</span> <span class="n">clip_values</span><span class="p">,</span> <span class="n">nb_classes</span><span class="p">,</span> <span class="n">dataset_test</span><span class="p">,</span> <span class="n">dataloader_test</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">surrogate_model</span><span class="p">:</span>
+        <span class="n">model_to_use</span> <span class="o">=</span> <span class="n">surrogate_model</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">model_to_use</span> <span class="o">=</span> <span class="n">model</span>
+
+    <span class="n">classifier</span> <span class="o">=</span> <span class="n">PyTorchClassifier</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">model_to_use</span><span class="p">,</span>
+        <span class="n">clip_values</span><span class="o">=</span><span class="n">clip_values</span><span class="p">,</span>
+        <span class="n">loss</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">optimizer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">input_shape</span><span class="o">=</span><span class="n">input_shape</span><span class="p">,</span>
+        <span class="n">nb_classes</span><span class="o">=</span><span class="n">nb_classes</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">result_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">current_attack_n</span><span class="p">,</span> <span class="n">para_n</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">overall_mark</span> <span class="o">=</span> <span class="n">decide_attack</span><span class="p">(</span>
+        <span class="n">result_list</span><span class="p">,</span> <span class="n">attack_para_list</span><span class="o">=</span><span class="n">attack_para_list</span>
+    <span class="p">)</span>
+
+    <span class="k">while</span> <span class="n">b</span><span class="p">:</span>
+        <span class="n">result_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">overall_mark</span>
+        <span class="n">result_list</span> <span class="o">+=</span> <span class="p">[</span>
+            <span class="p">[</span>
+                <span class="n">current_attack_n</span><span class="p">,</span>
+                <span class="n">para_n</span><span class="p">,</span>
+                <span class="n">attack_evaluation</span><span class="p">(</span>
+                    <span class="n">current_attack_n</span><span class="p">,</span>
+                    <span class="n">para_n</span><span class="p">,</span>
+                    <span class="n">model</span><span class="p">,</span>
+                    <span class="n">classifier</span><span class="p">,</span>
+                    <span class="n">dataset_test</span><span class="p">,</span>
+                    <span class="n">batch_size_attack</span><span class="p">,</span>
+                    <span class="n">num_threads_attack</span><span class="p">,</span>
+                    <span class="n">device</span><span class="p">,</span>
+                    <span class="n">nb_classes</span><span class="p">,</span>
+                    <span class="n">dry</span><span class="o">=</span><span class="n">dry</span><span class="p">,</span>
+                    <span class="n">attack_para_list</span><span class="o">=</span><span class="n">attack_para_list</span><span class="p">,</span>
+                <span class="p">),</span>
+            <span class="p">]</span>
+        <span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">result_list</span><span class="p">)</span>
+
+        <span class="n">current_attack_n</span><span class="p">,</span> <span class="n">para_n</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">overall_mark</span> <span class="o">=</span> <span class="n">decide_attack</span><span class="p">(</span>
+            <span class="n">result_list</span><span class="p">,</span> <span class="n">attack_para_list</span><span class="o">=</span><span class="n">attack_para_list</span>
+        <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result_list</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Sungjae Jang, Takuya Saegusa, Terence Zhang, Yuming Zhou, Haozhe Wei.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

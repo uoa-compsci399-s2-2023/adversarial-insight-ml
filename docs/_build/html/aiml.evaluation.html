@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>aiml.evaluation package &mdash; Adversarial Insight ML  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="aiml.load_data package" href="aiml.load_data.html" />
+    <link rel="prev" title="aiml.attack package" href="aiml.attack.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Adversarial Insight ML
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">src</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="aiml.html">aiml package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="aiml.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="aiml.attack.html">aiml.attack package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">aiml.evaluation package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aiml.load_data.html">aiml.load_data package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aiml.surrogate_model.html">aiml.surrogate_model package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="aiml.html#module-aiml">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Adversarial Insight ML</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">src</a></li>
+          <li class="breadcrumb-item"><a href="aiml.html">aiml package</a></li>
+      <li class="breadcrumb-item active">aiml.evaluation package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/aiml.evaluation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="aiml-evaluation-package">
+<h1>aiml.evaluation package<a class="headerlink" href="#aiml-evaluation-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-aiml.evaluation.check_accuracy">
+<span id="aiml-evaluation-check-accuracy-module"></span><h2>aiml.evaluation.check_accuracy module<a class="headerlink" href="#module-aiml.evaluation.check_accuracy" title="Link to this heading"></a></h2>
+<p>check_accuracy.py</p>
+<p>This module defines functions for calculating the accuracy of a given
+dataset on a model.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="aiml.evaluation.check_accuracy.check_accuracy">
+<span class="sig-prename descclassname"><span class="pre">aiml.evaluation.check_accuracy.</span></span><span class="sig-name descname"><span class="pre">check_accuracy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataloader</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aiml/evaluation/check_accuracy.html#check_accuracy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aiml.evaluation.check_accuracy.check_accuracy" title="Link to this definition"></a></dt>
+<dd><p>Calculate the accuracy of a dataset using a pre-trained machine learning model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> – The pre-trained machine learning model.</p></li>
+<li><p><strong>dataloader</strong> – The dataloader for the dataset to be tested.</p></li>
+<li><p><strong>device</strong> (<em>str</em>) – The device to use, either ‘cpu’ or ‘gpu’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The accuracy of the dataset when tested on the provided model.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aiml.evaluation.check_accuracy.check_accuracy_with_flags">
+<span class="sig-prename descclassname"><span class="pre">aiml.evaluation.check_accuracy.</span></span><span class="sig-name descname"><span class="pre">check_accuracy_with_flags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataloader</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aiml/evaluation/check_accuracy.html#check_accuracy_with_flags"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aiml.evaluation.check_accuracy.check_accuracy_with_flags" title="Link to this definition"></a></dt>
+<dd><p>Calculate the accuracy of a dataset using a machine learning model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> – The machine learning model for evaluation.</p></li>
+<li><p><strong>dataloader</strong> – The dataloader for the dataset to be tested.</p></li>
+<li><p><strong>device</strong> (<em>str</em>) – The device to use, either ‘cpu’ or ‘gpu’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The accuracy of the dataset when tested on the provided model.
+list: A list showing which images were correctly recognized (True) or not (False).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-aiml.evaluation.dynamic">
+<span id="aiml-evaluation-dynamic-module"></span><h2>aiml.evaluation.dynamic module<a class="headerlink" href="#module-aiml.evaluation.dynamic" title="Link to this heading"></a></h2>
+<p>dynamic.py</p>
+<p>This module provides the decide_attack function which will decide the
+next attack to be applied and its parameter.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="aiml.evaluation.dynamic.decide_attack">
+<span class="sig-prename descclassname"><span class="pre">aiml.evaluation.dynamic.</span></span><span class="sig-name descname"><span class="pre">decide_attack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attack_para_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[[[1],</span> <span class="pre">[16],</span> <span class="pre">[32]],</span> <span class="pre">[[1],</span> <span class="pre">[16],</span> <span class="pre">[32]],</span> <span class="pre">[[1],</span> <span class="pre">[16],</span> <span class="pre">[32]],</span> <span class="pre">[[1],</span> <span class="pre">[16],</span> <span class="pre">[32]],</span> <span class="pre">[[1],</span> <span class="pre">[16],</span> <span class="pre">[32]],</span> <span class="pre">[[1],</span> <span class="pre">[16],</span> <span class="pre">[32]],</span> <span class="pre">[[50],</span> <span class="pre">[100],</span> <span class="pre">[150]],</span> <span class="pre">[[1],</span> <span class="pre">[16],</span> <span class="pre">[32]],</span> <span class="pre">[[1],</span> <span class="pre">[16],</span> <span class="pre">[32]]]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aiml/evaluation/dynamic.html#decide_attack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aiml.evaluation.dynamic.decide_attack" title="Link to this definition"></a></dt>
+<dd><p>Write the results of the previous attack to a text file and determine
+the next attack and its parameters based on attack history.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>result_list</strong> – A list where the first element is the overall mark, and the subsequent
+elements are lists containing the history of previous attacks.
+Sublists stores the attack number, parameter number, and accuracy.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>The number of the next attack</dt><dd><p>(could be the same or the next one in the attack_method_list).</p>
+</dd>
+</dl>
+<p>next_parameter_number (int): The number of the next parameter.
+continue_testing (bool): Whether to continue testing attacks or not.
+overall_mark (int): A score summarizing the previous performance.</p>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>next_attack_number (int)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-aiml.evaluation.evaluate">
+<span id="aiml-evaluation-evaluate-module"></span><h2>aiml.evaluation.evaluate module<a class="headerlink" href="#module-aiml.evaluation.evaluate" title="Link to this heading"></a></h2>
+<p>evaluate.py</p>
+<p>This module provides the evaluate function which will evaluate the model
+with the given data and attack methods.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="aiml.evaluation.evaluate.evaluate">
+<span class="sig-prename descclassname"><span class="pre">aiml.evaluation.evaluate.</span></span><span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_test_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_train_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clip_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nb_classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size_attack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">64</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_threads_attack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size_train</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">64</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size_test</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">64</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_workers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attack_para_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[[[1],</span> <span class="pre">[16],</span> <span class="pre">[32]],</span> <span class="pre">[[1],</span> <span class="pre">[16],</span> <span class="pre">[32]],</span> <span class="pre">[[1],</span> <span class="pre">[16],</span> <span class="pre">[32]],</span> <span class="pre">[[1],</span> <span class="pre">[16],</span> <span class="pre">[32]],</span> <span class="pre">[[1],</span> <span class="pre">[16],</span> <span class="pre">[32]],</span> <span class="pre">[[1],</span> <span class="pre">[16],</span> <span class="pre">[32]],</span> <span class="pre">[[50],</span> <span class="pre">[100],</span> <span class="pre">[150]],</span> <span class="pre">[[1],</span> <span class="pre">[16],</span> <span class="pre">[32]],</span> <span class="pre">[[1],</span> <span class="pre">[16],</span> <span class="pre">[32]]]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aiml/evaluation/evaluate.html#evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aiml.evaluation.evaluate.evaluate" title="Link to this definition"></a></dt>
+<dd><p>Evaluate the model’s performance using the provided data and attack methods.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_model</strong> (<em>str</em><em> or </em><em>model</em>) – A string of the name of the machine learning model or the machine learning model itself.</p></li>
+<li><p><strong>input_test_data</strong> (<em>str</em><em> or </em><em>dataset</em>) – A string of the name of the testing dataset or the testing dataset itself.</p></li>
+<li><p><strong>input_train_data</strong> (<em>str</em><em> or </em><em>dataset</em><em>, </em><em>optional</em>) – A string of the name of the training dataset or the training dataset itself (default is None).</p></li>
+<li><p><strong>input_shape</strong> (<em>tuple</em><em>, </em><em>optional</em>) – Shape of input data (default is None).</p></li>
+<li><p><strong>clip_values</strong> (<em>tuple</em><em>, </em><em>optional</em>) – Range of input data values (default is None).</p></li>
+<li><p><strong>nb_classes</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of classes in the dataset (default is None).</p></li>
+<li><p><strong>batch_size_attack</strong> (<em>int</em><em>, </em><em>optional</em>) – Batch size for attack testing (default is 64).</p></li>
+<li><p><strong>num_threads_attack</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of threads for attack testing (default is 0).</p></li>
+<li><p><strong>batch_size_train</strong> (<em>int</em><em>, </em><em>optional</em>) – Batch size for training data (default is 64).</p></li>
+<li><p><strong>batch_size_test</strong> (<em>int</em><em>, </em><em>optional</em>) – Batch size for test data (default is 64).</p></li>
+<li><p><strong>num_workers</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of workers to use for data loading
+(default is half of the available CPU cores).</p></li>
+<li><p><strong>dry</strong> (<em>bool</em><em>, </em><em>optional</em>) – When True, the code should only test one example.</p></li>
+<li><p><strong>attack_para_list</strong> (<em>list</em><em>, </em><em>optional</em>) – List of parameter combinations for the attack.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-aiml.evaluation">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-aiml.evaluation" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="aiml.attack.html" class="btn btn-neutral float-left" title="aiml.attack package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="aiml.load_data.html" class="btn btn-neutral float-right" title="aiml.load_data package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Sungjae Jang, Takuya Saegusa, Terence Zhang, Yuming Zhou, Haozhe Wei.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
