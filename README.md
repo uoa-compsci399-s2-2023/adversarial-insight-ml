@@ -62,8 +62,7 @@ Here's a simple overview of the usage of our package:
   <img src="_static/workflow_overview.png" alt="img overview" width="400" height="360" align="center">
 </p>
 
-You can evaluate your model with the `evaluate()` function, it requires two
-parameters as shown below:
+You can evaluate your model with the `evaluate()` function:
 
 ```python
 from aiml.evaluation.evaluate import evaluate
@@ -71,11 +70,11 @@ from aiml.evaluation.evaluate import evaluate
 evaluate(model, test_dataset)
 ```
 
-All parameters including optional parameters for the `evaluate()` function are
-as follows:
-
+The `evaluate()` function has **two required parameters**:
 - `input_model (str or model)`: A string of the name of the machine learning model or the machine learning model itself.
 - `input_test_data (str or dataset)`: A string of the name of the testing dataset or the testing dataset itself.
+
+The `evaluate()` function has the following **optional parameters**:
 - `input_train_data (str or dataset, optional)`: A string of the name of the training dataset or the training dataset itself (default is None).
 - `input_shape (tuple, optional)`: Shape of input data (default is None).
 - `clip_values (tuple, optional)`: Range of input data values (default is None).
@@ -88,10 +87,10 @@ as follows:
 - `dry (bool, optional)`: When True, the code should only test one example.
 - `attack_para_list (list, optional)`: List of parameter combinations for the attack.
 
-See the demos in examples directory for the usage in action:
-[demo_basic](examples/demo_basic.ipynb),
-[demo_huggingface](examples/demo_huggingface.ipynb),
-[demo_robustbench](examples/demo_robustbench.ipynb).
+See the demos in `examples/` directory for usage in action:
+- [demo_basic](examples/demo_basic.ipynb)
+- [demo_huggingface](examples/demo_huggingface.ipynb)
+- [demo_robustbench](examples/demo_robustbench.ipynb)
 
 ## Features
 
