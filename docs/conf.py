@@ -3,6 +3,10 @@
 # For the full list of built-in configuration values, see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
+import os
+import sys
+sys.path.insert(0, os.path.abspath('..'))
+
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
@@ -16,7 +20,11 @@ author = [
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
-    'sphinx.ext.autodoc', 'sphinx.ext.napoleon', 'sphinx.ext.viewcode'
+    'sphinx.ext.autodoc', 
+    'sphinx.ext.napoleon', 
+    'sphinx.ext.viewcode', 
+    'sphinx.ext.coverage',
+    'sphinx.ext.githubpages'
 ]
 
 templates_path = ['_templates']
