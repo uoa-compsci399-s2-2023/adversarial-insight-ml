@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>aiml.evaluation.dynamic &mdash; Adversarial Insight ML  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Adversarial Insight ML
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">src</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Adversarial Insight ML</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">aiml.evaluation.dynamic</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for aiml.evaluation.dynamic</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">dynamic.py</span>
+
+<span class="sd">This module provides the decide_attack function which will decide the </span>
+<span class="sd">next attack to be applied and its parameter.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="kn">from</span> <span class="nn">aiml.attack.adversarial_attacks</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">auto_projected_cross_entropy</span><span class="p">,</span>
+    <span class="n">auto_projected_difference_logits_ratio</span><span class="p">,</span>
+    <span class="n">carlini_L0_attack</span><span class="p">,</span>
+    <span class="n">carlini_L2_attack</span><span class="p">,</span>
+    <span class="n">carlini_Linf_attack</span><span class="p">,</span>
+    <span class="n">deep_fool_attack</span><span class="p">,</span>
+    <span class="n">pixel_attack</span><span class="p">,</span>
+    <span class="n">square_attack</span><span class="p">,</span>
+    <span class="n">zoo_attack</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="decide_attack">
+<a class="viewcode-back" href="../../../aiml.evaluation.html#aiml.evaluation.dynamic.decide_attack">[docs]</a>
+<span class="k">def</span> <span class="nf">decide_attack</span><span class="p">(</span>
+    <span class="n">result_list</span><span class="p">,</span>
+    <span class="n">attack_para_list</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">[[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="p">[</span><span class="mi">32</span><span class="p">]],</span>
+        <span class="p">[[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="p">[</span><span class="mi">32</span><span class="p">]],</span>
+        <span class="p">[[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="p">[</span><span class="mi">32</span><span class="p">]],</span>
+        <span class="p">[[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="p">[</span><span class="mi">32</span><span class="p">]],</span>
+        <span class="p">[[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="p">[</span><span class="mi">32</span><span class="p">]],</span>
+        <span class="p">[[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="p">[</span><span class="mi">32</span><span class="p">]],</span>
+        <span class="p">[[</span><span class="mi">50</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="mi">150</span><span class="p">]],</span>
+        <span class="p">[[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="p">[</span><span class="mi">32</span><span class="p">]],</span>
+        <span class="p">[[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="p">[</span><span class="mi">32</span><span class="p">]],</span>
+    <span class="p">],</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Write the results of the previous attack to a text file and determine </span>
+<span class="sd">    the next attack and its parameters based on attack history.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        result_list: A list where the first element is the overall mark, and the subsequent </span>
+<span class="sd">            elements are lists containing the history of previous attacks.</span>
+<span class="sd">            Sublists stores the attack number, parameter number, and accuracy.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        next_attack_number (int): The number of the next attack </span>
+<span class="sd">            (could be the same or the next one in the attack_method_list).</span>
+<span class="sd">        next_parameter_number (int): The number of the next parameter.</span>
+<span class="sd">        continue_testing (bool): Whether to continue testing attacks or not.</span>
+<span class="sd">        overall_mark (int): A score summarizing the previous performance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">attack_method_list</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">[</span>
+            <span class="mi">0</span><span class="p">,</span>
+            <span class="n">auto_projected_cross_entropy</span><span class="p">,</span>
+            <span class="n">attack_para_list</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="s2">&quot;auto_projected_cross_entropy&quot;</span><span class="p">,</span>
+            <span class="p">[</span><span class="s2">&quot;batch&quot;</span><span class="p">,</span> <span class="s2">&quot;eps&quot;</span><span class="p">,</span> <span class="s2">&quot;eps_step&quot;</span><span class="p">],</span>
+        <span class="p">],</span>
+        <span class="p">[</span>
+            <span class="mi">1</span><span class="p">,</span>
+            <span class="n">auto_projected_difference_logits_ratio</span><span class="p">,</span>
+            <span class="n">attack_para_list</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+            <span class="s2">&quot;auto_projected_difference_logits_ratio&quot;</span><span class="p">,</span>
+            <span class="p">[</span><span class="s2">&quot;batch&quot;</span><span class="p">,</span> <span class="s2">&quot;eps&quot;</span><span class="p">,</span> <span class="s2">&quot;eps_step&quot;</span><span class="p">],</span>
+        <span class="p">],</span>
+        <span class="p">[</span>
+            <span class="mi">2</span><span class="p">,</span>
+            <span class="n">carlini_L0_attack</span><span class="p">,</span>
+            <span class="n">attack_para_list</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+            <span class="s2">&quot;carlini_L0_attack&quot;</span><span class="p">,</span>
+            <span class="p">[</span>
+                <span class="s2">&quot;batch&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;learning_rate&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;binary_search_steps&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;max_iter&quot;</span><span class="p">,</span>
+            <span class="p">],</span>
+        <span class="p">],</span>
+        <span class="p">[</span>
+            <span class="mi">3</span><span class="p">,</span>
+            <span class="n">carlini_L2_attack</span><span class="p">,</span>
+            <span class="n">attack_para_list</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
+            <span class="s2">&quot;carlini_L2_attack&quot;</span><span class="p">,</span>
+            <span class="p">[</span>
+                <span class="s2">&quot;batch&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;learning_rate&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;binary_search_steps&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;max_iter&quot;</span><span class="p">,</span>
+            <span class="p">],</span>
+        <span class="p">],</span>
+        <span class="p">[</span>
+            <span class="mi">4</span><span class="p">,</span>
+            <span class="n">carlini_Linf_attack</span><span class="p">,</span>
+            <span class="n">attack_para_list</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span>
+            <span class="s2">&quot;carlini_Linf_attack&quot;</span><span class="p">,</span>
+            <span class="p">[</span>
+                <span class="s2">&quot;batch&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;learning_rate&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;max_iter&quot;</span><span class="p">,</span>
+            <span class="p">],</span>
+        <span class="p">],</span>
+        <span class="p">[</span>
+            <span class="mi">5</span><span class="p">,</span>
+            <span class="n">deep_fool_attack</span><span class="p">,</span>
+            <span class="n">attack_para_list</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>
+            <span class="s2">&quot;deep_fool_attack&quot;</span><span class="p">,</span>
+            <span class="p">[</span><span class="s2">&quot;batch&quot;</span><span class="p">,</span> <span class="s2">&quot;max_iter&quot;</span><span class="p">],</span>
+        <span class="p">],</span>
+        <span class="p">[</span>
+            <span class="mi">6</span><span class="p">,</span>
+            <span class="n">pixel_attack</span><span class="p">,</span>
+            <span class="n">attack_para_list</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span>
+            <span class="s2">&quot;pixel_attack&quot;</span><span class="p">,</span>
+            <span class="p">[</span><span class="s2">&quot;max_iter&quot;</span><span class="p">],</span>
+        <span class="p">],</span>
+        <span class="p">[</span>
+            <span class="mi">7</span><span class="p">,</span>
+            <span class="n">square_attack</span><span class="p">,</span>
+            <span class="n">attack_para_list</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span>
+            <span class="s2">&quot;square_attack&quot;</span><span class="p">,</span>
+            <span class="p">[</span><span class="s2">&quot;batch&quot;</span><span class="p">,</span> <span class="s2">&quot;max_iter&quot;</span><span class="p">],</span>
+        <span class="p">],</span>
+        <span class="p">[</span>
+            <span class="mi">8</span><span class="p">,</span>
+            <span class="n">zoo_attack</span><span class="p">,</span>
+            <span class="n">attack_para_list</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span>
+            <span class="s2">&quot;zoo_attack&quot;</span><span class="p">,</span>
+            <span class="p">[</span>
+                <span class="s2">&quot;batch&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;learning_rate&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;max_iter&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;binary_search_steps&quot;</span><span class="p">,</span>
+            <span class="p">],</span>
+        <span class="p">],</span>
+    <span class="p">]</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    attack_method_list contains all eight adversarial attack methods used.</span>
+
+<span class="sd">    Each entry in the list is a sublist representing an attack method:</span>
+<span class="sd">    - The first element is the attack number.</span>
+<span class="sd">    - The second element is the attack function.</span>
+<span class="sd">    - The third element is a list of parameter combinations.</span>
+<span class="sd">    - The fourth element is the name of the attack.</span>
+<span class="sd">    - The fifth element is the parameter name for every combination of parameters.</span>
+
+<span class="sd">    For example, consider the &#39;auto_projected_cross_entropy&#39; attack method:</span>
+<span class="sd">    - The attack number is 0.</span>
+<span class="sd">    - The attack function is &#39;auto_projected_cross_entropy&#39;.</span>
+<span class="sd">    - Three possible parameter choices exist: batch=16, batch=20, or batch=32.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+
+    <span class="k">if</span> <span class="n">result_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># add the first attack to initial result list</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="mi">0</span><span class="p">,</span>
+            <span class="mi">0</span><span class="p">,</span>
+            <span class="kc">True</span><span class="p">,</span>
+            <span class="mi">0</span><span class="p">,</span>
+        <span class="p">)</span>  <span class="c1"># current_attack_n,para,current_attack,b</span>
+
+    <span class="n">overall_mark</span> <span class="o">=</span> <span class="n">result_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">previous</span> <span class="o">=</span> <span class="n">result_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># get information of previous attack result</span>
+    <span class="n">previous_attack_n</span> <span class="o">=</span> <span class="n">previous</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">previous_acc</span> <span class="o">=</span> <span class="n">previous</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">previous_para_n</span> <span class="o">=</span> <span class="n">previous</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span>
+        <span class="s2">&quot;attack_evaluation_result.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span> <span class="c1">#the result will output to attack evaluation result.txt</span>
+    <span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>  <span class="c1"># write the results of previous attack to txt file</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">attack_method_list</span><span class="p">[</span><span class="n">previous_attack_n</span><span class="p">][</span><span class="mi">3</span><span class="p">])</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;    &quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">attack_method_list</span><span class="p">[</span><span class="n">previous_attack_n</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="n">previous_para_n</span><span class="p">])):</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">attack_method_list</span><span class="p">[</span><span class="n">previous_attack_n</span><span class="p">][</span><span class="mi">4</span><span class="p">][</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;    &quot;</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">attack_method_list</span><span class="p">[</span><span class="n">previous_attack_n</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="n">previous_para_n</span><span class="p">][</span><span class="n">i</span><span class="p">]))</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;    &quot;</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;accuracy:&quot;</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">previous_acc</span><span class="p">))</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    If the accuracy of previous attack is small enough, it means that the attack with previous </span>
+<span class="sd">    parameters is strong enough for the model, then it skip more strong parameter and test next </span>
+<span class="sd">    attack.</span>
+<span class="sd">    If the previous parameters is the most strongest, test next attack </span>
+<span class="sd">    the (overall_mark / (len(result_list)-1)) briefly record the robustness of the model. </span>
+<span class="sd">    If it &gt;2 it means that it pass the middle strong attack</span>
+<span class="sd">    on average. It will skip the weak attack later.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="n">previous_acc</span> <span class="o">&lt;</span> <span class="mf">0.4</span>
+        <span class="ow">or</span> <span class="n">previous_para_n</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">attack_method_list</span><span class="p">[</span><span class="n">previous_attack_n</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="p">):</span>
+        <span class="n">overall_mark</span> <span class="o">+=</span> <span class="n">previous_para_n</span>
+
+        <span class="k">if</span> <span class="n">previous_attack_n</span> <span class="o">&lt;</span> <span class="mi">8</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">overall_mark</span> <span class="o">&gt;</span> <span class="mi">5</span> <span class="ow">and</span> <span class="p">(</span><span class="n">overall_mark</span> <span class="o">/</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">result_list</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">next_para_n</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">next_para_n</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">return</span> <span class="p">(</span>
+                <span class="n">previous_attack_n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="n">next_para_n</span><span class="p">,</span>
+                <span class="kc">True</span><span class="p">,</span>
+                <span class="n">overall_mark</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># all attack are tested and finish</span>
+            <span class="k">return</span> <span class="p">(</span>
+                <span class="mi">0</span><span class="p">,</span>
+                <span class="mi">0</span><span class="p">,</span>
+                <span class="kc">False</span><span class="p">,</span>
+                <span class="n">overall_mark</span><span class="p">,</span>
+            <span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">previous_attack_n</span><span class="p">,</span>
+            <span class="n">previous_para_n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="kc">True</span><span class="p">,</span>
+            <span class="n">overall_mark</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Sungjae Jang, Takuya Saegusa, Terence Zhang, Yuming Zhou, Haozhe Wei.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

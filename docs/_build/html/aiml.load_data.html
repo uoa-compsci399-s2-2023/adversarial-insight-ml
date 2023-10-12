@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>aiml.load_data package &mdash; Adversarial Insight ML  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="aiml.surrogate_model package" href="aiml.surrogate_model.html" />
+    <link rel="prev" title="aiml.evaluation package" href="aiml.evaluation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Adversarial Insight ML
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">src</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="aiml.html">aiml package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="aiml.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="aiml.attack.html">aiml.attack package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aiml.evaluation.html">aiml.evaluation package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">aiml.load_data package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aiml.surrogate_model.html">aiml.surrogate_model package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="aiml.html#module-aiml">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Adversarial Insight ML</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">src</a></li>
+          <li class="breadcrumb-item"><a href="aiml.html">aiml package</a></li>
+      <li class="breadcrumb-item active">aiml.load_data package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/aiml.load_data.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="aiml-load-data-package">
+<h1>aiml.load_data package<a class="headerlink" href="#aiml-load-data-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-aiml.load_data.generate_parameter">
+<span id="aiml-load-data-generate-parameter-module"></span><h2>aiml.load_data.generate_parameter module<a class="headerlink" href="#module-aiml.load_data.generate_parameter" title="Link to this heading"></a></h2>
+<p>generate_parameter.py</p>
+<p>This module provides a function for generating parameters based on input dataset.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="aiml.load_data.generate_parameter.generate_parameter">
+<span class="sig-prename descclassname"><span class="pre">aiml.load_data.generate_parameter.</span></span><span class="sig-name descname"><span class="pre">generate_parameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clip_values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nb_classes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset_test</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataloader_test</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aiml/load_data/generate_parameter.html#generate_parameter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aiml.load_data.generate_parameter.generate_parameter" title="Link to this definition"></a></dt>
+<dd><p>Generate the image shape, clip values, and number of classes based on the input dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_shape</strong> (<em>numpy array</em>) – Image shape; if given (not None), it will remain unchanged.</p></li>
+<li><p><strong>clip_values</strong> (<em>tuple</em>) – Data range; if given (not None), it will remain unchanged.</p></li>
+<li><p><strong>nb_classes</strong> (<em>int</em>) – Number of classes; if given (not None), it will remain unchanged.</p></li>
+<li><p><strong>dataset_test</strong> – The input dataset for reference.</p></li>
+<li><p><strong>dataloader_test</strong> – DataLoader for the input dataset.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing (input_shape, clip_values, nb_classes).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-aiml.load_data.load_model">
+<span id="aiml-load-data-load-model-module"></span><h2>aiml.load_data.load_model module<a class="headerlink" href="#module-aiml.load_data.load_model" title="Link to this heading"></a></h2>
+<p>load_model.py</p>
+<p>This script is responsible for loading the model.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="aiml.load_data.load_model.load_model">
+<span class="sig-prename descclassname"><span class="pre">aiml.load_data.load_model.</span></span><span class="sig-name descname"><span class="pre">load_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cpu'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aiml/load_data/load_model.html#load_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aiml.load_data.load_model.load_model" title="Link to this definition"></a></dt>
+<dd><p>Load a machine learning model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>model</em><em> or </em><em>string</em>) – If a string is provided, it will search for
+the target model by detectors.</p></li>
+<li><p><strong>device</strong> (<em>string</em>) – The device to use, either ‘cpu’ or ‘gpu’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The loaded machine learning model.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>model</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-aiml.load_data.load_set">
+<span id="aiml-load-data-load-set-module"></span><h2>aiml.load_data.load_set module<a class="headerlink" href="#module-aiml.load_data.load_set" title="Link to this heading"></a></h2>
+<p>load_set.py</p>
+<p>This script is responsible for loading the test dataset for model evaluation.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="aiml.load_data.load_set.load_test_set">
+<span class="sig-prename descclassname"><span class="pre">aiml.load_data.load_set.</span></span><span class="sig-name descname"><span class="pre">load_test_set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_set</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aiml/load_data/load_set.html#load_test_set"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aiml.load_data.load_set.load_test_set" title="Link to this definition"></a></dt>
+<dd><p>Load a test dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dataset</strong> (<em>dataset</em><em> or </em><em>string</em>) – Given a string, it will search for the target dataset.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The loaded test dataset.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dataset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aiml.load_data.load_set.load_train_set">
+<span class="sig-prename descclassname"><span class="pre">aiml.load_data.load_set.</span></span><span class="sig-name descname"><span class="pre">load_train_set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_set</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aiml/load_data/load_set.html#load_train_set"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aiml.load_data.load_set.load_train_set" title="Link to this definition"></a></dt>
+<dd><p>Load a training dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dataset</strong> (<em>dataset</em><em> or </em><em>string</em>) – Given a string, it will search for the target dataset.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The loaded training dataset.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dataset</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-aiml.load_data.normalize_datasets">
+<span id="aiml-load-data-normalize-datasets-module"></span><h2>aiml.load_data.normalize_datasets module<a class="headerlink" href="#module-aiml.load_data.normalize_datasets" title="Link to this heading"></a></h2>
+<p>normalize_datasets.py</p>
+<p>This module contains functions for normalizing and denormalizing a dataset.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="aiml.load_data.normalize_datasets.check_normalize">
+<span class="sig-prename descclassname"><span class="pre">aiml.load_data.normalize_datasets.</span></span><span class="sig-name descname"><span class="pre">check_normalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataloader</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aiml/load_data/normalize_datasets.html#check_normalize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aiml.load_data.normalize_datasets.check_normalize" title="Link to this definition"></a></dt>
+<dd><p>Check if the data in a dataloader is normalized.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dataloader</strong> (<em>torch.utils.data.DataLoader</em>) – A PyTorch DataLoader containing the dataset.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the data is normalized (mean close to 0, std close to 1), False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aiml.load_data.normalize_datasets.denormalize">
+<span class="sig-prename descclassname"><span class="pre">aiml.load_data.normalize_datasets.</span></span><span class="sig-name descname"><span class="pre">denormalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aiml/load_data/normalize_datasets.html#denormalize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aiml.load_data.normalize_datasets.denormalize" title="Link to this definition"></a></dt>
+<dd><p>Denormalize a batch of normalized data using mean and standard deviation values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>batch</strong> (<em>torch.Tensor</em>) – A batch of normalized data.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The denormalized batch of data with the same shape as the input.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aiml.load_data.normalize_datasets.get_mean_std">
+<span class="sig-prename descclassname"><span class="pre">aiml.load_data.normalize_datasets.</span></span><span class="sig-name descname"><span class="pre">get_mean_std</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aiml/load_data/normalize_datasets.html#get_mean_std"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aiml.load_data.normalize_datasets.get_mean_std" title="Link to this definition"></a></dt>
+<dd><p>Get the mean and standard deviation of the dataset’s image channels.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dataset</strong> (<em>dataset</em>) – The dataset containing images.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aiml.load_data.normalize_datasets.get_transforms">
+<span class="sig-prename descclassname"><span class="pre">aiml.load_data.normalize_datasets.</span></span><span class="sig-name descname"><span class="pre">get_transforms</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aiml/load_data/normalize_datasets.html#get_transforms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aiml.load_data.normalize_datasets.get_transforms" title="Link to this definition"></a></dt>
+<dd><p>Get a list of transformations for datasets, including normalization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A composition of transformations.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>torchvision.transforms.Compose</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aiml.load_data.normalize_datasets.normalize_and_check_datasets">
+<span class="sig-prename descclassname"><span class="pre">aiml.load_data.normalize_datasets.</span></span><span class="sig-name descname"><span class="pre">normalize_and_check_datasets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_workers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size_test</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset_test</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset_train</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aiml/load_data/normalize_datasets.html#normalize_and_check_datasets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aiml.load_data.normalize_datasets.normalize_and_check_datasets" title="Link to this definition"></a></dt>
+<dd><p>Normalize and check the given test and optionally, training datasets for normalization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_workers</strong> (<em>int</em>) – Number of workers for data loading.</p></li>
+<li><p><strong>batch_size_test</strong> (<em>int</em>) – Batch size for the test dataset.</p></li>
+<li><p><strong>batch_size_train</strong> (<em>int</em>) – Batch size for the training dataset (if provided).</p></li>
+<li><p><strong>test_dataset</strong> – The test dataset.</p></li>
+<li><p><strong>train_dataset</strong> (<em>optional</em>) – The training dataset (Default is None).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>If normalization is required, returns a tuple containing the normalized test
+and training datasets along with their data loaders. If no normalization is needed,
+returns the test dataset as-is.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aiml.load_data.normalize_datasets.normalize_datasets">
+<span class="sig-prename descclassname"><span class="pre">aiml.load_data.normalize_datasets.</span></span><span class="sig-name descname"><span class="pre">normalize_datasets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset_test</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset_train</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aiml/load_data/normalize_datasets.html#normalize_datasets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aiml.load_data.normalize_datasets.normalize_datasets" title="Link to this definition"></a></dt>
+<dd><p>Normalize the training and testing datasets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset_test</strong> (<em>dataset</em>) – The testing dataset.</p></li>
+<li><p><strong>dataset_train</strong> (<em>dataset</em><em>, </em><em>optional</em>) – The training dataset (Default is None).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing the normalized testing dataset and, if provided, the normalized training dataset.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-aiml.load_data">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-aiml.load_data" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="aiml.evaluation.html" class="btn btn-neutral float-left" title="aiml.evaluation package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="aiml.surrogate_model.html" class="btn btn-neutral float-right" title="aiml.surrogate_model package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Sungjae Jang, Takuya Saegusa, Terence Zhang, Yuming Zhou, Haozhe Wei.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

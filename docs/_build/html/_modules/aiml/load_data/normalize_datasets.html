@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>aiml.load_data.normalize_datasets &mdash; Adversarial Insight ML  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Adversarial Insight ML
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">src</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Adversarial Insight ML</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">aiml.load_data.normalize_datasets</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for aiml.load_data.normalize_datasets</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">normalize_datasets.py</span>
+
+<span class="sd">This module contains functions for normalizing and denormalizing a dataset.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torchvision.transforms</span> <span class="k">as</span> <span class="nn">T</span>
+<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">DataLoader</span>
+
+<span class="n">normalize_values</span> <span class="o">=</span> <span class="p">{}</span>
+
+
+<div class="viewcode-block" id="get_mean_std">
+<a class="viewcode-back" href="../../../aiml.load_data.html#aiml.load_data.normalize_datasets.get_mean_std">[docs]</a>
+<span class="k">def</span> <span class="nf">get_mean_std</span><span class="p">(</span><span class="n">dataset</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the mean and standard deviation of the dataset&#39;s image channels.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        dataset (dataset): The dataset containing images.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">imgs</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">dataset</span><span class="p">]</span>
+    <span class="n">imgs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">imgs</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    <span class="n">sample_image</span> <span class="o">=</span> <span class="n">imgs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">num_channels</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="n">sample_image</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">num_images</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+    <span class="n">num_classes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="n">y</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">dataset</span><span class="p">]))</span>
+
+    <span class="k">if</span> <span class="n">num_channels</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="c1"># CIFAR10</span>
+        <span class="k">if</span> <span class="n">num_classes</span> <span class="o">==</span> <span class="mi">10</span> <span class="ow">and</span> <span class="n">height</span> <span class="o">==</span> <span class="mi">32</span> <span class="ow">and</span> <span class="n">width</span> <span class="o">==</span> <span class="mi">32</span> <span class="ow">and</span> <span class="n">num_images</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">50000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">]:</span>
+            <span class="n">mean</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.4914</span><span class="p">,</span> <span class="mf">0.4822</span><span class="p">,</span> <span class="mf">0.4465</span><span class="p">]</span>
+            <span class="n">std</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.2470</span><span class="p">,</span> <span class="mf">0.2435</span><span class="p">,</span> <span class="mf">0.2616</span><span class="p">]</span>
+        <span class="c1"># SVHN</span>
+        <span class="k">elif</span> <span class="n">num_classes</span> <span class="o">==</span> <span class="mi">10</span> <span class="ow">and</span> <span class="n">height</span> <span class="o">==</span> <span class="mi">32</span> <span class="ow">and</span> <span class="n">width</span> <span class="o">==</span> <span class="mi">32</span> <span class="ow">and</span> <span class="n">num_images</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">73257</span><span class="p">,</span> <span class="mi">26032</span><span class="p">]:</span>
+            <span class="n">mean</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.4377</span><span class="p">,</span> <span class="mf">0.44378</span><span class="p">,</span> <span class="mf">0.4728</span><span class="p">]</span>
+            <span class="n">std</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1980</span><span class="p">,</span> <span class="mf">0.2010</span><span class="p">,</span> <span class="mf">0.19704</span><span class="p">]</span>
+        <span class="c1"># GTSRB</span>
+        <span class="k">elif</span> <span class="n">num_classes</span> <span class="o">==</span> <span class="mi">43</span> <span class="ow">and</span> <span class="n">num_images</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">39209</span><span class="p">,</span> <span class="mi">26640</span><span class="p">,</span> <span class="mi">12630</span><span class="p">]:</span>
+            <span class="n">mean</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.3417</span><span class="p">,</span> <span class="mf">0.3126</span><span class="p">,</span> <span class="mf">0.3217</span><span class="p">]</span>
+            <span class="n">std</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.2768</span><span class="p">,</span> <span class="mf">0.2646</span><span class="p">,</span> <span class="mf">0.2706</span><span class="p">]</span>
+        <span class="c1"># CIFAR100</span>
+        <span class="k">elif</span> <span class="n">num_classes</span> <span class="o">==</span> <span class="mi">100</span> <span class="ow">and</span> <span class="n">height</span> <span class="o">==</span> <span class="mi">32</span> <span class="ow">and</span> <span class="n">width</span> <span class="o">==</span> <span class="mi">32</span> <span class="ow">and</span> <span class="n">num_images</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">50000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">]:</span>
+            <span class="n">mean</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5071</span><span class="p">,</span> <span class="mf">0.4867</span><span class="p">,</span> <span class="mf">0.4408</span><span class="p">]</span>
+            <span class="n">std</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.2675</span><span class="p">,</span> <span class="mf">0.2565</span><span class="p">,</span> <span class="mf">0.2761</span><span class="p">]</span>
+        <span class="c1"># Tiny ImageNet</span>
+        <span class="k">elif</span> <span class="n">num_classes</span> <span class="o">==</span> <span class="mi">200</span> <span class="ow">and</span> <span class="n">height</span> <span class="o">==</span> <span class="mi">64</span> <span class="ow">and</span> <span class="n">width</span> <span class="o">==</span> <span class="mi">64</span> <span class="ow">and</span> <span class="n">num_images</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">100000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">]:</span>
+            <span class="n">mean</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.485</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.406</span><span class="p">]</span>
+            <span class="n">std</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.229</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.225</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">mean_r</span> <span class="o">=</span> <span class="n">imgs</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+            <span class="n">mean_g</span> <span class="o">=</span> <span class="n">imgs</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+            <span class="n">mean_b</span> <span class="o">=</span> <span class="n">imgs</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+            <span class="n">mean</span> <span class="o">=</span> <span class="p">[</span><span class="n">mean_r</span><span class="p">,</span> <span class="n">mean_g</span><span class="p">,</span> <span class="n">mean_b</span><span class="p">]</span>
+
+            <span class="n">std_r</span> <span class="o">=</span> <span class="n">imgs</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+            <span class="n">std_g</span> <span class="o">=</span> <span class="n">imgs</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+            <span class="n">std_b</span> <span class="o">=</span> <span class="n">imgs</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+
+            <span class="n">std</span> <span class="o">=</span> <span class="p">[</span><span class="n">std_r</span><span class="p">,</span> <span class="n">std_g</span><span class="p">,</span> <span class="n">std_b</span><span class="p">]</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># MNIST</span>
+        <span class="k">if</span> <span class="n">num_classes</span> <span class="o">==</span> <span class="mi">10</span> <span class="ow">and</span> <span class="n">height</span> <span class="o">==</span> <span class="mi">28</span> <span class="ow">and</span> <span class="n">width</span> <span class="o">==</span> <span class="mi">28</span> <span class="ow">and</span> <span class="n">num_images</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">60000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">]:</span>
+            <span class="n">mean</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1307</span><span class="p">,]</span>
+            <span class="n">std</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.3081</span><span class="p">,]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">mean</span> <span class="o">=</span> <span class="p">[</span><span class="n">imgs</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">mean</span><span class="p">()]</span>
+            <span class="n">std</span> <span class="o">=</span> <span class="p">[</span><span class="n">imgs</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">std</span><span class="p">()]</span>
+
+    <span class="n">normalize_values</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mean</span>
+    <span class="n">normalize_values</span><span class="p">[</span><span class="s2">&quot;std&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">std</span></div>
+
+
+
+<div class="viewcode-block" id="get_transforms">
+<a class="viewcode-back" href="../../../aiml.load_data.html#aiml.load_data.normalize_datasets.get_transforms">[docs]</a>
+<span class="k">def</span> <span class="nf">get_transforms</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get a list of transformations for datasets, including normalization.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        torchvision.transforms.Compose: A composition of transformations.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">transform_list</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">T</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">(),</span>
+        <span class="n">T</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="n">normalize_values</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">],</span>
+                    <span class="n">std</span><span class="o">=</span><span class="n">normalize_values</span><span class="p">[</span><span class="s2">&quot;std&quot;</span><span class="p">]),</span>
+    <span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">T</span><span class="o">.</span><span class="n">Compose</span><span class="p">(</span><span class="n">transform_list</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="check_normalize">
+<a class="viewcode-back" href="../../../aiml.load_data.html#aiml.load_data.normalize_datasets.check_normalize">[docs]</a>
+<span class="k">def</span> <span class="nf">check_normalize</span><span class="p">(</span><span class="n">dataloader</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Check if the data in a dataloader is normalized.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        dataloader (torch.utils.data.DataLoader): A PyTorch DataLoader containing the dataset.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        bool: True if the data is normalized (mean close to 0, std close to 1), False otherwise.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">dataloader</span><span class="p">))</span>
+    <span class="n">mean</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">std</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">mean</span> <span class="o">&gt;</span> <span class="mf">0.1</span> <span class="ow">or</span> <span class="n">mean</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mf">0.1</span> <span class="ow">or</span> <span class="n">std</span> <span class="o">&gt;</span> <span class="mf">1.1</span> <span class="ow">or</span> <span class="n">std</span> <span class="o">&lt;</span> <span class="mf">0.9</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">return</span> <span class="kc">True</span></div>
+
+
+
+<div class="viewcode-block" id="normalize_datasets">
+<a class="viewcode-back" href="../../../aiml.load_data.html#aiml.load_data.normalize_datasets.normalize_datasets">[docs]</a>
+<span class="k">def</span> <span class="nf">normalize_datasets</span><span class="p">(</span><span class="n">dataset_test</span><span class="p">,</span> <span class="n">dataset_train</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Normalize the training and testing datasets.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        dataset_test (dataset): The testing dataset.</span>
+<span class="sd">        dataset_train (dataset, optional): The training dataset (Default is None).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple: A tuple containing the normalized testing dataset and, if provided, the normalized training dataset.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">dataset_train</span><span class="p">:</span>
+        <span class="n">dataset_train</span><span class="o">.</span><span class="n">transform</span> <span class="o">=</span> <span class="n">get_transforms</span><span class="p">()</span>
+
+    <span class="n">dataset_test</span><span class="o">.</span><span class="n">transform</span> <span class="o">=</span> <span class="n">get_transforms</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">dataset_test</span><span class="p">,</span> <span class="n">dataset_train</span></div>
+
+
+
+<div class="viewcode-block" id="normalize_and_check_datasets">
+<a class="viewcode-back" href="../../../aiml.load_data.html#aiml.load_data.normalize_datasets.normalize_and_check_datasets">[docs]</a>
+<span class="k">def</span> <span class="nf">normalize_and_check_datasets</span><span class="p">(</span><span class="n">num_workers</span><span class="p">,</span> <span class="n">batch_size_test</span><span class="p">,</span> <span class="n">batch_size_train</span><span class="p">,</span> <span class="n">dataset_test</span><span class="p">,</span> <span class="n">dataset_train</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Normalize and check the given test and optionally, training datasets for normalization.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        num_workers (int): Number of workers for data loading.</span>
+<span class="sd">        batch_size_test (int): Batch size for the test dataset.</span>
+<span class="sd">        batch_size_train (int): Batch size for the training dataset (if provided).</span>
+<span class="sd">        test_dataset: The test dataset.</span>
+<span class="sd">        train_dataset (optional): The training dataset (Default is None).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple: If normalization is required, returns a tuple containing the normalized test</span>
+<span class="sd">        and training datasets along with their data loaders. If no normalization is needed,</span>
+<span class="sd">        returns the test dataset as-is.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dataloader_test</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">dataloader_train</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="n">dataset_train</span><span class="p">:</span>
+        <span class="n">get_mean_std</span><span class="p">(</span><span class="n">dataset_train</span><span class="p">)</span>
+
+        <span class="n">dataloader_train</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span>
+            <span class="n">dataset_train</span><span class="p">,</span>
+            <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size_train</span><span class="p">,</span>
+            <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">num_workers</span><span class="o">=</span><span class="n">num_workers</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">dataloader_test</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span>
+            <span class="n">dataset_test</span><span class="p">,</span>
+            <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size_test</span><span class="p">,</span>
+            <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">num_workers</span><span class="o">=</span><span class="n">num_workers</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">check_normalize</span><span class="p">(</span><span class="n">dataloader_test</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">check_normalize</span><span class="p">(</span><span class="n">dataloader_train</span><span class="p">):</span>
+            <span class="n">dataset_test_norm</span><span class="p">,</span> <span class="n">dataset_train_norm</span> <span class="o">=</span> <span class="n">normalize_datasets</span><span class="p">(</span>
+                <span class="n">dataset_test</span><span class="p">,</span> <span class="n">dataset_train</span><span class="p">)</span>
+
+            <span class="n">dataloader_train</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span>
+                <span class="n">dataset_test_norm</span><span class="p">,</span>
+                <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size_train</span><span class="p">,</span>
+                <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">num_workers</span><span class="o">=</span><span class="n">num_workers</span><span class="p">,</span>
+            <span class="p">)</span>
+
+            <span class="n">dataloader_test</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span>
+                <span class="n">dataset_train_norm</span><span class="p">,</span>
+                <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size_test</span><span class="p">,</span>
+                <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">num_workers</span><span class="o">=</span><span class="n">num_workers</span><span class="p">,</span>
+            <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">get_mean_std</span><span class="p">(</span><span class="n">dataset_test</span><span class="p">)</span>
+
+        <span class="n">dataloader_test</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span>
+            <span class="n">dataset_test</span><span class="p">,</span>
+            <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size_test</span><span class="p">,</span>
+            <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">num_workers</span><span class="o">=</span><span class="n">num_workers</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">check_normalize</span><span class="p">(</span><span class="n">dataloader_test</span><span class="p">):</span>
+            <span class="n">dataset_test_norm</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">normalize_datasets</span><span class="p">(</span><span class="n">dataset_test</span><span class="p">)</span>
+
+            <span class="n">dataloader_test</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span>
+                <span class="n">dataset_test_norm</span><span class="p">,</span>
+                <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size_test</span><span class="p">,</span>
+                <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">num_workers</span><span class="o">=</span><span class="n">num_workers</span><span class="p">,</span>
+            <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">dataset_test</span><span class="p">,</span> <span class="n">dataset_train</span><span class="p">,</span> <span class="n">dataloader_test</span><span class="p">,</span> <span class="n">dataloader_train</span></div>
+
+
+
+<div class="viewcode-block" id="denormalize">
+<a class="viewcode-back" href="../../../aiml.load_data.html#aiml.load_data.normalize_datasets.denormalize">[docs]</a>
+<span class="k">def</span> <span class="nf">denormalize</span><span class="p">(</span><span class="n">batch</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Denormalize a batch of normalized data using mean and standard deviation values.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        batch (torch.Tensor): A batch of normalized data.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        torch.Tensor: The denormalized batch of data with the same shape as the input.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mean</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">normalize_values</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">])</span>
+    <span class="n">std</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">normalize_values</span><span class="p">[</span><span class="s2">&quot;std&quot;</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">batch</span> <span class="o">*</span> <span class="n">std</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">mean</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Sungjae Jang, Takuya Saegusa, Terence Zhang, Yuming Zhou, Haozhe Wei.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

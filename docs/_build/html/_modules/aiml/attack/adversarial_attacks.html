@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>aiml.attack.adversarial_attacks &mdash; Adversarial Insight ML  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Adversarial Insight ML
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">src</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Adversarial Insight ML</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">aiml.attack.adversarial_attacks</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for aiml.attack.adversarial_attacks</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">adversarial_attacks.py</span>
+
+<span class="sd">This module contains eight adversarial attacks from the ART library:</span>
+<span class="sd">    1.AutoProjectedGradientDescent,</span>
+<span class="sd">    2.CarliniL0Method,</span>
+<span class="sd">    3.CarliniL2Method,</span>
+<span class="sd">    4.CarliniLInfMethod,</span>
+<span class="sd">    5.DeepFool,</span>
+<span class="sd">    6.PixelAttack,</span>
+<span class="sd">    7.SquareAttack,</span>
+<span class="sd">    8.ZooAttack</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="kn">from</span> <span class="nn">art.attacks.evasion</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">AutoProjectedGradientDescent</span><span class="p">,</span>
+    <span class="n">CarliniL0Method</span><span class="p">,</span>
+    <span class="n">CarliniL2Method</span><span class="p">,</span>
+    <span class="n">CarliniLInfMethod</span><span class="p">,</span>
+    <span class="n">DeepFool</span><span class="p">,</span>
+    <span class="n">PixelAttack</span><span class="p">,</span>
+    <span class="n">SquareAttack</span><span class="p">,</span>
+    <span class="n">ZooAttack</span>
+<span class="p">)</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<div class="viewcode-block" id="auto_projected_cross_entropy">
+<a class="viewcode-back" href="../../../aiml.attack.html#aiml.attack.adversarial_attacks.auto_projected_cross_entropy">[docs]</a>
+<span class="k">def</span> <span class="nf">auto_projected_cross_entropy</span><span class="p">(</span>
+    <span class="n">estimator</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span><span class="n">eps</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">eps_step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create an Auto Projected Gradient Descent attack instance with </span>
+<span class="sd">    cross-entropy loss.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        estimator: The classifier to attack.</span>
+<span class="sd">        batch_size (int): Batch size for the attack.</span>
+<span class="sd">        norm: Norm to use for the attack.</span>
+<span class="sd">        eps (float): Maximum perturbation allowed.</span>
+<span class="sd">        eps_step (float): Step size of the attack.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        An instance of AutoProjectedGradientDescent.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">AutoProjectedGradientDescent</span><span class="p">(</span>
+        <span class="n">estimator</span><span class="o">=</span><span class="n">estimator</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="n">eps</span><span class="p">,</span> <span class="n">eps_step</span><span class="o">=</span><span class="n">eps_step</span><span class="p">,</span> 
+        <span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">targeted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nb_random_init</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span>
+        <span class="n">loss_type</span><span class="o">=</span><span class="s2">&quot;cross_entropy&quot;</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="auto_projected_difference_logits_ratio">
+<a class="viewcode-back" href="../../../aiml.attack.html#aiml.attack.adversarial_attacks.auto_projected_difference_logits_ratio">[docs]</a>
+<span class="k">def</span> <span class="nf">auto_projected_difference_logits_ratio</span><span class="p">(</span>
+    <span class="n">estimator</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">eps_step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">norm</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create an Auto Projected Gradient Descent attack instance with </span>
+<span class="sd">    difference logits ratio loss.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        estimator: The classifier to attack.</span>
+<span class="sd">        batch_size (int): Batch size for the attack.</span>
+<span class="sd">        norm: Norm to use for the attack.</span>
+<span class="sd">        eps (float): Maximum perturbation allowed.</span>
+<span class="sd">        eps_step (float): Step size of the attack.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        An instance of AutoProjectedGradientDescent.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">AutoProjectedGradientDescent</span><span class="p">(</span>
+        <span class="n">estimator</span><span class="o">=</span><span class="n">estimator</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="n">eps</span><span class="p">,</span> <span class="n">eps_step</span><span class="o">=</span><span class="n">eps_step</span><span class="p">,</span> 
+        <span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">targeted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nb_random_init</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span>
+        <span class="n">loss_type</span><span class="o">=</span><span class="s2">&quot;difference_logits_ratio&quot;</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="carlini_L0_attack">
+<a class="viewcode-back" href="../../../aiml.attack.html#aiml.attack.adversarial_attacks.carlini_L0_attack">[docs]</a>
+<span class="k">def</span> <span class="nf">carlini_L0_attack</span><span class="p">(</span>
+    <span class="n">classifier</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">binary_search_steps</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> 
+    <span class="n">confidence</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">targeted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
+    <span class="n">initial_const</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">warm_start</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">max_halving</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> 
+    <span class="n">max_doubling</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a Carlini L0 attack instance.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        classifier: The classifier to attack.</span>
+<span class="sd">        batch_size (int): Batch size for the attack.</span>
+<span class="sd">        confidence (float): Confidence parameter.</span>
+<span class="sd">        targeted (bool): Whether the attack is targeted.</span>
+<span class="sd">        learning_rate (float): Learning rate for optimization.</span>
+<span class="sd">        binary_search_steps (int): Number of binary search steps.</span>
+<span class="sd">        max_iter (int): Maximum number of optimization iterations.</span>
+<span class="sd">        initial_const (float): Initial constant for optimization.</span>
+<span class="sd">        mask: Mask for the attack.</span>
+<span class="sd">        warm_start (bool): Whether to use warm-starting.</span>
+<span class="sd">        max_halving (int): Maximum number of times to halve the constant.</span>
+<span class="sd">        max_doubling (int): Maximum number of times to double the constant.</span>
+<span class="sd">        verbose (bool): Whether to display verbose output.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        An instance of CarliniL0Method.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">CarliniL0Method</span><span class="p">(</span>
+        <span class="n">classifier</span><span class="p">,</span> <span class="n">confidence</span><span class="p">,</span> <span class="n">targeted</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">,</span> <span class="n">binary_search_steps</span><span class="p">,</span>
+        <span class="n">max_iter</span><span class="p">,</span> <span class="n">initial_const</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">warm_start</span><span class="p">,</span> <span class="n">max_halving</span><span class="p">,</span> <span class="n">max_doubling</span><span class="p">,</span>
+        <span class="n">batch_size</span><span class="p">,</span> <span class="n">verbose</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="carlini_L2_attack">
+<a class="viewcode-back" href="../../../aiml.attack.html#aiml.attack.adversarial_attacks.carlini_L2_attack">[docs]</a>
+<span class="k">def</span> <span class="nf">carlini_L2_attack</span><span class="p">(</span>
+    <span class="n">classifier</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> 
+    <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">binary_search_steps</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> 
+    <span class="n">confidence</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">targeted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
+    <span class="n">initial_const</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">max_halving</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">max_doubling</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a Carlini L2 attack instance.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        classifier: The classifier to attack.</span>
+<span class="sd">        batch_size (int): Batch size for the attack.</span>
+<span class="sd">        confidence (float): Confidence parameter.</span>
+<span class="sd">        targeted (bool): Whether the attack is targeted.</span>
+<span class="sd">        learning_rate (float): Learning rate for optimization.</span>
+<span class="sd">        binary_search_steps (int): Number of binary search steps.</span>
+<span class="sd">        max_iter (int): Maximum number of optimization iterations.</span>
+<span class="sd">        initial_const (float): Initial constant for optimization.</span>
+<span class="sd">        max_halving (int): Maximum number of times to halve the constant.</span>
+<span class="sd">        max_doubling (int): Maximum number of times to double the constant.</span>
+<span class="sd">        verbose (bool): Whether to display verbose output.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        An instance of CarliniL2Method.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">CarliniL2Method</span><span class="p">(</span>
+        <span class="n">classifier</span><span class="p">,</span> <span class="n">confidence</span><span class="p">,</span> <span class="n">targeted</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">,</span> <span class="n">binary_search_steps</span><span class="p">,</span>
+        <span class="n">max_iter</span><span class="p">,</span> <span class="n">initial_const</span><span class="p">,</span> <span class="n">max_halving</span><span class="p">,</span> <span class="n">max_doubling</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> 
+        <span class="n">verbose</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="carlini_Linf_attack">
+<a class="viewcode-back" href="../../../aiml.attack.html#aiml.attack.adversarial_attacks.carlini_Linf_attack">[docs]</a>
+<span class="k">def</span> <span class="nf">carlini_Linf_attack</span><span class="p">(</span>
+    <span class="n">classifier</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>  <span class="n">max_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">confidence</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">targeted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
+    <span class="n">decrease_factor</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">initial_const</span><span class="o">=</span><span class="mf">1e-05</span><span class="p">,</span> 
+    <span class="n">largest_const</span><span class="o">=</span><span class="mf">20.0</span><span class="p">,</span> <span class="n">const_factor</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a Carlini Linf attack instance.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        classifier: The classifier to attack.</span>
+<span class="sd">        batch_size (int): Batch size for the attack.</span>
+<span class="sd">        confidence (float): Confidence parameter.</span>
+<span class="sd">        targeted (bool): Whether the attack is targeted.</span>
+<span class="sd">        learning_rate (float): Learning rate for optimization.</span>
+<span class="sd">        max_iter (int): Maximum number of optimization iterations.</span>
+<span class="sd">        decrease_factor (float): Factor for decreasing the constant.</span>
+<span class="sd">        initial_const (float): Initial constant for optimization.</span>
+<span class="sd">        largest_const (float): Maximum constant for optimization.</span>
+<span class="sd">        const_factor (float): Factor for modifying the constant.</span>
+<span class="sd">        verbose (bool): Whether to display verbose output.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        An instance of CarliniLInfMethod.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">CarliniLInfMethod</span><span class="p">(</span>
+        <span class="n">classifier</span><span class="p">,</span> <span class="n">confidence</span><span class="p">,</span> <span class="n">targeted</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">,</span> 
+        <span class="n">decrease_factor</span><span class="p">,</span> <span class="n">initial_const</span><span class="p">,</span> <span class="n">largest_const</span><span class="p">,</span> <span class="n">const_factor</span><span class="p">,</span> 
+        <span class="n">batch_size</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="deep_fool_attack">
+<a class="viewcode-back" href="../../../aiml.attack.html#aiml.attack.adversarial_attacks.deep_fool_attack">[docs]</a>
+<span class="k">def</span> <span class="nf">deep_fool_attack</span><span class="p">(</span>
+    <span class="n">classifier</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-06</span><span class="p">,</span> <span class="n">nb_grads</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> 
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a Deep Fool attack instance.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        classifier: The classifier to attack.</span>
+<span class="sd">        batch_size (int): Batch size for the attack.</span>
+<span class="sd">        max_iter (int): Maximum number of iterations.</span>
+<span class="sd">        epsilon (float): Perturbation size.</span>
+<span class="sd">        nb_grads (int): Number of gradients to compute.</span>
+<span class="sd">        verbose (bool): Whether to display verbose output.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        An instance of DeepFool.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">DeepFool</span><span class="p">(</span>
+        <span class="n">classifier</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">,</span> <span class="n">nb_grads</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">verbose</span>
+    <span class="p">)</span></div>
+
+
+
+
+<div class="viewcode-block" id="pixel_attack">
+<a class="viewcode-back" href="../../../aiml.attack.html#aiml.attack.adversarial_attacks.pixel_attack">[docs]</a>
+<span class="k">def</span> <span class="nf">pixel_attack</span><span class="p">(</span>
+        <span class="n">classifier</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span><span class="n">th</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">es</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>  <span class="n">targeted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a Pixel Attack instance.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        classifier: The classifier to attack.</span>
+<span class="sd">        th: Threshold for attack.</span>
+<span class="sd">        es (int): Early stopping criterion.</span>
+<span class="sd">        max_iter (int): Maximum number of iterations.</span>
+<span class="sd">        targeted (bool): Whether the attack is targeted.</span>
+<span class="sd">        verbose (bool): Whether to display verbose output.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        An instance of PixelAttack.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">PixelAttack</span><span class="p">(</span><span class="n">classifier</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">es</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">,</span> <span class="n">targeted</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="square_attack">
+<a class="viewcode-back" href="../../../aiml.attack.html#aiml.attack.adversarial_attacks.square_attack">[docs]</a>
+<span class="k">def</span> <span class="nf">square_attack</span><span class="p">(</span>
+    <span class="n">estimator</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">adv_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+ <span class="n">eps</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">p_init</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">nb_restarts</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a Square Attack instance.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        estimator: The estimator to attack.</span>
+<span class="sd">        batch_size (int): Batch size for the attack.</span>
+<span class="sd">        norm: Norm to use for the attack.</span>
+<span class="sd">        adv_criterion: Adversarial criterion for the attack.</span>
+<span class="sd">        loss: Loss function for the attack.</span>
+<span class="sd">        max_iter (int): Maximum number of iterations.</span>
+<span class="sd">        eps (float): Maximum perturbation allowed.</span>
+<span class="sd">        p_init (float): Initial perturbation scaling factor.</span>
+<span class="sd">        nb_restarts (int): Number of restarts for the attack.</span>
+<span class="sd">        verbose (bool): Whether to display verbose output.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        An instance of SquareAttack.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">SquareAttack</span><span class="p">(</span>
+        <span class="n">estimator</span><span class="p">,</span> <span class="n">norm</span><span class="p">,</span> <span class="n">adv_criterion</span><span class="p">,</span> <span class="n">loss</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">,</span> <span class="n">eps</span><span class="p">,</span> <span class="n">p_init</span><span class="p">,</span> 
+        <span class="n">nb_restarts</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">verbose</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="zoo_attack">
+<a class="viewcode-back" href="../../../aiml.attack.html#aiml.attack.adversarial_attacks.zoo_attack">[docs]</a>
+<span class="k">def</span> <span class="nf">zoo_attack</span><span class="p">(</span>
+    <span class="n">classifier</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">binary_search_steps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
+    <span class="n">confidence</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">targeted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
+    <span class="n">initial_const</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">abort_early</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">use_resize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+    <span class="n">use_importance</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">nb_parallel</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">variable_h</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a Zoo Attack instance.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        classifier: The classifier to attack.</span>
+<span class="sd">        batch_size (int): Batch size for the attack.</span>
+<span class="sd">        confidence (float): Confidence parameter.</span>
+<span class="sd">        targeted (bool): Whether the attack is targeted.</span>
+<span class="sd">        learning_rate (float): Learning rate for optimization.</span>
+<span class="sd">        max_iter (int): Maximum number of optimization iterations.</span>
+<span class="sd">        binary_search_steps (int): Number of binary search steps.</span>
+<span class="sd">        initial_const (float): Initial constant for optimization.</span>
+<span class="sd">        abort_early (bool): Whether to abort early during optimization.</span>
+<span class="sd">        use_resize (bool): Whether to use resize during optimization.</span>
+<span class="sd">        use_importance (bool): Whether to use importance during optimization.</span>
+<span class="sd">        nb_parallel (int): Number of parallel threads.</span>
+<span class="sd">        variable_h (float): Variable for determining step size.</span>
+<span class="sd">        verbose (bool): Whether to display verbose output.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        An instance of ZooAttack.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">ZooAttack</span><span class="p">(</span>
+        <span class="n">classifier</span><span class="p">,</span> <span class="n">confidence</span><span class="p">,</span> <span class="n">targeted</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">,</span>
+        <span class="n">binary_search_steps</span><span class="p">,</span> <span class="n">initial_const</span><span class="p">,</span> <span class="n">abort_early</span><span class="p">,</span> <span class="n">use_resize</span><span class="p">,</span> 
+        <span class="n">use_importance</span><span class="p">,</span> <span class="n">nb_parallel</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">variable_h</span><span class="p">,</span> <span class="n">verbose</span>
+    <span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Sungjae Jang, Takuya Saegusa, Terence Zhang, Yuming Zhou, Haozhe Wei.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
