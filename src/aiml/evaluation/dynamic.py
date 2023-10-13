@@ -192,16 +192,16 @@ def decide_attack(
         strong=(previous_para_n +1)/len(attack_method_list[previous_attack_n][2])
         out_string=""
         if strong>=0.8 and previous_acc >= ori_acc*0.4:
-            out_string="your model is very robust on"+str(attack_method_list[previous_attack_n][3])+"\n"
+            out_string="your model is very robust on "+str(attack_method_list[previous_attack_n][3])+"\n"
         elif strong>=0.25:
-            out_string="your model is barely robust on"+str(attack_method_list[previous_attack_n][3])+"\n"
+            out_string="your model is barely robust on "+str(attack_method_list[previous_attack_n][3])+"\n"
         else:
-            out_string="your model is not robust on"+str(attack_method_list[previous_attack_n][3])+"\n"
+            out_string="your model is not robust on "+str(attack_method_list[previous_attack_n][3])+"\n"
         next_para_n = 0
         with open(
             file_name, "a" #the result will output to attack evaluation result.txt
         ) as f:  # write the results of previous attack to txt file
-            f.write(out_string)
+            f.write(out_string+"\n")
         if previous_attack_n < 8:
             
             next_para_n = 0
