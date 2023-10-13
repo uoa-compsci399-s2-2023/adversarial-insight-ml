@@ -54,7 +54,7 @@ def attack_evaluation(
         [[1], [16], [32]],
         [[1], [16], [32]],
     ],
-    now_time
+    now_time="0"
 ):
     """
     Check the performance of adversarial attack methods against the ML model.
