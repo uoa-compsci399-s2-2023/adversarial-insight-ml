@@ -65,6 +65,7 @@ def attack_evaluation(
             get adversarial images.
         dry (bool): When True, the code only tests one example.
         attack_para_list (list): List of parameter combinations for the attack.
+        now_time(string):program start time
 
     Returns:
         float: Accuracy of the classifier on the adversarial examples as a percentage (1 = 100%).
