@@ -6,7 +6,7 @@ next attack to be applied and its parameter.
 """
 
 
-from aiml.attack.adversarial_attacks import (
+from a.attack.adversarial_attacks import (
     auto_projected_cross_entropy,
     auto_projected_difference_logits_ratio,
     carlini_L0_attack,
@@ -22,17 +22,10 @@ from aiml.attack.adversarial_attacks import (
 def decide_attack(
     result_list,
     attack_para_list=[
-        [[1], [16], [32]],
-        [[1], [16], [32]],
-        [[1], [16], [32]],
-        [[1], [16], [32]],
-        [[1], [16], [32]],
-        [[1], [16], [32]],
-        [[50], [100], [150]],
-        [[1], [16], [32]],
-        [[1], [16], [32]],
+    
     ],
-    now_time="0"
+    now_time="0",
+    ori_acc=0.9
 ):
     """
     Write the results of the previous attack to a text file and determine 
@@ -42,7 +35,6 @@ def decide_attack(
         result_list: A list where the first element is the overall mark, and the subsequent 
             elements are lists containing the history of previous attacks.
             Sublists stores the attack number, parameter number, and accuracy.
-        attack_para_list: A list of parameter combinations for each attack method.
 
     Returns:
         next_attack_number (int): The number of the next attack 
@@ -58,25 +50,24 @@ def decide_attack(
             auto_projected_cross_entropy,
             attack_para_list[0],
             "auto_projected_cross_entropy",
-            ["batch", "eps", "eps_step"],
+            ["eps","batch",  "eps_step"],
         ],
         [
             1,
             auto_projected_difference_logits_ratio,
             attack_para_list[1],
             "auto_projected_difference_logits_ratio",
-            ["batch", "eps", "eps_step"],
+            ["eps","batch",  "eps_step"],
         ],
         [
             2,
             carlini_L0_attack,
             attack_para_list[2],
             "carlini_L0_attack",
-            [
+            [   "confidence",
                 "batch",
                 "learning_rate",
-                "binary_search_steps",
-                "max_iter",
+                
             ],
         ],
         [
@@ -85,10 +76,10 @@ def decide_attack(
             attack_para_list[3],
             "carlini_L2_attack",
             [
+                "confidence",
                 "batch",
                 "learning_rate",
-                "binary_search_steps",
-                "max_iter",
+                
             ],
         ],
         [
@@ -97,9 +88,10 @@ def decide_attack(
             attack_para_list[4],
             "carlini_Linf_attack",
             [
+                "confidence",
                 "batch",
                 "learning_rate",
-                "max_iter",
+                
             ],
         ],
         [
@@ -107,7 +99,7 @@ def decide_attack(
             deep_fool_attack,
             attack_para_list[5],
             "deep_fool_attack",
-            ["batch", "max_iter"],
+            ["epsilon","batch", "max_iter"],
         ],
         [
             6,
@@ -121,7 +113,7 @@ def decide_attack(
             square_attack,
             attack_para_list[7],
             "square_attack",
-            ["batch", "max_iter"],
+            ["eps","batch", "max_iter"],
         ],
         [
             8,
@@ -129,10 +121,11 @@ def decide_attack(
             attack_para_list[8],
             "zoo_attack",
             [
+                "confidence",
                 "batch",
                 "learning_rate",
                 "max_iter",
-                "binary_search_steps",
+                
             ],
         ],
     ]
@@ -154,15 +147,15 @@ def decide_attack(
     """
 
 
-    if result_list[-1] == 0:  # add the first attack to initial result list
+    if result_list==[]:  # add the first attack to initial result list
         return (
             0,
             0,
             True,
-            0,
+            
         )  # current_attack_n,para,current_attack,b
 
-    overall_mark = result_list[0]
+    
     previous = result_list[-1]  # get information of previous attack result
     previous_attack_n = previous[0]
     previous_acc = previous[2]
@@ -193,28 +186,37 @@ def decide_attack(
     """
 
     if (
-        previous_acc < 0.4
-        or previous_para_n >= len(attack_method_list[previous_attack_n][2]) - 1
+        previous_acc < ori_acc*0.4
+        or previous_para_n +1>= len(attack_method_list[previous_attack_n][2]) 
     ):
-        overall_mark += previous_para_n
-
+        strong=(previous_para_n +1)/len(attack_method_list[previous_attack_n][2])
+        out_string=""
+        if strong>=0.8 and previous_acc >= ori_acc*0.4:
+            out_string="your model is very robust on"+str(attack_method_list[previous_attack_n][3])+"\n"
+        elif strong>=0.25:
+            out_string="your model is barely robust on"+str(attack_method_list[previous_attack_n][3])+"\n"
+        else:
+            out_string="your model is not robust on"+str(attack_method_list[previous_attack_n][3])+"\n"
+        next_para_n = 0
+        with open(
+            file_name, "a" #the result will output to attack evaluation result.txt
+        ) as f:  # write the results of previous attack to txt file
+            f.write(out_string)
         if previous_attack_n < 8:
-            if overall_mark > 5 and (overall_mark / (len(result_list) - 1)) > 2:
-                next_para_n = 1
-            else:
-                next_para_n = 0
+            
+            next_para_n = 0
             return (
                 previous_attack_n + 1,
                 next_para_n,
                 True,
-                overall_mark,
+                
             )
         else:  # all attack are tested and finish
             return (
                 0,
                 0,
                 False,
-                overall_mark,
+                
             )
 
     else:
@@ -222,5 +224,5 @@ def decide_attack(
             previous_attack_n,
             previous_para_n + 1,
             True,
-            overall_mark,
+            
         )
