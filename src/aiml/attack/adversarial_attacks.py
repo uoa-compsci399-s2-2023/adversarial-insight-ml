@@ -27,7 +27,7 @@ import numpy as np
 
 
 def auto_projected_cross_entropy(
-    estimator, batch_size=32,eps=0.3, eps_step=0.1, norm=np.inf
+    estimator, eps=0.3,batch_size=32, eps_step=0.1, norm=np.inf
 ):
     """
     Create an Auto Projected Gradient Descent attack instance with 
@@ -51,7 +51,7 @@ def auto_projected_cross_entropy(
 
 
 def auto_projected_difference_logits_ratio(
-    estimator, batch_size=32, eps=0.3, eps_step=0.1,norm=np.inf
+    estimator,eps=0.3, batch_size=32,  eps_step=0.1,norm=np.inf
 ):
     """
     Create an Auto Projected Gradient Descent attack instance with 
@@ -75,8 +75,8 @@ def auto_projected_difference_logits_ratio(
 
 
 def carlini_L0_attack(
-    classifier, batch_size=32,learning_rate=0.01, binary_search_steps=10, max_iter=10, 
-    confidence=0.0, targeted=False, 
+    classifier, confidence=0.0,batch_size=32,learning_rate=0.01, binary_search_steps=10, max_iter=10, 
+    targeted=False, 
     initial_const=0.01, mask=None, warm_start=True, max_halving=5, 
     max_doubling=5, verbose=True
 ):
@@ -109,9 +109,9 @@ def carlini_L0_attack(
 
 
 def carlini_L2_attack(
-    classifier, batch_size=32, 
+    classifier, confidence=0.0,batch_size=32, 
     learning_rate=0.01, binary_search_steps=10, max_iter=10, 
-    confidence=0.0, targeted=False, 
+     targeted=False, 
     initial_const=0.01, max_halving=5, max_doubling=5, verbose=True
 ):
     """
@@ -141,7 +141,7 @@ def carlini_L2_attack(
 
 
 def carlini_Linf_attack(
-    classifier, batch_size=32, learning_rate=0.01,  max_iter=10, confidence=0.0, targeted=False, 
+    classifier, confidence=0.0,batch_size=32, learning_rate=0.01,  max_iter=10,  targeted=False, 
     decrease_factor=0.9, initial_const=1e-05, 
     largest_const=20.0, const_factor=2.0, verbose=True
 ):
@@ -172,7 +172,7 @@ def carlini_Linf_attack(
 
 
 def deep_fool_attack(
-    classifier, batch_size=32, max_iter=100, epsilon=1e-06, nb_grads=10, 
+    classifier,epsilon=1e-06, batch_size=32, max_iter=100,  nb_grads=10, 
     verbose=True
 ):
     """
@@ -190,7 +190,7 @@ def deep_fool_attack(
         An instance of DeepFool.
     """
     return DeepFool(
-        classifier, max_iter, epsilon, nb_grads, batch_size, verbose
+        classifier, epsilon,max_iter,  nb_grads, batch_size, verbose
     )
 
 
@@ -216,8 +216,8 @@ def pixel_attack(
 
 
 def square_attack(
-    estimator, batch_size=32, max_iter=100, norm=np.inf, adv_criterion=None, loss=None,
- eps=0.3, p_init=0.8, nb_restarts=1, verbose=True
+    estimator, eps=0.3,batch_size=32, max_iter=100, norm=np.inf, adv_criterion=None, loss=None,
+  p_init=0.8, nb_restarts=1, verbose=True
 ):
     """
     Create a Square Attack instance.
@@ -244,8 +244,8 @@ def square_attack(
 
 
 def zoo_attack(
-    classifier, batch_size=32, learning_rate=0.01, max_iter=10, binary_search_steps=1, 
-    confidence=0.0, targeted=False, 
+    classifier, confidence=0.0,batch_size=32, learning_rate=0.01, max_iter=10, binary_search_steps=1, 
+     targeted=False, 
     initial_const=0.001, abort_early=True, use_resize=True, 
     use_importance=True, nb_parallel=128, variable_h=0.0001, verbose=True,
 ):
