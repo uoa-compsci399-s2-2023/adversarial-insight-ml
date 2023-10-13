@@ -41,6 +41,7 @@ def decide_attack(
         result_list: A list where the first element is the overall mark, and the subsequent 
             elements are lists containing the history of previous attacks.
             Sublists stores the attack number, parameter number, and accuracy.
+        attack_para_list: A list of parameter combinations for each attack method.
 
     Returns:
         next_attack_number (int): The number of the next attack 
