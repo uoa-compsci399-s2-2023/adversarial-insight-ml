@@ -35,13 +35,16 @@ def decide_attack(
         result_list: A list where the first element is the overall mark, and the subsequent 
             elements are lists containing the history of previous attacks.
             Sublists stores the attack number, parameter number, and accuracy.
+       attack_para_list: list that store parameter for each attack
+       now_time:program start time
+       ori_acc: original accuracy(accuracy that test clean image by the model)
 
     Returns:
         next_attack_number (int): The number of the next attack 
             (could be the same or the next one in the attack_method_list).
         next_parameter_number (int): The number of the next parameter.
         continue_testing (bool): Whether to continue testing attacks or not.
-        overall_mark (int): A score summarizing the previous performance.
+        
     """
 
     attack_method_list = [
