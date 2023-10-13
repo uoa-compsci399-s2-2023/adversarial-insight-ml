@@ -8,6 +8,7 @@ with the given data and attack methods.
 
 import torch
 import os
+import datetime
 from art.estimators.classification import PyTorchClassifier
 
 from aiml.load_data.generate_parameter import generate_parameter
@@ -71,7 +72,13 @@ def evaluate(
         None.
     """
     # Load model and data
-
+    now_time= datetime.datetime.now()
+    now_time=str(now_time)
+    for i in range(len(now_time)):
+        if now_time[i]==":":
+            break
+    now_time=now_time[:i]
+    print("the time you run the program is",now_time)
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     input_model = load_model(input_model)
     input_test_data = load_test_set(input_test_data)
@@ -153,12 +160,13 @@ def evaluate(
                     require_n,
                     dry=dry,
                     attack_para_list=attack_para_list,
+                    now_time=now_time
                 ),
             ]
         ]
         print(result_list)
 
         current_attack_n, para_n, b, overall_mark = decide_attack(
-            result_list, attack_para_list=attack_para_list
+            result_list, attack_para_list=attack_para_list,now_time=now_time
         )
     print(result_list)
