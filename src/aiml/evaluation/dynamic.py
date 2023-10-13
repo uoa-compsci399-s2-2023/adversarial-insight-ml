@@ -36,8 +36,8 @@ def decide_attack(
             elements are lists containing the history of previous attacks.
             Sublists stores the attack number, parameter number, and accuracy.
        attack_para_list: list that store parameter for each attack
-       now_time:program start time
-       ori_acc: original accuracy(accuracy that test clean image by the model)
+       now_time(string):program start time
+       ori_acc(float): original accuracy(accuracy that test clean image by the model)
 
     Returns:
         next_attack_number (int): The number of the next attack 
