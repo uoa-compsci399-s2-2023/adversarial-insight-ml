@@ -32,6 +32,7 @@ def decide_attack(
         [[1], [16], [32]],
         [[1], [16], [32]],
     ],
+    now_time
 ):
     """
     Write the results of the previous attack to a text file and determine 
@@ -166,9 +167,9 @@ def decide_attack(
     previous_attack_n = previous[0]
     previous_acc = previous[2]
     previous_para_n = previous[1]
-
+    file_name="attack_evaluation_result"+str(now_time)+".txt"
     with open(
-        "attack_evaluation_result.txt", "a" #the result will output to attack evaluation result.txt
+        file_name, "a" #the result will output to attack evaluation result.txt
     ) as f:  # write the results of previous attack to txt file
         f.write(attack_method_list[previous_attack_n][3])
         f.write("    ")
