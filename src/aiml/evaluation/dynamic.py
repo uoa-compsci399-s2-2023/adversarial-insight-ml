@@ -32,7 +32,7 @@ def decide_attack(
         [[1], [16], [32]],
         [[1], [16], [32]],
     ],
-    now_time
+    now_time="0"
 ):
     """
     Write the results of the previous attack to a text file and determine 
