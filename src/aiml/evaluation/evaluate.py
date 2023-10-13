@@ -37,15 +37,15 @@ def evaluate(
     require_n=3,
     dry=False,
     attack_para_list=[
-        [[1], [16], [32]],
-        [[1], [16], [32]],
-        [[1], [16], [32]],
-        [[1], [16], [32]],
-        [[1], [16], [32]],
-        [[1], [16], [32]],
-        [[50], [100], [150]],
-        [[1], [16], [32]],
-        [[1], [16], [32]],
+        [[0.03], [0.06], [0.13],[0.25]],
+        [[0.03], [0.06], [0.13],[0.25]],
+        [[0], [10], [100]],
+        [[0], [10], [100]],
+        [[0], [10], [100]],
+        [[1e-06]],
+        [[100]],
+        [[0.03], [0.06], [0.13],[0.25]],
+        [[0], [10], [100]],
     ],
 ):
     """
@@ -135,14 +135,14 @@ def evaluate(
         nb_classes=nb_classes,
     )
 
-    result_list = [0]
+    result_list = []
     b = True
     current_attack_n, para_n, b, overall_mark = decide_attack(
-        result_list, attack_para_list=attack_para_list
+        result_list, attack_para_list=attack_para_list,now_time=now_time,ori_acc=acc_test
     )
 
     while b:
-        result_list[0] = overall_mark
+        
         result_list += [
             [
                 current_attack_n,
@@ -166,7 +166,7 @@ def evaluate(
         ]
         print(result_list)
 
-        current_attack_n, para_n, b, overall_mark = decide_attack(
-            result_list, attack_para_list=attack_para_list,now_time=now_time
+        current_attack_n, para_n, b= decide_attack(
+            result_list, attack_para_list=attack_para_list,now_time=now_time,ori_acc=acc_test
         )
     print(result_list)
