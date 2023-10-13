@@ -16,9 +16,9 @@ from torch.utils.data import TensorDataset
 import torchvision.transforms as T
 import numpy as np
 
-from aiml.load_data.normalize_datasets import denormalize
-from aiml.evaluation.check_accuracy import check_accuracy_with_flags
-from aiml.attack.adversarial_attacks import (
+from a.load_data.normalize_datasets import denormalize
+from a.evaluation.check_accuracy import check_accuracy_with_flags
+from a.attack.adversarial_attacks import (
     auto_projected_cross_entropy,
     auto_projected_difference_logits_ratio,
     carlini_L0_attack,
@@ -44,15 +44,7 @@ def attack_evaluation(
     require_n=3,
     dry=False,
     attack_para_list=[
-        [[1], [16], [32]],
-        [[1], [16], [32]],
-        [[1], [16], [32]],
-        [[1], [16], [32]],
-        [[1], [16], [32]],
-        [[1], [16], [32]],
-        [[50], [100], [150]],
-        [[1], [16], [32]],
-        [[1], [16], [32]],
+        
     ],
     now_time="0"
 ):
@@ -72,7 +64,7 @@ def attack_evaluation(
         require_n (int): For every label, how many images marked as this label will be modified to 
             get adversarial images.
         dry (bool): When True, the code only tests one example.
-        attack_para_list (list): A list of parameter combinations for each attack method.
+        attack_para_list (list): List of parameter combinations for the attack.
 
     Returns:
         float: Accuracy of the classifier on the adversarial examples as a percentage (1 = 100%).
@@ -84,25 +76,24 @@ def attack_evaluation(
             auto_projected_cross_entropy,
             attack_para_list[0],
             "auto_projected_cross_entropy",
-            ["batch", "eps", "eps_step"],
+            ["eps","batch",  "eps_step"],
         ],
         [
             1,
             auto_projected_difference_logits_ratio,
             attack_para_list[1],
             "auto_projected_difference_logits_ratio",
-            ["batch", "eps", "eps_step"],
+            ["eps","batch",  "eps_step"],
         ],
         [
             2,
             carlini_L0_attack,
             attack_para_list[2],
             "carlini_L0_attack",
-            [
+            [   "confidence",
                 "batch",
                 "learning_rate",
-                "binary_search_steps",
-                "max_iter",
+                
             ],
         ],
         [
@@ -111,10 +102,10 @@ def attack_evaluation(
             attack_para_list[3],
             "carlini_L2_attack",
             [
+                "confidence",
                 "batch",
                 "learning_rate",
-                "binary_search_steps",
-                "max_iter",
+                
             ],
         ],
         [
@@ -123,9 +114,10 @@ def attack_evaluation(
             attack_para_list[4],
             "carlini_Linf_attack",
             [
+                "confidence",
                 "batch",
                 "learning_rate",
-                "max_iter",
+                
             ],
         ],
         [
@@ -133,7 +125,7 @@ def attack_evaluation(
             deep_fool_attack,
             attack_para_list[5],
             "deep_fool_attack",
-            ["batch", "max_iter"],
+            ["epsilon","batch", "max_iter"],
         ],
         [
             6,
@@ -147,7 +139,7 @@ def attack_evaluation(
             square_attack,
             attack_para_list[7],
             "square_attack",
-            ["batch", "max_iter"],
+            ["eps","batch", "max_iter"],
         ],
         [
             8,
@@ -155,10 +147,11 @@ def attack_evaluation(
             attack_para_list[8],
             "zoo_attack",
             [
+                "confidence",
                 "batch",
                 "learning_rate",
                 "max_iter",
-                "binary_search_steps",
+                
             ],
         ],
     ]
