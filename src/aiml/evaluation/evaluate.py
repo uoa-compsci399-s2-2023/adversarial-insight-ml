@@ -137,7 +137,7 @@ def evaluate(
 
     result_list = []
     b = True
-    current_attack_n, para_n, b, overall_mark = decide_attack(
+    current_attack_n, para_n, b = decide_attack(
         result_list, attack_para_list=attack_para_list,now_time=now_time,ori_acc=acc_test
     )
 
