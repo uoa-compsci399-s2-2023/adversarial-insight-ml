@@ -54,6 +54,7 @@ def attack_evaluation(
         [[1], [16], [32]],
         [[1], [16], [32]],
     ],
+    now_time
 ):
     """
     Check the performance of adversarial attack methods against the ML model.
@@ -274,7 +275,7 @@ def attack_evaluation(
             orig_img = transform(X_tensor[i])
             advx_img = transform(X_advx_tensor[i])
             img_path = (
-                f"./img/{attack_method_list[attack_n][3]}/{para_n}/{y[i]}/fail"
+                f"./img{now_time}/{attack_method_list[attack_n][3]}/{para_n}/{y[i]}/fail"
             )
 
             if not os.path.exists(img_path):
@@ -289,7 +290,7 @@ def attack_evaluation(
             orig_img = transform(X_tensor[i])
             advx_img = transform(X_advx_tensor[i])
             img_path = (
-                f"./img/{attack_method_list[attack_n][3]}/{para_n}/{y[i]}/succeed"
+                f"./img{now_time}/{attack_method_list[attack_n][3]}/{para_n}/{y[i]}/succeed"
             )
 
             if not os.path.exists(img_path):
