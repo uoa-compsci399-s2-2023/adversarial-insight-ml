@@ -6,9 +6,10 @@ This script is responsible for loading the model.
 
 
 import detectors
+from robustbench.utils import load_model
 
 
-def load_model(model, device='cpu'):
+def load_model(model, device):
     """
     Load a machine learning model.
 
@@ -26,7 +27,11 @@ def load_model(model, device='cpu'):
             model = detectors.create_model(model, pretrained=True)
             model = model.to(device)
         except:
-            print("We can't find your model.")
-            return None
+            try:
+                model= load_model(model)
+                model = model.to(device)
+            except:
+                print("We can't find your model.")
+                return None
 
     return model
