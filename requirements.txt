@@ -420,3 +420,5 @@ zipp==3.17.0
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
+datasets==2.14.5
+robustbench @ git+https://github.com/RobustBench/robustbench.git@2d630bc9e8d1cf50d46a4dda65fd36850e3ef769
