@@ -30,6 +30,8 @@ dependencies = [
     "detectors",
     "lightning",
     "torchmetrics",
+    "robustbench",
+    "datasets"
 ]
 
 [project.optional-dependencies]
