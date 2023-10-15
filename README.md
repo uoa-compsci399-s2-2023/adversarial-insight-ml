@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://uoa-compsci399-s2-2023.github.io/capstone-project-team-7/">
+  <a href="https://uoa-compsci399-s2-2023.github.io/adversarial-insight-ml/">
     <img
       src="./docs/_static/img_logo.png"
       alt="AIML Logo"
