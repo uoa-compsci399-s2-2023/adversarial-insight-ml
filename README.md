@@ -59,7 +59,7 @@ pip install adversarial-insight-ml
 
 Here's a simple overview of the usage of our package:
 <p align="center">
-  <img src="images/workflow_overview.png" alt="img overview" width="400" height="360" align="center">
+  <img src="images/workflow_overview.png" alt="img overview" width="390" height="360" align="center">
 </p>
 
 You can evaluate your model with the `evaluate()` function:
