@@ -6,7 +6,7 @@ next attack to be applied and its parameter.
 """
 
 
-from a.attack.adversarial_attacks import (
+from aiml.attack.adversarial_attacks import (
     auto_projected_cross_entropy,
     auto_projected_difference_logits_ratio,
     carlini_L0_attack,
