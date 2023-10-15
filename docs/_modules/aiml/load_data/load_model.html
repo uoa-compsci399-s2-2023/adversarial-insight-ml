@@ -76,12 +76,13 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 
-<span class="kn">import</span> <span class="nn">detectors</span>
+<span class="c1">#import detectors</span>
+<span class="kn">from</span> <span class="nn">robustbench.utils</span> <span class="kn">import</span> <span class="n">load_model</span>
 
 
 <div class="viewcode-block" id="load_model">
 <a class="viewcode-back" href="../../../aiml.load_data.html#aiml.load_data.load_model.load_model">[docs]</a>
-<span class="k">def</span> <span class="nf">load_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s1">&#39;cpu&#39;</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">load_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">device</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load a machine learning model.</span>
 
@@ -96,11 +97,15 @@
     
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">model</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">model</span> <span class="o">=</span> <span class="n">detectors</span><span class="o">.</span><span class="n">create_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="c1">#model = detectors.create_model(model, pretrained=True)</span>
             <span class="n">model</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
         <span class="k">except</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;We can&#39;t find your model.&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="kc">None</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">model</span><span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+                <span class="n">model</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;We can&#39;t find your model.&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">None</span>
 
     <span class="k">return</span> <span class="n">model</span></div>
 

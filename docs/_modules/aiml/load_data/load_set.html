@@ -77,7 +77,9 @@
 
 
 <span class="kn">from</span> <span class="nn">aiml.surrogate_model.utils</span> <span class="kn">import</span> <span class="n">load_cifar10</span>
-
+<span class="kn">from</span> <span class="nn">datasets</span> <span class="kn">import</span> <span class="n">list_datasets</span>
+<span class="kn">from</span> <span class="nn">datasets</span> <span class="kn">import</span> <span class="n">load_dataset</span>
+<span class="kn">import</span> <span class="nn">torchvision</span> <span class="k">as</span> <span class="nn">tv</span>
 
 <div class="viewcode-block" id="load_test_set">
 <a class="viewcode-back" href="../../../aiml.load_data.html#aiml.load_data.load_set.load_test_set">[docs]</a>
@@ -93,10 +95,18 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">test_set</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">test_set</span> <span class="o">==</span> <span class="s2">&quot;cifar10&quot;</span><span class="p">:</span>
-            <span class="n">dataset_train</span> <span class="o">=</span> <span class="n">load_cifar10</span><span class="p">(</span><span class="n">train</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">require_normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">test_set</span> <span class="o">=</span> <span class="n">load_cifar10</span><span class="p">(</span><span class="n">train</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">require_normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">train_set</span> <span class="o">==</span><span class="s2">&quot;mnist&quot;</span><span class="p">:</span>
+            <span class="n">train_set</span><span class="o">=</span><span class="n">tv</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">MNIST</span><span class="p">(</span><span class="s1">&#39;./data&#39;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">train_set</span> <span class="o">==</span> <span class="s2">&quot;cifar100&quot;</span><span class="p">:</span>
+            <span class="n">train_set</span> <span class="o">=</span> <span class="n">tv</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">CIFAR100</span><span class="p">(</span><span class="s1">&#39;./data&#39;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Currently we cannot find the dataset you input.&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="kc">None</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">test_set</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">test_set</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;we find the test set on huggingface&quot;</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Currently we cannot find the test dataset you input. you can call huggingface_hub.list_datasets to see the whole valiable set&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">None</span>
 
     
     <span class="k">return</span> <span class="n">test_set</span></div>
@@ -105,7 +115,7 @@
 
 <div class="viewcode-block" id="load_train_set">
 <a class="viewcode-back" href="../../../aiml.load_data.html#aiml.load_data.load_set.load_train_set">[docs]</a>
-<span class="k">def</span> <span class="nf">load_train_set</span><span class="p">(</span><span class="n">test_set</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">load_train_set</span><span class="p">(</span><span class="n">train_set</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load a training dataset.</span>
 
@@ -115,14 +125,23 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        dataset: The loaded training dataset.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">test_set</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">test_set</span> <span class="o">==</span> <span class="s2">&quot;cifar10&quot;</span><span class="p">:</span>
-            <span class="n">dataset_train</span> <span class="o">=</span> <span class="n">load_cifar10</span><span class="p">(</span><span class="n">train</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">require_normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">train_set</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">train_set</span> <span class="o">==</span> <span class="s2">&quot;cifar10&quot;</span><span class="p">:</span>
+            <span class="n">train_set</span> <span class="o">=</span> <span class="n">tv</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">CIFAR10</span><span class="p">(</span><span class="s1">&#39;./data&#39;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">train_set</span> <span class="o">==</span><span class="s2">&quot;mnist&quot;</span><span class="p">:</span>
+            <span class="n">train_set</span><span class="o">=</span><span class="n">tv</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">MNIST</span><span class="p">(</span><span class="s1">&#39;./data&#39;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">train_set</span> <span class="o">==</span> <span class="s2">&quot;cifar100&quot;</span><span class="p">:</span>
+            <span class="n">train_set</span> <span class="o">=</span> <span class="n">tv</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">CIFAR100</span><span class="p">(</span><span class="s1">&#39;./data&#39;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Currently we cannot find the dataset you input.&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="kc">None</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">train_set</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">train_set</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="s1">&#39;train&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;we find the train set on huggingface&quot;</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Currently we cannot find the train dataset you input. you can call huggingface_hub.list_datasets to see the whole valiable set&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">None</span>
 
-    <span class="k">return</span> <span class="n">test_set</span></div>
+    
+    <span class="k">return</span> <span class="n">train_set</span></div>
 
 </pre></div>
 

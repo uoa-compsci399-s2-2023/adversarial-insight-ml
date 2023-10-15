@@ -117,16 +117,9 @@
     <span class="n">require_n</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
     <span class="n">dry</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">attack_para_list</span><span class="o">=</span><span class="p">[</span>
-        <span class="p">[[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="p">[</span><span class="mi">32</span><span class="p">]],</span>
-        <span class="p">[[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="p">[</span><span class="mi">32</span><span class="p">]],</span>
-        <span class="p">[[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="p">[</span><span class="mi">32</span><span class="p">]],</span>
-        <span class="p">[[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="p">[</span><span class="mi">32</span><span class="p">]],</span>
-        <span class="p">[[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="p">[</span><span class="mi">32</span><span class="p">]],</span>
-        <span class="p">[[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="p">[</span><span class="mi">32</span><span class="p">]],</span>
-        <span class="p">[[</span><span class="mi">50</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="mi">150</span><span class="p">]],</span>
-        <span class="p">[[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="p">[</span><span class="mi">32</span><span class="p">]],</span>
-        <span class="p">[[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="p">[</span><span class="mi">32</span><span class="p">]],</span>
+        
     <span class="p">],</span>
+    <span class="n">now_time</span><span class="o">=</span><span class="s2">&quot;0&quot;</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Check the performance of adversarial attack methods against the ML model.</span>
@@ -145,6 +138,7 @@
 <span class="sd">            get adversarial images.</span>
 <span class="sd">        dry (bool): When True, the code only tests one example.</span>
 <span class="sd">        attack_para_list (list): List of parameter combinations for the attack.</span>
+<span class="sd">        now_time(string):program start time</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        float: Accuracy of the classifier on the adversarial examples as a percentage (1 = 100%).</span>
@@ -156,25 +150,24 @@
             <span class="n">auto_projected_cross_entropy</span><span class="p">,</span>
             <span class="n">attack_para_list</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
             <span class="s2">&quot;auto_projected_cross_entropy&quot;</span><span class="p">,</span>
-            <span class="p">[</span><span class="s2">&quot;batch&quot;</span><span class="p">,</span> <span class="s2">&quot;eps&quot;</span><span class="p">,</span> <span class="s2">&quot;eps_step&quot;</span><span class="p">],</span>
+            <span class="p">[</span><span class="s2">&quot;eps&quot;</span><span class="p">,</span><span class="s2">&quot;batch&quot;</span><span class="p">,</span>  <span class="s2">&quot;eps_step&quot;</span><span class="p">],</span>
         <span class="p">],</span>
         <span class="p">[</span>
             <span class="mi">1</span><span class="p">,</span>
             <span class="n">auto_projected_difference_logits_ratio</span><span class="p">,</span>
             <span class="n">attack_para_list</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
             <span class="s2">&quot;auto_projected_difference_logits_ratio&quot;</span><span class="p">,</span>
-            <span class="p">[</span><span class="s2">&quot;batch&quot;</span><span class="p">,</span> <span class="s2">&quot;eps&quot;</span><span class="p">,</span> <span class="s2">&quot;eps_step&quot;</span><span class="p">],</span>
+            <span class="p">[</span><span class="s2">&quot;eps&quot;</span><span class="p">,</span><span class="s2">&quot;batch&quot;</span><span class="p">,</span>  <span class="s2">&quot;eps_step&quot;</span><span class="p">],</span>
         <span class="p">],</span>
         <span class="p">[</span>
             <span class="mi">2</span><span class="p">,</span>
             <span class="n">carlini_L0_attack</span><span class="p">,</span>
             <span class="n">attack_para_list</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
             <span class="s2">&quot;carlini_L0_attack&quot;</span><span class="p">,</span>
-            <span class="p">[</span>
+            <span class="p">[</span>   <span class="s2">&quot;confidence&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;batch&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;learning_rate&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;binary_search_steps&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;max_iter&quot;</span><span class="p">,</span>
+                
             <span class="p">],</span>
         <span class="p">],</span>
         <span class="p">[</span>
@@ -183,10 +176,10 @@
             <span class="n">attack_para_list</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
             <span class="s2">&quot;carlini_L2_attack&quot;</span><span class="p">,</span>
             <span class="p">[</span>
+                <span class="s2">&quot;confidence&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;batch&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;learning_rate&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;binary_search_steps&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;max_iter&quot;</span><span class="p">,</span>
+                
             <span class="p">],</span>
         <span class="p">],</span>
         <span class="p">[</span>
@@ -195,9 +188,10 @@
             <span class="n">attack_para_list</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span>
             <span class="s2">&quot;carlini_Linf_attack&quot;</span><span class="p">,</span>
             <span class="p">[</span>
+                <span class="s2">&quot;confidence&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;batch&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;learning_rate&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;max_iter&quot;</span><span class="p">,</span>
+                
             <span class="p">],</span>
         <span class="p">],</span>
         <span class="p">[</span>
@@ -205,7 +199,7 @@
             <span class="n">deep_fool_attack</span><span class="p">,</span>
             <span class="n">attack_para_list</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>
             <span class="s2">&quot;deep_fool_attack&quot;</span><span class="p">,</span>
-            <span class="p">[</span><span class="s2">&quot;batch&quot;</span><span class="p">,</span> <span class="s2">&quot;max_iter&quot;</span><span class="p">],</span>
+            <span class="p">[</span><span class="s2">&quot;epsilon&quot;</span><span class="p">,</span><span class="s2">&quot;batch&quot;</span><span class="p">,</span> <span class="s2">&quot;max_iter&quot;</span><span class="p">],</span>
         <span class="p">],</span>
         <span class="p">[</span>
             <span class="mi">6</span><span class="p">,</span>
@@ -219,7 +213,7 @@
             <span class="n">square_attack</span><span class="p">,</span>
             <span class="n">attack_para_list</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span>
             <span class="s2">&quot;square_attack&quot;</span><span class="p">,</span>
-            <span class="p">[</span><span class="s2">&quot;batch&quot;</span><span class="p">,</span> <span class="s2">&quot;max_iter&quot;</span><span class="p">],</span>
+            <span class="p">[</span><span class="s2">&quot;eps&quot;</span><span class="p">,</span><span class="s2">&quot;batch&quot;</span><span class="p">,</span> <span class="s2">&quot;max_iter&quot;</span><span class="p">],</span>
         <span class="p">],</span>
         <span class="p">[</span>
             <span class="mi">8</span><span class="p">,</span>
@@ -227,10 +221,11 @@
             <span class="n">attack_para_list</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span>
             <span class="s2">&quot;zoo_attack&quot;</span><span class="p">,</span>
             <span class="p">[</span>
+                <span class="s2">&quot;confidence&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;batch&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;learning_rate&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;max_iter&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;binary_search_steps&quot;</span><span class="p">,</span>
+                
             <span class="p">],</span>
         <span class="p">],</span>
     <span class="p">]</span>
@@ -297,7 +292,7 @@
             <span class="k">if</span> <span class="n">b</span> <span class="o">!=</span> <span class="n">predictions</span><span class="o">.</span><span class="n">numpy</span><span class="p">()[</span><span class="mi">0</span><span class="p">]:</span>
                 <span class="k">continue</span>  <span class="c1"># Skip unrecognizable original images for adversarial generation</span>
         <span class="k">except</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;processing&quot;</span><span class="p">)</span>
+            <span class="n">good_work</span><span class="o">=</span><span class="kc">True</span> <span class="c1">#meaningless word</span>
 
         <span class="n">X</span> <span class="o">+=</span> <span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">numpy</span><span class="p">()]</span>
         <span class="n">y</span> <span class="o">+=</span> <span class="p">[</span><span class="n">b</span><span class="p">]</span>
@@ -347,7 +342,7 @@
             <span class="n">orig_img</span> <span class="o">=</span> <span class="n">transform</span><span class="p">(</span><span class="n">X_tensor</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
             <span class="n">advx_img</span> <span class="o">=</span> <span class="n">transform</span><span class="p">(</span><span class="n">X_advx_tensor</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
             <span class="n">img_path</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;./img/</span><span class="si">{</span><span class="n">attack_method_list</span><span class="p">[</span><span class="n">attack_n</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">para_n</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">/fail&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;./img</span><span class="si">{</span><span class="n">now_time</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">attack_method_list</span><span class="p">[</span><span class="n">attack_n</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">para_n</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">/fail&quot;</span>
             <span class="p">)</span>
 
             <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">img_path</span><span class="p">):</span>
@@ -362,7 +357,7 @@
             <span class="n">orig_img</span> <span class="o">=</span> <span class="n">transform</span><span class="p">(</span><span class="n">X_tensor</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
             <span class="n">advx_img</span> <span class="o">=</span> <span class="n">transform</span><span class="p">(</span><span class="n">X_advx_tensor</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
             <span class="n">img_path</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;./img/</span><span class="si">{</span><span class="n">attack_method_list</span><span class="p">[</span><span class="n">attack_n</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">para_n</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">/succeed&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;./img</span><span class="si">{</span><span class="n">now_time</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">attack_method_list</span><span class="p">[</span><span class="n">attack_n</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">para_n</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">/succeed&quot;</span>
             <span class="p">)</span>
 
             <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">img_path</span><span class="p">):</span>

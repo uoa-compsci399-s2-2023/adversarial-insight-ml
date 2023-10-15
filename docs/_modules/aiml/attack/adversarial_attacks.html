@@ -100,7 +100,7 @@
 <div class="viewcode-block" id="auto_projected_cross_entropy">
 <a class="viewcode-back" href="../../../aiml.attack.html#aiml.attack.adversarial_attacks.auto_projected_cross_entropy">[docs]</a>
 <span class="k">def</span> <span class="nf">auto_projected_cross_entropy</span><span class="p">(</span>
-    <span class="n">estimator</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span><span class="n">eps</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">eps_step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+    <span class="n">estimator</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span><span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">eps_step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create an Auto Projected Gradient Descent attack instance with </span>
@@ -127,7 +127,7 @@
 <div class="viewcode-block" id="auto_projected_difference_logits_ratio">
 <a class="viewcode-back" href="../../../aiml.attack.html#aiml.attack.adversarial_attacks.auto_projected_difference_logits_ratio">[docs]</a>
 <span class="k">def</span> <span class="nf">auto_projected_difference_logits_ratio</span><span class="p">(</span>
-    <span class="n">estimator</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">eps_step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">norm</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+    <span class="n">estimator</span><span class="p">,</span><span class="n">eps</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>  <span class="n">eps_step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">norm</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create an Auto Projected Gradient Descent attack instance with </span>
@@ -154,8 +154,8 @@
 <div class="viewcode-block" id="carlini_L0_attack">
 <a class="viewcode-back" href="../../../aiml.attack.html#aiml.attack.adversarial_attacks.carlini_L0_attack">[docs]</a>
 <span class="k">def</span> <span class="nf">carlini_L0_attack</span><span class="p">(</span>
-    <span class="n">classifier</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">binary_search_steps</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> 
-    <span class="n">confidence</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">targeted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
+    <span class="n">classifier</span><span class="p">,</span> <span class="n">confidence</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span><span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">binary_search_steps</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> 
+    <span class="n">targeted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
     <span class="n">initial_const</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">warm_start</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">max_halving</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> 
     <span class="n">max_doubling</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
 <span class="p">):</span>
@@ -191,9 +191,9 @@
 <div class="viewcode-block" id="carlini_L2_attack">
 <a class="viewcode-back" href="../../../aiml.attack.html#aiml.attack.adversarial_attacks.carlini_L2_attack">[docs]</a>
 <span class="k">def</span> <span class="nf">carlini_L2_attack</span><span class="p">(</span>
-    <span class="n">classifier</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> 
+    <span class="n">classifier</span><span class="p">,</span> <span class="n">confidence</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span><span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> 
     <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">binary_search_steps</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> 
-    <span class="n">confidence</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">targeted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
+     <span class="n">targeted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
     <span class="n">initial_const</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">max_halving</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">max_doubling</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -226,7 +226,7 @@
 <div class="viewcode-block" id="carlini_Linf_attack">
 <a class="viewcode-back" href="../../../aiml.attack.html#aiml.attack.adversarial_attacks.carlini_Linf_attack">[docs]</a>
 <span class="k">def</span> <span class="nf">carlini_Linf_attack</span><span class="p">(</span>
-    <span class="n">classifier</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>  <span class="n">max_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">confidence</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">targeted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
+    <span class="n">classifier</span><span class="p">,</span> <span class="n">confidence</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span><span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>  <span class="n">max_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>  <span class="n">targeted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
     <span class="n">decrease_factor</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">initial_const</span><span class="o">=</span><span class="mf">1e-05</span><span class="p">,</span> 
     <span class="n">largest_const</span><span class="o">=</span><span class="mf">20.0</span><span class="p">,</span> <span class="n">const_factor</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
 <span class="p">):</span>
@@ -260,7 +260,7 @@
 <div class="viewcode-block" id="deep_fool_attack">
 <a class="viewcode-back" href="../../../aiml.attack.html#aiml.attack.adversarial_attacks.deep_fool_attack">[docs]</a>
 <span class="k">def</span> <span class="nf">deep_fool_attack</span><span class="p">(</span>
-    <span class="n">classifier</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-06</span><span class="p">,</span> <span class="n">nb_grads</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> 
+    <span class="n">classifier</span><span class="p">,</span><span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-06</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>  <span class="n">nb_grads</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> 
     <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -278,7 +278,7 @@
 <span class="sd">        An instance of DeepFool.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">DeepFool</span><span class="p">(</span>
-        <span class="n">classifier</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">,</span> <span class="n">nb_grads</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">verbose</span>
+        <span class="n">classifier</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">,</span><span class="n">epsilon</span><span class="p">,</span>  <span class="n">nb_grads</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">verbose</span>
     <span class="p">)</span></div>
 
 
@@ -310,8 +310,8 @@
 <div class="viewcode-block" id="square_attack">
 <a class="viewcode-back" href="../../../aiml.attack.html#aiml.attack.adversarial_attacks.square_attack">[docs]</a>
 <span class="k">def</span> <span class="nf">square_attack</span><span class="p">(</span>
-    <span class="n">estimator</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">adv_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
- <span class="n">eps</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">p_init</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">nb_restarts</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
+    <span class="n">estimator</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span><span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">adv_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">p_init</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">nb_restarts</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create a Square Attack instance.</span>
@@ -341,8 +341,8 @@
 <div class="viewcode-block" id="zoo_attack">
 <a class="viewcode-back" href="../../../aiml.attack.html#aiml.attack.adversarial_attacks.zoo_attack">[docs]</a>
 <span class="k">def</span> <span class="nf">zoo_attack</span><span class="p">(</span>
-    <span class="n">classifier</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">binary_search_steps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
-    <span class="n">confidence</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">targeted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
+    <span class="n">classifier</span><span class="p">,</span> <span class="n">confidence</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span><span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">binary_search_steps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
+     <span class="n">targeted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
     <span class="n">initial_const</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">abort_early</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">use_resize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
     <span class="n">use_importance</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">nb_parallel</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">variable_h</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">):</span>
