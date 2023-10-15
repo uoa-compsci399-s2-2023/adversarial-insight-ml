@@ -30,7 +30,6 @@ dependencies = [
     "detectors",
     "lightning",
     "torchmetrics",
-    "robustbench",
     "datasets"
 ]
 
