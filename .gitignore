@@ -23,7 +23,7 @@ __pyenv__/
 data/
 logs/
 *.txt
-examples/img/
+examples/*/
 
 # Model
 *.pth
