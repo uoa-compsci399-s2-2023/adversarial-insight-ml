@@ -80,7 +80,7 @@ def evaluate(
     now_time=now_time[:i]
     print("the time you run the program is",now_time)
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    input_model = load_model(input_model)
+    input_model = load_model(input_model,device)
     input_test_data = load_test_set(input_test_data)
     model = input_model.to(device)
     input_train_data = load_train_set(input_train_data)
