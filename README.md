@@ -13,11 +13,7 @@
   </a>
 </p>
 
-<div align="center">
-  <h2>Adversarial Insight ML (AIML)</h2>
-  <p style="font-size: 14px; color: #888;"> Unmasking Your Machine: AIML – Built with ART Integration</p>
-</div>
-
+<h2 align="center">Adversarial Insight ML (AIML)</h2>
 
 <p align="center">
   <a href="https://pypi.org/project/adversarial-insight-ml/">
