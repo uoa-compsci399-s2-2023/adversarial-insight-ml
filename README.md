@@ -13,7 +13,11 @@
   </a>
 </p>
 
-<h2 align="center">Adversarial Insight ML (AIML)</h2>
+<div align="center">
+  <h2>Adversarial Insight ML (AIML)</h2>
+  <p style="font-size: 14px; color: #888;"> Unmasking Your Machine: AIML – Built with ART Integration</p>
+</div>
+
 
 <p align="center">
   <a href="https://pypi.org/project/adversarial-insight-ml/">
@@ -33,11 +37,14 @@
   </a>
 </p>
 
+
 > “Why does your machine lie?”
 
-Adversarial Insight ML (AIML) is a python package that evaluates the robustness of image classification models against adversarial attacks. AIML provides the functionality to automatically test your models against generated adversarial examples and outputs precise, insightful and robust feedback based on the several attack methods we have carefully chosen. Furthermore, AIML aims to be straightforward and beginner-friendly to allow non-technical users to take full advantage of its functionalities.
+AIML, short for Adversarial Insight ML, is your go-to Python package for gauging your machine learning image classification models' resilience against adversarial attacks. With AIML, you can effortlessly test your models against a spectrum of adversarial examples, receiving crisp, insightful feedback. 
 
-For more information, you can also visit the [PyPI page](https://pypi.org/project/adversarial-insight-ml/) and the [documentation page](https://uoa-compsci399-s2-2023.github.io/capstone-project-team-7/).
+We've meticulously selected various attack methods, including AutoProjectedGradientDescent, CarliniL0Method, CarliniL2Method, CarliniLInfMethod, DeepFool, PixelAttack, SquareAttack, and ZooAttack, to strengthen the robustness assessment. Plus, AIML strives for user-friendliness, making it accessible even to non-technical users.
+
+For more information, you can also visit our [PyPI page](https://pypi.org/project/adversarial-insight-ml/) and [documentation page](https://uoa-compsci399-s2-2023.github.io/capstone-project-team-7/).
 
 ## Table of Contents
 
