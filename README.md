@@ -1,7 +1,7 @@
 <p align="center">
   <a href="https://uoa-compsci399-s2-2023.github.io/capstone-project-team-7/">
     <img
-      src="./images/logo.png"
+      src="./docs/_static/img_logo.png"
       alt="AIML Logo"
       style="
         width: 418px;
@@ -59,7 +59,7 @@ pip install adversarial-insight-ml
 
 Here's a simple overview of the usage of our package:
 <p align="center">
-  <img src="images/workflow_overview.png" alt="img overview" width="390" height="360" align="center">
+  <img src="./docs/_static/img_workflow.png" alt="img_workflow.png" width="390" height="360" align="center">
 </p>
 
 You can evaluate your model with the `evaluate()` function:
@@ -98,11 +98,11 @@ After evaluating your model with `evaluate()` function, we provide
 the following insights:
 
 - Summary of adversarial attacks performed, found in a text file named `attack_evaluation_result.txt` followed by date. For example:
-  ![Result Example](images/evaluation_example.png)
+  ![img_result.png](./docs/_static/img_result.png)
 - Samples of the images can be found in a directory `img/` followed by date, for example:
   <p align="center">
-    <img src="images/img_overview.png" alt="img overview" width="300" height="200" align="center">
-    <img src="images/image_sample.png" alt="sample image" width="200" height="100" align="center">
+    <img src="./docs/_static/img_folderlist.png" alt="img_folderlist.png" width="300" height="200" align="center">
+    <img src="./docs/_static/img_sample.png" alt="img_sample.png" width="200" height="100" align="center">
   </p>
 
 
