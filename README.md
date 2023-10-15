@@ -97,9 +97,9 @@ See the demos in `examples/` directory for usage in action:
 After evaluating your model with `evaluate()` function, we provide
 the following insights:
 
-- Summary of adversarial attacks performed, found in `attack_evaluation_result.txt`:
+- Summary of adversarial attacks performed, found in a text file named `attack_evaluation_result.txt` followed by date. For example:
   ![Result Example](images/evaluation_example.png)
-- Samples of the images can be found in `img/` directory, for example:
+- Samples of the images can be found in a directory `img/` followed by date, for example:
   <p align="center">
     <img src="images/img_overview.png" alt="img overview" width="300" height="200" align="center">
     <img src="images/image_sample.png" alt="sample image" width="200" height="100" align="center">
