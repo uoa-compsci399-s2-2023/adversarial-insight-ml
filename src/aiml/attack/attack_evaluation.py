@@ -16,9 +16,9 @@ from torch.utils.data import TensorDataset
 import torchvision.transforms as T
 import numpy as np
 
-from a.load_data.normalize_datasets import denormalize
-from a.evaluation.check_accuracy import check_accuracy_with_flags
-from a.attack.adversarial_attacks import (
+from aiml.load_data.normalize_datasets import denormalize
+from aiml.evaluation.check_accuracy import check_accuracy_with_flags
+from aiml.attack.adversarial_attacks import (
     auto_projected_cross_entropy,
     auto_projected_difference_logits_ratio,
     carlini_L0_attack,
