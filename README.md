@@ -142,8 +142,18 @@ Team 7
 
 ## Team 7 - Contacts
 
-Sungjae Jang (Team Leader): [eaj3](https://github.com/eaj3), sjan260@aucklanduni.ac.nz  
-Takuya Saegusa: [TakuyaSaegusa](https://github.com/TakuyaSaegusa), tsae032@aucklanduni.ac.nz  
-Haozhe Wei: [Cyber77UoA](https://github.com/Cyber77UoA), hwei313@aucklanduni.ac.nz  
-Yuming Zhou: [zhou920ming](https://github.com/zhou920ming), yzho739@aucklanduni.ac.nz  
-Terence Zhang: [Tyranties](https://github.com/Tyranties), tzha820@aucklanduni.ac.nz  
+- Sungjae Jang (Team Leader)
+  - GitHub: [eaj3](https://github.com/eaj3)
+  - Email: sjan260@aucklanduni.ac.nz
+- Takuya Saegusa
+  - GitHub: [TakuyaSaegusa](https://github.com/TakuyaSaegusa)
+  - Email: tsae032@aucklanduni.ac.nz
+- Haozhe Wei
+  - GitHub: [Cyber77UoA](https://github.com/Cyber77UoA)
+  - Email: hwei313@aucklanduni.ac.nz
+- Yuming Zhou
+  - GitHub: [zhou920ming](https://github.com/zhou920ming)
+  - Email: yzho739@aucklanduni.ac.nz
+- Terence Zhang
+  - GitHub: [Tyranties](https://github.com/Tyranties)
+  - Email: tzha820@aucklanduni.ac.nz
