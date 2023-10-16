@@ -107,7 +107,7 @@ the following insights:
     <img src="./docs/_static/img_folderlist.png" alt="img_folderlist.png" width="300" height="200" align="center">
     <img src="./docs/_static/img_sample.png" alt="img_sample.png" width="200" height="100" align="center">
   </p>
-
+]
 
 
 ## Contributing
@@ -144,10 +144,10 @@ Thank you for being part of this journey.
 Warm regards,
 Team 7
 
-## Contacts
+## Team 7 - Contacts
 
-Sungjae Jang sjan260@aucklanduni.ac.nz  
-Takuya Saegusa tsae032@aucklanduni.ac.nz  
-Haozhe Wei hwei313@aucklanduni.ac.nz  
-Yuming Zhou yzho739@aucklanduni.ac.nz  
-Terence Zhang tzha820@aucklanduni.ac.nz
+Sungjae Jang (Team Leader): [eaj3](https://github.com/eaj3), sjan260@aucklanduni.ac.nz  
+Takuya Saegusa: [TakuyaSaegusa](https://github.com/TakuyaSaegusa), tsae032@aucklanduni.ac.nz  
+Haozhe Wei: [Cyber77UoA](https://github.com/Cyber77UoA), hwei313@aucklanduni.ac.nz  
+Yuming Zhou: [zhou920ming](https://github.com/zhou920ming), yzho739@aucklanduni.ac.nz  
+Terence Zhang: [Tyranties](https://github.com/Tyranties), tzha820@aucklanduni.ac.nz  
