@@ -102,12 +102,14 @@ the following insights:
 
 - Summary of adversarial attacks performed, found in a text file named `attack_evaluation_result.txt` followed by date. For example:
   ![img_result.png](./docs/_static/img_result.png)
-- Samples of the images can be found in a directory named `img/` followed by date. For example:
+- Samples of the original and adversarial images can be found in a directory named `img/` followed by date. For example:
   <p align="center">
-    <img src="./docs/_static/img_folderlist.png" alt="img_folderlist.png" width="300" height="200" align="center">
-    <img src="./docs/_static/img_sample.png" alt="img_sample.png" width="200" height="100" align="center">
+    <img src="./docs/_static/img_folderlist.png" alt="img_folderlist.png" width="300" height="200" 
   </p>
-
+  <p align="center">
+    <img src="./docs/_static/img_sample.png" alt="img_sample.png" width="500" align="center">
+  </p>
+    
 
 ## Contributing
 
