@@ -5,10 +5,6 @@ This script is responsible for loading the model.
 """
 
 
-#import detectors
-from robustbench.utils import load_model
-
-
 def load_model(model, device):
     """
     Load a machine learning model.
@@ -21,14 +17,15 @@ def load_model(model, device):
     Returns:
         model: The loaded machine learning model.
     """
-    
+
     if type(model) == type("a"):
         try:
-            #model = detectors.create_model(model, pretrained=True)
+            # model = detectors.create_model(model, pretrained=True)
             model = model.to(device)
         except:
+            from robustbench.utils import load_model
             try:
-                model= load_model(model)
+                model = load_model(model)
                 model = model.to(device)
             except:
                 print("We can't find your model.")
