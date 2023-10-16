@@ -36,11 +36,11 @@
 
 > “Why does your machine lie?”
 
-AIML, short for Adversarial Insight ML, is your go-to Python package for gauging your machine learning image classification models' resilience against adversarial attacks. With AIML, you can effortlessly test your models against a spectrum of adversarial examples, receiving crisp, insightful feedback. 
+AIML, short for Adversarial Insight ML, is your go-to Python package for gauging your machine learning image classification models' resilience against adversarial attacks. With AIML, you can effortlessly test your models against a spectrum of adversarial examples, receiving crisp, insightful feedback. AIML strives for user-friendliness, making it accessible even to non-technical users.
 
-We've meticulously selected various attack methods, including AutoProjectedGradientDescent, CarliniL0Method, CarliniL2Method, CarliniLInfMethod, DeepFool, PixelAttack, SquareAttack, and ZooAttack, to strengthen the robustness assessment. Plus, AIML strives for user-friendliness, making it accessible even to non-technical users.
+We've meticulously selected various attack methods, including AutoProjectedGradientDescent, CarliniL0Method, CarliniL2Method, CarliniLInfMethod, DeepFool, PixelAttack, SquareAttack, and ZooAttack, to provide a strong robustness assessment.
 
-For more information, you can also visit our [PyPI page](https://pypi.org/project/adversarial-insight-ml/) and [documentation page](https://uoa-compsci399-s2-2023.github.io/capstone-project-team-7/).
+For more information, visit our [PyPI page](https://pypi.org/project/adversarial-insight-ml/) and [documentation page](https://uoa-compsci399-s2-2023.github.io/capstone-project-team-7/).
 
 ## Table of Contents
 
@@ -60,12 +60,12 @@ pip install adversarial-insight-ml
 
 ## Usage
 
-Here's a simple overview of the usage of our package:
+Here's a simple overview of AIML in use:
 <p align="center">
   <img src="./docs/_static/img_workflow.png" alt="img_workflow.png" width="390" height="360" align="center">
 </p>
 
-You can evaluate your model with the `evaluate()` function:
+You can evaluate your model with the `evaluate` function:
 
 ```python
 from aiml.evaluation.evaluate import evaluate
@@ -73,11 +73,11 @@ from aiml.evaluation.evaluate import evaluate
 evaluate(model, test_dataset)
 ```
 
-The `evaluate()` function has **two required parameters**:
+The `evaluate` function has **two required parameters**:
 - `input_model (str or model)`: A string of the name of the machine learning model or the machine learning model itself.
 - `input_test_data (str or dataset)`: A string of the name of the testing dataset or the testing dataset itself.
 
-The `evaluate()` function has the following **optional parameters**:
+The `evaluate` function has the following **optional parameters**:
 - `input_train_data (str or dataset, optional)`: A string of the name of the training dataset or the training dataset itself (default is None).
 - `input_shape (tuple, optional)`: Shape of input data (default is None).
 - `clip_values (tuple, optional)`: Range of input data values (default is None).
@@ -91,23 +91,22 @@ The `evaluate()` function has the following **optional parameters**:
 - `attack_para_list (list, optional)`: List of parameter combinations for the attack.
 
 See the demos in `examples/` directory for usage in action:
-- [demo_basic](examples/demo_basic.ipynb)
-- [demo_huggingface](examples/demo_huggingface.ipynb)
-- [demo_robustbench](examples/demo_robustbench.ipynb)
+- [demo_basic.ipynb](examples/demo_basic.ipynb)
+- [demo_huggingface.ipynb](examples/demo_huggingface.ipynb)
+- [demo_robustbench.ipynb](examples/demo_robustbench.ipynb)
 
 ## Features
 
-After evaluating your model with `evaluate()` function, we provide
+After evaluating your model with `evaluate` function, we provide
 the following insights:
 
 - Summary of adversarial attacks performed, found in a text file named `attack_evaluation_result.txt` followed by date. For example:
   ![img_result.png](./docs/_static/img_result.png)
-- Samples of the images can be found in a directory `img/` followed by date, for example:
+- Samples of the images can be found in a directory named `img/` followed by date. For example:
   <p align="center">
     <img src="./docs/_static/img_folderlist.png" alt="img_folderlist.png" width="300" height="200" align="center">
     <img src="./docs/_static/img_sample.png" alt="img_sample.png" width="200" height="100" align="center">
   </p>
-]
 
 
 ## Contributing
