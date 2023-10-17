@@ -6,7 +6,6 @@ This script is responsible for loading the test dataset for model evaluation.
 
 
 from aiml.surrogate_model.utils import load_cifar10
-from datasets import list_datasets
 from datasets import load_dataset
 import torchvision as tv
 
