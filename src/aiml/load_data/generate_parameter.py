@@ -32,8 +32,6 @@ def generate_parameter(
     if clip_values == None:
         global_min = np.inf
         global_max = (-1) * np.inf
-        s = 0
-        n = 0
         b = True
         for batch in dataloader_test:
             x, _ = batch
