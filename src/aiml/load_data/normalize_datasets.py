@@ -30,11 +30,21 @@ def get_mean_std(dataset):
 
     if num_channels == 3:
         # CIFAR10
-        if num_classes == 10 and height == 32 and width == 32 and num_images in [50000, 10000]:
+        if (
+            num_classes == 10
+            and height == 32
+            and width == 32
+            and num_images in [50000, 10000]
+        ):
             mean = [0.4914, 0.4822, 0.4465]
             std = [0.2470, 0.2435, 0.2616]
         # SVHN
-        elif num_classes == 10 and height == 32 and width == 32 and num_images in [73257, 26032]:
+        elif (
+            num_classes == 10
+            and height == 32
+            and width == 32
+            and num_images in [73257, 26032]
+        ):
             mean = [0.4377, 0.44378, 0.4728]
             std = [0.1980, 0.2010, 0.19704]
         # GTSRB
@@ -42,11 +52,21 @@ def get_mean_std(dataset):
             mean = [0.3417, 0.3126, 0.3217]
             std = [0.2768, 0.2646, 0.2706]
         # CIFAR100
-        elif num_classes == 100 and height == 32 and width == 32 and num_images in [50000, 10000]:
+        elif (
+            num_classes == 100
+            and height == 32
+            and width == 32
+            and num_images in [50000, 10000]
+        ):
             mean = [0.5071, 0.4867, 0.4408]
             std = [0.2675, 0.2565, 0.2761]
         # Tiny ImageNet
-        elif num_classes == 200 and height == 64 and width == 64 and num_images in [100000, 10000]:
+        elif (
+            num_classes == 200
+            and height == 64
+            and width == 64
+            and num_images in [100000, 10000]
+        ):
             mean = [0.485, 0.456, 0.406]
             std = [0.229, 0.224, 0.225]
         else:
@@ -64,9 +84,18 @@ def get_mean_std(dataset):
 
     else:
         # MNIST
-        if num_classes == 10 and height == 28 and width == 28 and num_images in [60000, 10000]:
-            mean = [0.1307,]
-            std = [0.3081,]
+        if (
+            num_classes == 10
+            and height == 28
+            and width == 28
+            and num_images in [60000, 10000]
+        ):
+            mean = [
+                0.1307,
+            ]
+            std = [
+                0.3081,
+            ]
         else:
             mean = [imgs[:, 0, :, :].mean()]
             std = [imgs[:, 0, :, :].std()]
@@ -84,8 +113,7 @@ def get_transforms():
     """
     transform_list = [
         T.ToTensor(),
-        T.Normalize(mean=normalize_values["mean"],
-                    std=normalize_values["std"]),
+        T.Normalize(mean=normalize_values["mean"], std=normalize_values["std"]),
     ]
 
     return T.Compose(transform_list)
@@ -130,7 +158,9 @@ def normalize_datasets(dataset_test, dataset_train=None):
     return dataset_test, dataset_train
 
 
-def normalize_and_check_datasets(num_workers, batch_size_test, batch_size_train, dataset_test, dataset_train):
+def normalize_and_check_datasets(
+    num_workers, batch_size_test, batch_size_train, dataset_test, dataset_train
+):
     """
     Normalize and check the given test and optionally, training datasets for normalization.
 
@@ -166,9 +196,12 @@ def normalize_and_check_datasets(num_workers, batch_size_test, batch_size_train,
             num_workers=num_workers,
         )
 
-        if not check_normalize(dataloader_test) or not check_normalize(dataloader_train):
+        if not check_normalize(dataloader_test) or not check_normalize(
+            dataloader_train
+        ):
             dataset_test_norm, dataset_train_norm = normalize_datasets(
-                dataset_test, dataset_train)
+                dataset_test, dataset_train
+            )
 
             dataloader_train = DataLoader(
                 dataset_test_norm,
