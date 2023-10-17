@@ -12,7 +12,8 @@ import datetime
 from art.estimators.classification import PyTorchClassifier
 
 from aiml.load_data.generate_parameter import generate_parameter
-from aiml.load_data.normalize_datasets import normalize_and_check_datasets, check_normalize
+from aiml.load_data.normalize_datasets import normalize_and_check_datasets
+from aiml.load_data.normalize_datasets import check_normalize
 from aiml.attack.attack_evaluation import attack_evaluation
 from aiml.evaluation.check_accuracy import check_accuracy
 from aiml.evaluation.dynamic import decide_attack
@@ -37,14 +38,14 @@ def evaluate(
     require_n=3,
     dry=False,
     attack_para_list=[
-        [[0.03], [0.06], [0.13],[0.25]],
-        [[0.03], [0.06], [0.13],[0.25]],
+        [[0.03], [0.06], [0.13], [0.25]],
+        [[0.03], [0.06], [0.13], [0.25]],
         [[0], [10], [100]],
         [[0], [10], [100]],
         [[0], [10], [100]],
         [[1e-06]],
         [[100]],
-        [[0.03], [0.06], [0.13],[0.25]],
+        [[0.03], [0.06], [0.13], [0.25]],
         [[0], [10], [100]],
     ],
 ):
@@ -62,7 +63,7 @@ def evaluate(
         num_threads_attack (int, optional): Number of threads for attack testing (default is 0).
         batch_size_train (int, optional): Batch size for training data (default is 64).
         batch_size_test (int, optional): Batch size for test data (default is 64).
-        num_workers (int, optional): Number of workers to use for data loading 
+        num_workers (int, optional): Number of workers to use for data loading
             (default is half of the available CPU cores).
         require_n(int, optional): the number of adversarial images for each class.
         dry (bool, optional): When True, the code should only test one example.
@@ -72,21 +73,31 @@ def evaluate(
         None.
     """
     # Load model and data
-    now_time= datetime.datetime.now()
-    now_time=str(now_time)
+    now_time = datetime.datetime.now()
+    now_time = str(now_time)
     for i in range(len(now_time)):
-        if now_time[i]==":":
+        if now_time[i] == ":":
             break
-    now_time=now_time[:i]
-    print("the time you run the program is",now_time)
+    now_time = now_time[:i]
+    print("the time you run the program is", now_time)
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    input_model = load_model(input_model,device)
+    input_model = load_model(input_model, device)
     input_test_data = load_test_set(input_test_data)
     model = input_model.to(device)
     input_train_data = load_train_set(input_train_data)
 
-    dataset_test, dataset_train, dataloader_test, dataloader_train = normalize_and_check_datasets(
-        num_workers, batch_size_test, batch_size_train, input_test_data, input_train_data)
+    (
+        dataset_test,
+        dataset_train,
+        dataloader_test,
+        dataloader_train,
+    ) = normalize_and_check_datasets(
+        num_workers,
+        batch_size_test,
+        batch_size_train,
+        input_test_data,
+        input_train_data,
+    )
 
     surrogate_model = None
 
@@ -138,11 +149,13 @@ def evaluate(
     result_list = []
     b = True
     current_attack_n, para_n, b = decide_attack(
-        result_list, attack_para_list=attack_para_list,now_time=now_time,ori_acc=acc_test
+        result_list,
+        attack_para_list=attack_para_list,
+        now_time=now_time,
+        ori_acc=acc_test,
     )
 
     while b:
-        
         result_list += [
             [
                 current_attack_n,
@@ -160,13 +173,16 @@ def evaluate(
                     require_n,
                     dry=dry,
                     attack_para_list=attack_para_list,
-                    now_time=now_time
+                    now_time=now_time,
                 ),
             ]
         ]
         print(result_list)
 
-        current_attack_n, para_n, b= decide_attack(
-            result_list, attack_para_list=attack_para_list,now_time=now_time,ori_acc=acc_test
+        current_attack_n, para_n, b = decide_attack(
+            result_list,
+            attack_para_list=attack_para_list,
+            now_time=now_time,
+            ori_acc=acc_test,
         )
     print(result_list)
