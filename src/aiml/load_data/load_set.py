@@ -23,10 +23,10 @@ def load_test_set(test_set):
     if type(test_set) == type("a"):
         if test_set == "cifar10":
             test_set = load_cifar10(train=False, require_normalize=True)
-        elif train_set == "mnist":
-            train_set = tv.datasets.MNIST("./data", download=True, train=False)
-        elif train_set == "cifar100":
-            train_set = tv.datasets.CIFAR100("./data", download=True, train=False)
+        elif test_set == "mnist":
+            test_set = tv.datasets.MNIST("./data", download=True, train=False)
+        elif test_set == "cifar100":
+            test_set = tv.datasets.CIFAR100("./data", download=True, train=False)
         else:
             try:
                 try:
