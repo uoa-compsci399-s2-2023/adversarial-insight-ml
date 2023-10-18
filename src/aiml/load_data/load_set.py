@@ -21,30 +21,45 @@ def load_test_set(test_set):
     """
     if type(test_set) == type("a"):
         if train_set == "cifar10":
-            train_set = tv.datasets.CIFAR10("./data", download=True, transform=tv.transforms.Compose(
-            [
-                tv.transforms.ToTensor(),
-                
-            ]),train=False)
+            train_set = tv.datasets.CIFAR10(
+                "./data",
+                download=True,
+                transform=tv.transforms.Compose(
+                    [
+                        tv.transforms.ToTensor(),
+                    ]
+                ),
+                train=False,
+            )
         elif test_set == "mnist":
-            test_set = tv.datasets.MNIST("./data", download=True, transform=tv.transforms.Compose(
-            [
-                tv.transforms.ToTensor(),
-                
-            ]),train=False)
+            test_set = tv.datasets.MNIST(
+                "./data",
+                download=True,
+                transform=tv.transforms.Compose(
+                    [
+                        tv.transforms.ToTensor(),
+                    ]
+                ),
+                train=False,
+            )
         elif test_set == "cifar100":
-            test_set = tv.datasets.CIFAR100("./data", download=True, transform=tv.transforms.Compose(
-            [
-                tv.transforms.ToTensor(),
-                
-            ]),train=False)
+            test_set = tv.datasets.CIFAR100(
+                "./data",
+                download=True,
+                transform=tv.transforms.Compose(
+                    [
+                        tv.transforms.ToTensor(),
+                    ]
+                ),
+                train=False,
+            )
         else:
             try:
                 try:
                     test_set = load_dataset(path=test_set, split="test")
                 except:
                     test_set = load_dataset(path=test_set)
-                    test_set=test_set[:1000]
+                    test_set = test_set[:1000]
                 print("we find the test set on huggingface")
             except:
                 print(
@@ -67,23 +82,38 @@ def load_train_set(train_set):
     """
     if type(train_set) == type("a"):
         if train_set == "cifar10":
-            train_set = tv.datasets.CIFAR10("./data", download=True, transform=tv.transforms.Compose(
-            [
-                tv.transforms.ToTensor(),
-                
-            ]),train=True)
+            train_set = tv.datasets.CIFAR10(
+                "./data",
+                download=True,
+                transform=tv.transforms.Compose(
+                    [
+                        tv.transforms.ToTensor(),
+                    ]
+                ),
+                train=True,
+            )
         elif train_set == "mnist":
-            train_set = tv.datasets.MNIST("./data", download=True, transform=tv.transforms.Compose(
-            [
-                tv.transforms.ToTensor(),
-                
-            ]),train=True)
+            train_set = tv.datasets.MNIST(
+                "./data",
+                download=True,
+                transform=tv.transforms.Compose(
+                    [
+                        tv.transforms.ToTensor(),
+                    ]
+                ),
+                train=True,
+            )
         elif train_set == "cifar100":
-            train_set = tv.datasets.CIFAR100("./data", download=True, transform=tv.transforms.Compose(
-            [
-                tv.transforms.ToTensor(),
-                
-            ]),train=True)
+            train_set = tv.datasets.CIFAR100(
+                "./data",
+                download=True,
+                transform=tv.transforms.Compose(
+                    [
+                        tv.transforms.ToTensor(),
+                    ]
+                ),
+                train=True,
+            )
         else:
             try:
                 train_set = load_dataset(path=train_set, split="train")
