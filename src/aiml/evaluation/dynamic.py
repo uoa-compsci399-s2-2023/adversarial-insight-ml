@@ -196,7 +196,7 @@ def decide_attack(
         out_string=""
         if strong>=0.8 and previous_acc >= ori_acc*0.4:
             out_string="your model is very robust on "+str(attack_method_list[previous_attack_n][3])+"\n"
-        elif strong>=0.25:
+        elif strong>=0.5 and previous_acc >= ori_acc*0.2:
             out_string="your model is barely robust on "+str(attack_method_list[previous_attack_n][3])+"\n"
         else:
             out_string="your model is not robust on "+str(attack_method_list[previous_attack_n][3])+"\n"
