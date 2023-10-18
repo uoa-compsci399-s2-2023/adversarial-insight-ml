@@ -29,7 +29,11 @@ def load_test_set(test_set):
             train_set = tv.datasets.CIFAR100("./data", download=True, train=False)
         else:
             try:
-                test_set = load_dataset(path=test_set, split="test")
+                try:
+                    test_set = load_dataset(path=test_set, split="test")
+                except:
+                    test_set = load_dataset(path=test_set)
+                    test_set=test_set[:1000]
                 print("we find the test set on huggingface")
             except:
                 print(
