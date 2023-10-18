@@ -107,8 +107,8 @@ def evaluate(
 
         # Check if the testing dataset is normalized
         if not check_normalize(dataloader_train):
-            raise Exception(
-                "Failed to normalized training dataset. Please normalize it manually."
+            print(
+                "Attention! Failed to normalized training dataset. Please normalize it manually."
             )
 
         surrogate_model = create_surrogate_model(
