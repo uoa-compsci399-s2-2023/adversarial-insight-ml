@@ -29,7 +29,7 @@ def check_accuracy(model, dataloader, device):
         for batch in dataloader:
             x, y = batch
             x = x.to(device)
-
+            model.to(device)
             outputs = model(x)
 
             _, predictions = torch.max(outputs, 1)
