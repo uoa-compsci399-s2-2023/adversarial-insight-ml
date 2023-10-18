@@ -121,8 +121,8 @@ def evaluate(
 
     # Check if the testing dataset is normalized
     if not check_normalize(dataloader_test):
-        raise Exception(
-            "Failed to normalized testing dataset. Please normalize it manually."
+        print(
+            "Attention!! Failed to normalized testing dataset. Please normalize it manually."
         )
 
     acc_test = check_accuracy(model, dataloader_test, device)

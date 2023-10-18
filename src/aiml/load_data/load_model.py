@@ -3,14 +3,16 @@ load_model.py
 
 This script is responsible for loading the model.
 """
-import timm 
+import timm
+import torch
+
 
 def load_model(model, device):
     """
     Load a machine learning model.
 
     Parameters:
-        model (model or string): If a string is provided, it will search for 
+        model (model or string): If a string is provided, it will search for
             the target model by detectors.
         device (string): The device to use, either 'cpu' or 'gpu'.
 
@@ -19,17 +21,14 @@ def load_model(model, device):
     """
 
     if type(model) == type("a"):
-        try:
-            
-
-            model = timm.create_model(model,pretrained=True)
-
-
-            model = model.to(device)
-        except:
-            from robustbench.utils import load_model
+        if model[:5] == "cifar":
+            model = torch.hub.load(
+                "chenyaofo/pytorch-cifar-models", model, pretrained=True
+            )
+        else:
             try:
-                model = load_model(model)
+                model = timm.create_model(model, pretrained=True)
+
                 model = model.to(device)
             except:
                 print("We can't find your model.")
