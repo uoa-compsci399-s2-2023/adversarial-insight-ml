@@ -104,7 +104,7 @@ the following insights:
   ![img_result.png](./docs/_static/img_result.png)
 - Samples of the original and adversarial images can be found in a directory named `img/` followed by date. For example:
   <p align="center">
-    <img src="./docs/_static/img_folderlist.png" alt="img_folderlist.png" width="300" height="200"> 
+    <img src="./docs/_static/img_folderlist.png" alt="img_folderlist.png" width="420"> 
     <img src="./docs/_static/img_sample.png" alt="img_sample.png" width="500" align="center">
   </p>
     
