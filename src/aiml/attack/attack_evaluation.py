@@ -43,10 +43,8 @@ def attack_evaluation(
     nb_classes,
     require_n=3,
     dry=False,
-    attack_para_list=[
-        
-    ],
-    now_time="0"
+    attack_para_list=[],
+    now_time="0",
 ):
     """
     Check the performance of adversarial attack methods against the ML model.
@@ -61,7 +59,7 @@ def attack_evaluation(
         num_threads_attack (int): Parameter for adversarial images data loader.
         device (str): "cpu" or "gpu".
         nb_classes (int): The number of possible labels.
-        require_n (int): For every label, how many images marked as this label will be modified to 
+        require_n (int): For every label, how many images marked as this label will be modified to
             get adversarial images.
         dry (bool): When True, the code only tests one example.
         attack_para_list (list): List of parameter combinations for the attack.
@@ -77,24 +75,24 @@ def attack_evaluation(
             auto_projected_cross_entropy,
             attack_para_list[0],
             "auto_projected_cross_entropy",
-            ["eps","batch",  "eps_step"],
+            ["eps", "batch", "eps_step"],
         ],
         [
             1,
             auto_projected_difference_logits_ratio,
             attack_para_list[1],
             "auto_projected_difference_logits_ratio",
-            ["eps","batch",  "eps_step"],
+            ["eps", "batch", "eps_step"],
         ],
         [
             2,
             carlini_L0_attack,
             attack_para_list[2],
             "carlini_L0_attack",
-            [   "confidence",
+            [
+                "confidence",
                 "batch",
                 "learning_rate",
-                
             ],
         ],
         [
@@ -106,7 +104,6 @@ def attack_evaluation(
                 "confidence",
                 "batch",
                 "learning_rate",
-                
             ],
         ],
         [
@@ -118,7 +115,6 @@ def attack_evaluation(
                 "confidence",
                 "batch",
                 "learning_rate",
-                
             ],
         ],
         [
@@ -126,7 +122,7 @@ def attack_evaluation(
             deep_fool_attack,
             attack_para_list[5],
             "deep_fool_attack",
-            ["epsilon","batch", "max_iter"],
+            ["epsilon", "batch", "max_iter"],
         ],
         [
             6,
@@ -140,7 +136,7 @@ def attack_evaluation(
             square_attack,
             attack_para_list[7],
             "square_attack",
-            ["eps","batch", "max_iter"],
+            ["eps", "batch", "max_iter"],
         ],
         [
             8,
@@ -152,7 +148,6 @@ def attack_evaluation(
                 "batch",
                 "learning_rate",
                 "max_iter",
-                
             ],
         ],
     ]
@@ -185,8 +180,7 @@ def attack_evaluation(
     elif len(para) == 2:
         attack = attack_method_list[attack_n][1](classifer, para[0], para[1])
     elif len(para) == 3:
-        attack = attack_method_list[attack_n][1](
-            classifer, para[0], para[1], para[2])
+        attack = attack_method_list[attack_n][1](classifer, para[0], para[1], para[2])
     else:
         attack = attack_method_list[attack_n][1](
             classifer, para[0], para[1], para[2], para[3]
@@ -219,7 +213,7 @@ def attack_evaluation(
             if b != predictions.numpy()[0]:
                 continue  # Skip unrecognizable original images for adversarial generation
         except:
-            good_work=True #meaningless word
+            good_work = True  # meaningless word
 
         X += [a.numpy()]
         y += [b]
@@ -258,8 +252,7 @@ def attack_evaluation(
     )  # high num_workers may cause err
 
     # Test the model's accuracy on the adversarial examples
-    acc_advx, correct_advx = check_accuracy_with_flags(
-        model, dataloader_advx, device)
+    acc_advx, correct_advx = check_accuracy_with_flags(model, dataloader_advx, device)
 
     for i in range(len(correct_advx[0])):  # put images in the folder
         if correct_advx[0][i] == False:
@@ -268,9 +261,7 @@ def attack_evaluation(
             X_advx_tensor[i] = denormalize(X_advx_tensor[i])
             orig_img = transform(X_tensor[i])
             advx_img = transform(X_advx_tensor[i])
-            img_path = (
-                f"./img{now_time}/{attack_method_list[attack_n][3]}/{para_n}/{y[i]}/fail"
-            )
+            img_path = f"./img_{now_time}/{attack_method_list[attack_n][3]}/{para_n}/{y[i]}/fail"
 
             if not os.path.exists(img_path):
                 os.makedirs(img_path)
@@ -283,9 +274,7 @@ def attack_evaluation(
             X_advx_tensor[i] = denormalize(X_advx_tensor[i])
             orig_img = transform(X_tensor[i])
             advx_img = transform(X_advx_tensor[i])
-            img_path = (
-                f"./img{now_time}/{attack_method_list[attack_n][3]}/{para_n}/{y[i]}/succeed"
-            )
+            img_path = f"./img_{now_time}/{attack_method_list[attack_n][3]}/{para_n}/{y[i]}/success"
 
             if not os.path.exists(img_path):
                 os.makedirs(img_path)
