@@ -6,6 +6,17 @@ with the given data and attack methods.
 """
 
 
+# Constants for attack hyper-parameters
+AUTO_PROJECTED_CROSS_ENTROPY = [[0.03], [0.06], [0.13], [0.25]]
+AUTO_PROJECTED_DIFFERENCE_LOGITS_RATIO = [[0.03], [0.06], [0.13], [0.25]]
+CARLINI_L0_ATTACK = [[0], [10], [100]]
+CARLINI_L2_ATTACK = [[0], [10], [100]]
+CARLINI_LINF_ATTACK = [[0], [10], [100]]
+DEEP_FOOL_ATTACK = [[1e-06]]
+PIXEL_ATTACK = [[100]]
+SQUARE_ATTACK = [[0.03], [0.06], [0.13], [0.25]]
+ZOO_ATTACK = [[0], [10], [100]]
+
 import torch
 import os
 import datetime
@@ -38,15 +49,15 @@ def evaluate(
     require_n=3,
     dry=False,
     attack_para_list=[
-        [[0.03], [0.06], [0.13], [0.25]],
-        [[0.03], [0.06], [0.13], [0.25]],
-        [[0], [10], [100]],
-        [[0], [10], [100]],
-        [[0], [10], [100]],
-        [[1e-06]],
-        [[100]],
-        [[0.03], [0.06], [0.13], [0.25]],
-        [[0], [10], [100]],
+        AUTO_PROJECTED_CROSS_ENTROPY,
+        AUTO_PROJECTED_DIFFERENCE_LOGITS_RATIO,
+        CARLINI_L0_ATTACK,
+        CARLINI_L2_ATTACK,
+        CARLINI_LINF_ATTACK,
+        DEEP_FOOL_ATTACK,
+        PIXEL_ATTACK,
+        SQUARE_ATTACK,
+        ZOO_ATTACK,
     ],
 ):
     """
