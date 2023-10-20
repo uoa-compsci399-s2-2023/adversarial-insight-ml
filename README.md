@@ -88,7 +88,7 @@ The `evaluate` function has the following **optional parameters**:
 - `batch_size_test (int, optional)`: Batch size for test data (default is 64).
 - `num_workers (int, optional)`: Number of workers to use for data loading (default is half of the available CPU cores).
 - `dry (bool, optional)`: When True, the code should only test one example.
-- `attack_para_list (list, optional)`: List of parameter combinations for the attack.
+- `attack_para_list (list, optional)`: List of parameter combinations for the attack. [See Custom Attack Parameters](#custom-attack-parameters).
 
 See the demos in `examples/` directory for usage in action:
 - [demo_basic.ipynb](examples/demo_basic.ipynb)
@@ -96,7 +96,7 @@ See the demos in `examples/` directory for usage in action:
 - [demo_robustbench.ipynb](examples/demo_robustbench.ipynb)
 
 ## Features
-
+### Evaluation Results
 After evaluating your model with `evaluate` function, we provide
 the following insights:
 
@@ -107,7 +107,33 @@ the following insights:
     <img src="./docs/_static/img_folderlist.png" alt="img_folderlist.png" width="420"> 
     <img src="./docs/_static/img_sample.png" alt="img_sample.png" width="500" align="center">
   </p>
-    
+
+### Custom Attack Parameters
+The optional `attack_para_list` parameter can be used to input custom attack parameters.  
+For example, this is how it is set by default:
+```python
+AUTO_PROJECTED_CROSS_ENTROPY = [[0.03], [0.06], [0.13], [0.25]]
+AUTO_PROJECTED_DIFFERENCE_LOGITS_RATIO = [[0.03], [0.06], [0.13], [0.25]]
+CARLINI_L0_ATTACK = [[0], [10], [100]]
+CARLINI_L2_ATTACK = [[0], [10], [100]]
+CARLINI_LINF_ATTACK = [[0], [10], [100]]
+DEEP_FOOL_ATTACK = [[1e-06]]
+PIXEL_ATTACK = [[100]]
+SQUARE_ATTACK = [[0.03], [0.06], [0.13], [0.25]]
+ZOO_ATTACK = [[0], [10], [100]]
+
+attack_para_list=[
+  AUTO_PROJECTED_CROSS_ENTROPY,
+  AUTO_PROJECTED_DIFFERENCE_LOGITS_RATIO,
+  CARLINI_L0_ATTACK,
+  CARLINI_L2_ATTACK,
+  CARLINI_LINF_ATTACK,
+  DEEP_FOOL_ATTACK,
+  PIXEL_ATTACK,
+  SQUARE_ATTACK,
+  ZOO_ATTACK,
+],
+```
 
 ## Contributing
 
