@@ -72,14 +72,15 @@ def evaluate(
     Returns:
         None.
     """
+    # Get the current date and time, format it as 'YYYY-MM-DD_HH-MM-SS'
+    now_time = (
+        datetime.datetime.now()
+        .strftime('%Y-%m-%d %H-%M-%S')
+        .replace(' ', '_')
+    )
+    print("Your evaluation start time is:", now_time)
+
     # Load model and data
-    now_time = datetime.datetime.now()
-    now_time = str(now_time)
-    for i in range(len(now_time)):
-        if now_time[i] == ":":
-            break
-    now_time = now_time[:i]
-    print("the time you run the program is", now_time)
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     input_model = load_model(input_model, device)
     input_test_data = load_test_set(input_test_data)
