@@ -86,8 +86,7 @@ def evaluate(
     # Get the current date and time, format it as 'YYYY-MM-DD_HH-MM-SS'
     now_time = (
         datetime.datetime.now()
-        .strftime('%Y-%m-%d %H-%M-%S')
-        .replace(' ', '_')
+        .strftime('%Y-%m-%d_%H-%M-%S')
     )
     print("Your evaluation start time is:", now_time)
 
