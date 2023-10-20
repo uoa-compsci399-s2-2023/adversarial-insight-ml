@@ -730,3 +730,6 @@ zipp==3.17.0
 # The following packages are considered to be unsafe in a requirements file:
 # pip
 # setuptools
+
+robustbench==0.1.0
+    # via adversarial-insight-ml (pyproject.toml)

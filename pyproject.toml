@@ -30,7 +30,8 @@ dependencies = [
     "detectors",
     "lightning",
     "torchmetrics",
-    "datasets"
+    "datasets",
+    "tensorboard",
 ]
 
 [project.optional-dependencies]
@@ -44,6 +45,7 @@ dev = [
     "scikit-learn",
     "jupyterlab",
     "pip-tools",
+    "robustbench",
 ]
 
 [tool.setuptools.packages.find]
