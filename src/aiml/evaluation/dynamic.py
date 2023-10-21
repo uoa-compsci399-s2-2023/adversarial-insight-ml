@@ -150,7 +150,7 @@ def decide_attack(result_list, attack_para_list=[], now_time="0", ori_acc=0.9):
     previous_attack_n = previous[0]
     previous_acc = previous[2]
     previous_para_n = previous[1]
-    file_name = "attack_evaluation_result" + str(now_time) + ".txt"
+    file_name = "attack_evaluation_result_" + str(now_time) + ".txt"
     with open(
         file_name, "a"  # the result will output to attack evaluation result.txt
     ) as f:  # write the results of previous attack to txt file
