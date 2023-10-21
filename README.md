@@ -122,7 +122,7 @@ PIXEL_ATTACK = [[100]]
 SQUARE_ATTACK = [[0.03], [0.06], [0.13], [0.25]]
 ZOO_ATTACK = [[0], [10], [100]]
 
-attack_para_list=[
+attack_para_list = [
   AUTO_PROJECTED_CROSS_ENTROPY,
   AUTO_PROJECTED_DIFFERENCE_LOGITS_RATIO,
   CARLINI_L0_ATTACK,
@@ -132,7 +132,7 @@ attack_para_list=[
   PIXEL_ATTACK,
   SQUARE_ATTACK,
   ZOO_ATTACK,
-],
+]
 ```
 
 ## Contributing
