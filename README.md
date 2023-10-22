@@ -165,7 +165,7 @@ We conform to a variation of the "GitHub Flow'' convention, but not strictly. Fo
 
 ## Project Management Tool
 
-The team used the project management tool Jira to coordinate our project. Our Jira board can be found [here](https://aucklanduni-sjan260.atlassian.net/jira/software/projects/CT/boards/1).
+We use the project management tool Jira to coordinate and organise tasks for our project. Our Jira board can be found [here](https://aucklanduni-sjan260.atlassian.net/jira/software/projects/CT/boards/1).
 
 ## Technologies Used
 
@@ -175,23 +175,23 @@ The main technologies used for this project are:
 - [PyTorch 2.1](https://github.com/pytorch/pytorch)
 - [PyTorch Lightning 2.1](https://github.com/Lightning-AI/lightning)
 - [Adversarial Robustness Toolbox 1.16](https://github.com/Trusted-AI/adversarial-robustness-toolbox)
-- [Sphinx 7.2.6](https://github.com/sphinx-doc/sphinx)
+- [TensorBoard 2.12.1](https://www.tensorflow.org/tensorboard)
 
-All package dependencies can be found [here](requirements.txt)
+The full list containing all dependences and sub-dependencies can be found [here](requirements.txt).
 
 ## Future Plans
 
-Despite the conclusion of the capstone course, this project is still ongoing with the team and client continuing to maintain the package.
+This project is an ongoing project with the team and client continuing to maintain the package.
 
-Some future plans that we have considered are:
+Some future plans we are considering for the project are:
 
 - Improvements to the surrogate model.
 - Testing our package with more models and datasets.
-- Add suggested defence tactics.
-- Better way of setting custom attack parameters.
-- Fixing bugs.
+- Adding suggested defence tactics.
+- Adding an easier way to set the custom attack parameters.
+- Fixing other bugs.
 
-Current bugs that we plan on fixing can be found on the [Issues](https://github.com/uoa-compsci399-s2-2023/adversarial-insight-ml/issues) tab.
+Look at our [issues](https://github.com/uoa-compsci399-s2-2023/adversarial-insight-ml/issues) tab for any ongoing changes under development.
 
 ## License
 
