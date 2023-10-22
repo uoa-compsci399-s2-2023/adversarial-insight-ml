@@ -108,7 +108,7 @@ See the demos in `examples/` directory for usage in action:
 - [demo_robustbench.ipynb](examples/demo_robustbench.ipynb)
 
 Alternatively, we also offer the following guides:
-- [AIML: An Beginner User's Guide](https://docs.google.com/document/d/1pc0CCIvfy9bNq8PIt7FqIFlCQeSXvHwi/edit?usp=sharing&ouid=116795165595350874828&rtpof=true&sd=true)
+- [AIML: A Beginner User's Guide](https://docs.google.com/document/d/1pc0CCIvfy9bNq8PIt7FqIFlCQeSXvHwi/edit?usp=sharing&ouid=116795165595350874828&rtpof=true&sd=true)
 - [AIML: An Advanced User's Guide](https://docs.google.com/document/d/1awOUFV6P3TGeO4QH7gFYdoj35wwBIr_B/edit?usp=sharing&ouid=116795165595350874828&rtpof=true&sd=true)
 ## Features
 
