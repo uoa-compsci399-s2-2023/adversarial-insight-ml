@@ -39,7 +39,9 @@ AIML, short for Adversarial Insight ML, is your go-to Python package for gauging
 
 We've meticulously selected various attack methods, including AutoProjectedGradientDescent, CarliniL0Method, CarliniL2Method, CarliniLInfMethod, DeepFool, PixelAttack, SquareAttack, and ZooAttack, to provide a strong robustness assessment.
 
-For more information, visit our [PyPI page](https://pypi.org/project/adversarial-insight-ml/) and [documentation page](https://uoa-compsci399-s2-2023.github.io/adversarial-insight-ml/).
+For more details on the background and motivation behind AIML, have a read of our [project report](https://docs.google.com/document/d/12K0p-uawG0ojIyRAqW8XZbwGYYOkakzf/edit?usp=sharing&ouid=107053757004826806650&rtpof=true&sd=true).
+
+For more information on how to use this AIML, visit our [PyPI page](https://pypi.org/project/adversarial-insight-ml/) and [documentation page](https://uoa-compsci399-s2-2023.github.io/adversarial-insight-ml/).
 
 ## Table of Contents
 
