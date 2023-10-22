@@ -13,7 +13,7 @@
   </a>
 </p>
 
-<h2 align="center">Adversarial Insight ML (AIML)</h2>
+<h1 align="center">Adversarial Insight ML (AIML)</h1>
 
 <p align="center">
   <a href="https://pypi.org/project/adversarial-insight-ml/">
@@ -33,7 +33,6 @@
   </a>
 </p>
 
-
 > “Why does your machine lie?”
 
 AIML, short for Adversarial Insight ML, is your go-to Python package for gauging your machine learning image classification models' resilience against adversarial attacks. With AIML, you can effortlessly test your models against a spectrum of adversarial examples, receiving crisp, insightful feedback. AIML strives for user-friendliness, making it accessible even to non-technical users.
@@ -47,8 +46,15 @@ For more information, visit our [PyPI page](https://pypi.org/project/adversarial
 - [Installation](#installation)
 - [Usage](#usage)
 - [Features](#features)
+  - [Evaluation Results](#evaluation-results)
+  - [Custom Attack Parameters](#custom-attack-parameters)
 - [Contributing](#contributing)
+- [Project Management Tool](#project-management-tool)
+- [Future Plans](#future-plans)
+- [Technologies Used](#technologies-used)
 - [License](#license)
+- [Acknoledgements](#acknowledgements)
+- [Contacts](#team-7---contacts)
 
 ## Installation
 
@@ -61,6 +67,7 @@ pip install adversarial-insight-ml
 ## Usage
 
 Here's a simple overview of AIML in use:
+
 <p align="center">
   <img src="./docs/_static/img_workflow.png" alt="img_workflow.png" width="390" height="360" align="center">
 </p>
@@ -74,10 +81,12 @@ evaluate(model, test_dataset)
 ```
 
 The `evaluate` function has **two required parameters**:
+
 - `input_model (str or model)`: A string of the name of the machine learning model or the machine learning model itself.
 - `input_test_data (str or dataset)`: A string of the name of the testing dataset or the testing dataset itself.
 
 The `evaluate` function has the following **optional parameters**:
+
 - `input_train_data (str or dataset, optional)`: A string of the name of the training dataset or the training dataset itself (default is None).
 - `input_shape (tuple, optional)`: Shape of input data (default is None).
 - `clip_values (tuple, optional)`: Range of input data values (default is None).
@@ -91,12 +100,15 @@ The `evaluate` function has the following **optional parameters**:
 - `attack_para_list (list, optional)`: List of parameter combinations for the attack. [See Custom Attack Parameters](#custom-attack-parameters).
 
 See the demos in `examples/` directory for usage in action:
+
 - [demo_basic.ipynb](examples/demo_basic.ipynb)
 - [demo_huggingface.ipynb](examples/demo_huggingface.ipynb)
 - [demo_robustbench.ipynb](examples/demo_robustbench.ipynb)
 
 ## Features
+
 ### Evaluation Results
+
 After evaluating your model with `evaluate` function, we provide
 the following insights:
 
@@ -109,8 +121,10 @@ the following insights:
   </p>
 
 ### Custom Attack Parameters
+
 The optional `attack_para_list` parameter can be used to input custom attack parameters.  
 For example, this is how it is set by default:
+
 ```python
 AUTO_PROJECTED_CROSS_ENTROPY = [[0.03], [0.06], [0.13], [0.25]]
 AUTO_PROJECTED_DIFFERENCE_LOGITS_RATIO = [[0.03], [0.06], [0.13], [0.25]]
@@ -148,6 +162,36 @@ We conform to a variation of the "GitHub Flow'' convention, but not strictly. Fo
 
 - main: This branch is always deployable and reflects the production state.
 - bugfix/\*: For bug fixes.
+
+## Project Management Tool
+
+The team used the project management tool Jira to coordinate our project. Our Jira board can be found [here](https://aucklanduni-sjan260.atlassian.net/jira/software/projects/CT/boards/1).
+
+## Technologies Used
+
+The main technologies used for this project are:
+
+- [Python 3.9](https://www.python.org/)
+- [PyTorch 2.1](https://github.com/pytorch/pytorch)
+- [PyTorch Lightning 2.1](https://github.com/Lightning-AI/lightning)
+- [Adversarial Robustness Toolbox 1.16](https://github.com/Trusted-AI/adversarial-robustness-toolbox)
+- [Sphinx 7.2.6](https://github.com/sphinx-doc/sphinx)
+
+All package dependencies can be found [here](requirements.txt)
+
+## Future Plans
+
+Despite the conclusion of the capstone course, this project is still ongoing with the team and client continuing to maintain the package.
+
+Some future plans that we have considered are:
+
+- Improvements to the surrogate model.
+- Testing our package with more models and datasets.
+- Add suggested defence tactics.
+- Better way of setting custom attack parameters.
+- Fixing bugs.
+
+Current bugs that we plan on fixing can be found on the [Issues](https://github.com/uoa-compsci399-s2-2023/adversarial-insight-ml/issues) tab.
 
 ## License
 
