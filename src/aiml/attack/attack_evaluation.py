@@ -255,13 +255,14 @@ def attack_evaluation(
     acc_advx, correct_advx = check_accuracy_with_flags(model, dataloader_advx, device)
 
     for i in range(len(correct_advx[0])):  # put images in the folder
+        string1=str(attack_method_list[attack_n][4][0])+":"+str(attack_method_list[attack_n][2][para_n][0])
         if correct_advx[0][i] == False:
             transform = T.ToPILImage()
             X_tensor[i] = denormalize(X_tensor[i])
             X_advx_tensor[i] = denormalize(X_advx_tensor[i])
             orig_img = transform(X_tensor[i])
             advx_img = transform(X_advx_tensor[i])
-            img_path = f"./img_{now_time}/{attack_method_list[attack_n][3]}/{para_n}/{y[i]}/fail"
+            img_path = f"./img_{now_time}/{attack_method_list[attack_n][3]}/{string1}/label{y[i]}/fail"
 
             if not os.path.exists(img_path):
                 os.makedirs(img_path)
@@ -274,7 +275,7 @@ def attack_evaluation(
             X_advx_tensor[i] = denormalize(X_advx_tensor[i])
             orig_img = transform(X_tensor[i])
             advx_img = transform(X_advx_tensor[i])
-            img_path = f"./img_{now_time}/{attack_method_list[attack_n][3]}/{para_n}/{y[i]}/success"
+            img_path = f"./img_{now_time}/{attack_method_list[attack_n][3]}/{string1}/label{y[i]}/success"
 
             if not os.path.exists(img_path):
                 os.makedirs(img_path)
