@@ -59,6 +59,7 @@ def evaluate(
         SQUARE_ATTACK,
         ZOO_ATTACK,
     ],
+    use_pixel=False
 ):
     """
     Evaluate the model's performance using the provided data and attack methods.
@@ -195,5 +196,6 @@ def evaluate(
             attack_para_list=attack_para_list,
             now_time=now_time,
             ori_acc=acc_test,
+            use_pixel=use_pixel
         )
     print(result_list)

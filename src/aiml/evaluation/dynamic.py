@@ -19,7 +19,7 @@ from aiml.attack.adversarial_attacks import (
 )
 
 
-def decide_attack(result_list, attack_para_list=[], now_time="0", ori_acc=0.9):
+def decide_attack(result_list, attack_para_list=[], now_time="0", ori_acc=0.9,use_pixel=False):
     """
     Write the results of the previous attack to a text file and determine
     the next attack and its parameters based on attack history.
@@ -205,6 +205,13 @@ def decide_attack(result_list, attack_para_list=[], now_time="0", ori_acc=0.9):
             f.write(out_string + "\n")
         if previous_attack_n < 8:
             next_para_n = 0
+            if use_pixel==False:
+                if previous_attack_n==5:
+                    return (
+                        previous_attack_n + 2,
+                        next_para_n,
+                        True,
+                    )
             return (
                 previous_attack_n + 1,
                 next_para_n,
